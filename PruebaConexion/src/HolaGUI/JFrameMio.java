@@ -17,11 +17,26 @@ public class JFrameMio extends javax.swing.JFrame {
     /**
      * Creates new form JFrameMio
      */
-      Persona persona;
     JDialogMensaje jDialogMensaje;
+    Persona persona;
+    
+    public Persona getPersona(){
+        return persona;
+    }
+    
+    public void setPersona(Persona persona){
+        this.persona=persona;
+    }
+    
+    void actualizaCampoPersona(){
+        jTextFieldNombre.setText(persona.getNombre());
+        jTextFieldMail.setText(persona.getMail());
+        jSpinnerEdad.setValue(persona.getEdad());
+    }
+    
     public JFrameMio() {
         initComponents();
-        persona= new Persona();
+        
     }
 
     /**
@@ -36,7 +51,10 @@ public class JFrameMio extends javax.swing.JFrame {
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelNombre = new javax.swing.JLabel();
         jButtonMostrar = new javax.swing.JButton();
-        jSpinnerFechaAlta = new javax.swing.JSpinner();
+        jLabelMail = new javax.swing.JLabel();
+        jTextFieldMail = new javax.swing.JTextField();
+        jSpinnerEdad = new javax.swing.JSpinner();
+        jLabelEdad = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KK View");
@@ -57,7 +75,12 @@ public class JFrameMio extends javax.swing.JFrame {
             }
         });
 
-        jSpinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel());
+        jLabelMail.setText("Mail");
+
+        jSpinnerEdad.setModel(new javax.swing.SpinnerNumberModel(18, 18, 99, 1));
+        jSpinnerEdad.setToolTipText("");
+
+        jLabelEdad.setText("Edad");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,29 +88,46 @@ public class JFrameMio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSpinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonMostrar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelEdad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSpinnerEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(160, 160, 160)
+                                    .addComponent(jButtonMostrar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                        .addComponent(jLabelMail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSpinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonMostrar))
-                .addContainerGap(95, Short.MAX_VALUE))
+                    .addComponent(jSpinnerEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelEdad))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelMail)
+                    .addComponent(jTextFieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonMostrar)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
@@ -99,12 +139,9 @@ public class JFrameMio extends javax.swing.JFrame {
 
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
         // TODO add your handling code here:
-        //System.out.println("Buenos dias " + jTextFieldNombre.getText());
-        jDialogMensaje= new JDialogMensaje(this,"HolaGUI me ha llamado", true);
-        persona.setNombre(jTextFieldNombre.getText());
+        persona= new Persona(jTextFieldNombre.getText(),(Integer) jSpinnerEdad.getValue(),jTextFieldMail.getText());
+        jDialogMensaje= new JDialogMensaje(this,persona,true);
         jDialogMensaje.setVisible(true);
-        
-        
     }//GEN-LAST:event_jButtonMostrarActionPerformed
 
     /**
@@ -144,8 +181,11 @@ public class JFrameMio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonMostrar;
+    private javax.swing.JLabel jLabelEdad;
+    private javax.swing.JLabel jLabelMail;
     private javax.swing.JLabel jLabelNombre;
-    private javax.swing.JSpinner jSpinnerFechaAlta;
+    private javax.swing.JSpinner jSpinnerEdad;
+    private javax.swing.JTextField jTextFieldMail;
     protected javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }
