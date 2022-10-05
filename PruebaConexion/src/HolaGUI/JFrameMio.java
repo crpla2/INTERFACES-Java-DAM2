@@ -117,6 +117,12 @@ public class JFrameMio extends javax.swing.JFrame {
             }
         });
 
+        validationPanelMensajes.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                validationPanelMensajesStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,6 +229,17 @@ public class JFrameMio extends javax.swing.JFrame {
              jTextFieldEdad.setText(String.valueOf(jSpinnerEdad.getValue()));
         }
     }//GEN-LAST:event_jTextFieldEdadFocusLost
+
+    private void validationPanelMensajesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_validationPanelMensajesStateChanged
+        // TODO add your handling code here:if (validationPanel.getProblem()==null){
+   if (validationPanelMensajes.getProblem()==null){
+
+        jButtonMostrar.setEnabled(true);
+    }else {
+    jButtonMostrar.setEnabled(false);
+    }
+
+    }//GEN-LAST:event_validationPanelMensajesStateChanged
 
     /**
      * @param args the command line arguments
