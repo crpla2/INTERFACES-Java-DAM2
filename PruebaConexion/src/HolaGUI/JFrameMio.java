@@ -1,6 +1,7 @@
 package HolaGUI;
 
 import java.io.IOException;
+import java.util.Locale;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
@@ -253,6 +254,8 @@ public class JFrameMio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+               // Locale.setDefault(new Locale("es","ES"));
+               Locale.setDefault(new Locale("es","ES"));
                 new JFrameMio().setVisible(true);
             }
         });
