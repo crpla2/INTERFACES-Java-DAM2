@@ -3,6 +3,7 @@ package HolaGUI;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Locale;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ public class JFrameMio extends javax.swing.JFrame {
     Persona persona;
     ValidationGroup group;
     JLabel saludo;
+    ImageIcon imagen;
     
     public Persona getPersona(){
         return persona;
@@ -56,6 +58,9 @@ public class JFrameMio extends javax.swing.JFrame {
         saludo=new JLabel("Hola Frame Mio");
         saludo.setBounds(10, 20,100,20);
         this.add(saludo);
+        imagen=new ImageIcon(getClass().getResource("/img/kkimagen.png"));
+        jLabelImagen.setIcon(imagen);
+        jLabelImagen.setBounds(10, 10,imagen.getIconWidth(), imagen.getIconHeight());
     }
 
     /**
@@ -78,6 +83,7 @@ public class JFrameMio extends javax.swing.JFrame {
         jTextFieldEdad = new javax.swing.JTextField();
         validationPanelMensajes = new org.netbeans.validation.api.ui.swing.ValidationPanel();
         jLabel1Titulo = new javax.swing.JLabel();
+        jLabelImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KK View");
@@ -143,6 +149,7 @@ public class JFrameMio extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1Titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -159,8 +166,7 @@ public class JFrameMio extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldEdad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(jTextFieldEdad))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
@@ -174,9 +180,10 @@ public class JFrameMio extends javax.swing.JFrame {
                                 .addGap(99, 99, 99))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(validationPanelMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 2, Short.MAX_VALUE))
-            .addComponent(jLabel1Titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelImagen)
+                            .addComponent(validationPanelMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +210,9 @@ public class JFrameMio extends javax.swing.JFrame {
                     .addComponent(jButtonEdad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(validationPanelMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(jLabelImagen)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         pack();
@@ -305,6 +314,7 @@ public class JFrameMio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMostrar;
     private javax.swing.JLabel jLabel1Titulo;
     private javax.swing.JLabel jLabelEdad;
+    private javax.swing.JLabel jLabelImagen;
     private javax.swing.JLabel jLabelMail;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JSpinner jSpinnerEdad;
