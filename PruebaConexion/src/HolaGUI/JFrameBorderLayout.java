@@ -4,25 +4,36 @@
  */
 package HolaGUI;
 
-import java.util.ArrayList;
-import javax.swing.JList;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author DAM2Alu10
  */
-public class JFrameLista extends javax.swing.JFrame {
-    JList<String> jListNumeros;
+public class JFrameBorderLayout extends javax.swing.JFrame {
+
     /**
-     * Creates new form JFrameLista
+     * Creates new form JFrameBorderLayout
      */
-    public JFrameLista() {
+    JPanel Botones;
+    public JFrameBorderLayout() {
         initComponents();
-        
-        for (int i = 0; i < 10; i++) {
-           jListNumeros.add(String.valueOf(i));
-            
-        }
+        this.setSize(520, 540);
+        JPanel jPanelBotones= new JPanel(new BorderLayout( 5, 5 ));
+        jPanelBotones.setSize(500, 500);
+
+        this.add(jPanelBotones);
+
+        jPanelBotones.add(new JTextField("Norte"), BorderLayout.NORTH);
+        jPanelBotones.add(new JButton("Norte"), BorderLayout.NORTH);
+        jPanelBotones.add(new JButton("Sur"), BorderLayout.SOUTH);
+        jPanelBotones.add(new JButton("Este"), BorderLayout.EAST);
+        jPanelBotones.add(new JButton("Oeste"), BorderLayout.WEST);
+        jPanelBotones.add(new JButton("Centro"), BorderLayout.CENTER);
+
     }
 
     /**
@@ -34,33 +45,17 @@ public class JFrameLista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPaneNumeros = new javax.swing.JScrollPane();
-        jListNumeros = new javax.swing.JList<>();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jListNumeros.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPaneNumeros.setViewportView(jListNumeros);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jScrollPaneNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPaneNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -83,26 +78,24 @@ public class JFrameLista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameBorderLayout.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameBorderLayout.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameBorderLayout.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameBorderLayout.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrameLista().setVisible(true);
+                new JFrameBorderLayout().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jListNumeros;
-    private javax.swing.JScrollPane jScrollPaneNumeros;
     // End of variables declaration//GEN-END:variables
 }

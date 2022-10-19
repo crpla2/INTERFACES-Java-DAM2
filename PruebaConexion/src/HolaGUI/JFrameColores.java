@@ -4,6 +4,10 @@
  */
 package HolaGUI;
 
+import java.util.Enumeration;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+
 /**
  *
  * @author DAM2Alu10
@@ -129,14 +133,21 @@ public class JFrameColores extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonAzulActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-      
+      Enumeration e= buttonGroupColores.getElements();
+      while(e.hasMoreElements()){
+          JRadioButton r=(JRadioButton)e.nextElement();
+          if(r.isSelected())
+              jLabelColorElegido.setText(r.getText());
+      }
+       
+       /* 
        if(jRadioButtonAzul.isSelected())
            jLabelColorElegido.setText("Color elegido: Azul");
        else if(jRadioButtonRojo.isSelected())
            jLabelColorElegido.setText("Color elegido: Rojo");
        else if(jRadioButtonVerde.isSelected())
            jLabelColorElegido.setText("Color elegido: Verde");
-       else jLabelColorElegido.setText("No has elegido ningun Color");
+       else jLabelColorElegido.setText("No has elegido ningun Color");*/
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     /**
