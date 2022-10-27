@@ -19,7 +19,7 @@ public class JDialogAnadeDivisa extends javax.swing.JDialog {
    
     
     public JDialogAnadeDivisa(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        super(parent,"Añadir Divisa", modal);
         initComponents();
         jf = (JFrameConversorDivisas) parent;
        
@@ -44,7 +44,7 @@ public class JDialogAnadeDivisa extends javax.swing.JDialog {
 
         jLabel1.setText("Divisa:");
 
-        jLabel2.setText("Tipo de cambio a €uros:");
+        jLabel2.setText("Tipo de cambio a Euros:");
 
         jButtonañadir.setText("Añadir");
         jButtonañadir.addActionListener(new java.awt.event.ActionListener() {
@@ -94,52 +94,25 @@ public class JDialogAnadeDivisa extends javax.swing.JDialog {
 
     private void jButtonañadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonañadirActionPerformed
         // TODO add your handling code here:
-      jf.setDivisa(jTextFieldNombreDivisa.getText(),Double.parseDouble(jTextFieldValor.getText()));
+        try {  
+            for(int i=0;i<jf.domA.getSize();i++)
+                if(jf.domA.getElementAt(i).toString().equalsIgnoreCase(jTextFieldNombreDivisa.getText()))
+                    throw new Exception();   
+            jf.setDivisa(jTextFieldNombreDivisa.getText(),Double.valueOf(jTextFieldValor.getText()));
+            }catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(rootPane, "El formato del tipo de cambio no es correcto ",
+                     "Error",JOptionPane.ERROR_MESSAGE);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(rootPane, "La divisa ya existe",
+                        "Error",JOptionPane.ERROR_MESSAGE);}
+        this.dispose();
     }//GEN-LAST:event_jButtonañadirActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDialogAnadeDivisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDialogAnadeDivisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDialogAnadeDivisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDialogAnadeDivisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JDialogAnadeDivisa dialog = new JDialogAnadeDivisa(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
+   
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonañadir;
     private javax.swing.JLabel jLabel1;
