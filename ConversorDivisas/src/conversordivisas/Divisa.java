@@ -4,13 +4,16 @@
  */
 package conversordivisas;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author DAM2Alu10
  */
 public class Divisa {
-    String nombre;
-    String valor;
+
+    private String nombre;
+    private String valor;
 
     public Divisa() {
     }
@@ -36,10 +39,25 @@ public class Divisa {
         this.valor = valor;
     }
 
+    public String aEuros(String cantidad) {
+        String resultado;
+        DecimalFormat df = new DecimalFormat("0.00");
+        resultado = df.format(Double.parseDouble(cantidad) * Double.parseDouble(valor));
+
+        return resultado;
+    }
+
+    public String deEuros(String cantidad) {
+        String resultado;
+        DecimalFormat df = new DecimalFormat("0.00");
+        resultado = df.format(Double.parseDouble(cantidad) / Double.parseDouble(valor));
+
+        return resultado;
+    }
+
     @Override
     public String toString() {
         return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-     
-    
+
 }
