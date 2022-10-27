@@ -5,38 +5,49 @@
 package conversordivisas;
 
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
  * @author DAM2Alu10
  */
 public class JFrameConversorDivisas extends javax.swing.JFrame {
-
+    DefaultComboBoxModel domA,domD;
     ImageIcon imagen;
-    ArrayList<Divisa> lista;
+    Image logo;
+    ArrayList<Double> valor;
     JDialogAnadeDivisa jad;
 
     /**
      * Creates new form JFrameConversorDivisas
      */
     public JFrameConversorDivisas() {
+        
         initComponents();
+       
         imagen = new ImageIcon("img/flechas.png");
         jLabelImagen.setIcon(imagen);
-        jLabelImagen.setBounds(10, 10, imagen.getIconWidth(), imagen.getIconHeight());
-        lista = new ArrayList<>();
-        jComboBoxA.removeAllItems();
-        jComboBoxDe.removeAllItems();
-        lista.add(new Divisa("EUR", "1"));
-        lista.add(new Divisa("DOLL", "0.8968417"));
-        for (Divisa divisa : lista) {
-            jComboBoxA.addItem(divisa.getNombre());
-            jComboBoxDe.addItem(divisa.getNombre());
-
+        jLabelImagen.setBounds(15, 15, imagen.getIconWidth(), imagen.getIconHeight());
+        valor = new ArrayList<>();
+        valor.add(1.0);valor.add(0.995);
+        
+        domA= new DefaultComboBoxModel();
+        domA.addElement("€");
+        domA.addElement("$");
+        jComboBoxA.setModel(domA);
+        
+        domD= new DefaultComboBoxModel();
+        domD.addElement("€");
+        domD.addElement("$");    
+        jComboBoxDe.setModel(domD);
         }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,14 +63,15 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
         jTextFieldImporte = new javax.swing.JTextField();
         jLabelImporte = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabelImagen = new javax.swing.JLabel();
+        jLabelResultado = new javax.swing.JLabel();
         jComboBoxDe = new javax.swing.JComboBox<>();
         jLabelDe = new javax.swing.JLabel();
-        jLabelImagen = new javax.swing.JLabel();
         jComboBoxA = new javax.swing.JComboBox<>();
         jLabelA = new javax.swing.JLabel();
-        jLabelResultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jButtonConvertir.setText("Convertir");
         jButtonConvertir.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +89,8 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
 
         jLabelImporte.setText("Importe:");
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel1.add(jLabelImagen);
 
         jComboBoxDe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxDe.addActionListener(new java.awt.event.ActionListener() {
@@ -85,17 +98,12 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
                 jComboBoxDeActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBoxDe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
         jLabelDe.setText("De:");
-        jPanel1.add(jLabelDe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        jPanel1.add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 30, 40));
 
         jComboBoxA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBoxA, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
 
         jLabelA.setText("a:");
-        jPanel1.add(jLabelA, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 10, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,9 +120,18 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
                             .addComponent(jLabelImporte)
                             .addComponent(jButtonNuevaDivisa)
                             .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxDe, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelDe))
+                                .addGap(6, 6, 6)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxA, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelA)))
                             .addComponent(jButtonConvertir, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(19, 19, 19))))
         );
@@ -122,15 +139,20 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelImporte)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelImporte)
+                    .addComponent(jLabelDe)
+                    .addComponent(jLabelA))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNuevaDivisa)
                     .addComponent(jButtonConvertir))
@@ -139,20 +161,13 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void setDivisa(Divisa divisa) {
-        jComboBoxA.removeAllItems();
-        jComboBoxDe.removeAllItems();
-        lista.add(divisa);
-        System.out.println(lista.size());
-        for (Divisa divisas : lista) {
-            jComboBoxA.addItem(divisas.getNombre());
-            jComboBoxDe.addItem(divisas.getNombre());
-        }
+    public void setDivisa(String s,Double d) {
+        domA.addElement(s);
+        domD.addElement(s);
+        jComboBoxA.setModel(domA);
+        jComboBoxDe.setModel(domD);
+        valor.add(d);       
     }
-    public ArrayList<Divisa> getLista(){
-        return this.lista;
-    }
-
     private void jButtonNuevaDivisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaDivisaActionPerformed
         // TODO add your handling code here:
         jad = new JDialogAnadeDivisa(this, true);
@@ -160,25 +175,15 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNuevaDivisaActionPerformed
 
     private void jButtonConvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConvertirActionPerformed
-        String cambio="";
-        for(Divisa d :lista){
-            String resultado=(String)(jComboBoxDe.getSelectedItem());
-            System.out.println("resultado = " + resultado);
-            if (resultado.equalsIgnoreCase(d.getNombre())){
-                
-                cambio=d.aEuros(jTextFieldImporte.getText());
-                System.out.println(cambio);
-            }
-        }
-            /*if(jComboBoxA.getSelectedItem().toString().equalsIgnoreCase(d.getNombre())){
-                System.out.println(d.deEuros(cambio));
-          //      jLabelResultado.setText(d.deEuros(cambio));
-            }
-        }
-        //System.out.println("Valor "+jComboBoxDe.getItemAt(jComboBoxDe.getSelectedItem()).toString());
-        //ystem.out.println((String)jComboBoxDe.getSelectedItem());*/
+        Double cambio;
+        int d=domD.getIndexOf(domD.getSelectedItem());
+        int a=domA.getIndexOf(domA.getSelectedItem());
+        cambio=valor.get(d)*Double.parseDouble(jTextFieldImporte.getText());
+        cambio=cambio/valor.get(a);
+        DecimalFormat df= new DecimalFormat(String.valueOf("0.00"));
+        jLabelResultado.setText(df.format(cambio));
     }//GEN-LAST:event_jButtonConvertirActionPerformed
-
+        
     private void jComboBoxDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxDeActionPerformed

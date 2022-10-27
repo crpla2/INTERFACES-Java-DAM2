@@ -16,13 +16,13 @@ public class JDialogAnadeDivisa extends javax.swing.JDialog {
      * Creates new form AnadeDivisa
      */
     JFrameConversorDivisas jf;
-    Divisa divisa;
-
+   
+    
     public JDialogAnadeDivisa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jf = (JFrameConversorDivisas) parent;
-        this.divisa = new Divisa();
+       
     }
 
     /**
@@ -94,20 +94,7 @@ public class JDialogAnadeDivisa extends javax.swing.JDialog {
 
     private void jButtonañadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonañadirActionPerformed
         // TODO add your handling code here:
-        Boolean existe = false;
-        for (Divisa d : jf.getLista()) {
-            if (d.getNombre().equalsIgnoreCase(jTextFieldNombreDivisa.getText())) {
-                existe = true;
-                JOptionPane.showMessageDialog(rootPane, "La divisa ya existe",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        if (!existe) {
-            divisa.setNombre(jTextFieldNombreDivisa.getText());
-            divisa.setValor(jTextFieldValor.getText());
-            jf.setDivisa(divisa);
-            this.dispose();
-        }
+      jf.setDivisa(jTextFieldNombreDivisa.getText(),Double.parseDouble(jTextFieldValor.getText()));
     }//GEN-LAST:event_jButtonañadirActionPerformed
 
     /**

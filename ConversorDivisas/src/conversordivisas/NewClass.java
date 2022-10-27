@@ -13,6 +13,6 @@ public class NewClass {
     public static void main(String[] args) {
         Divisa yeng = new Divisa("yeng", " 0.99");
         System.out.println(yeng.aEuros("100"));
-        System.out.println(yeng.deEuros("100"));
+        System.out.println(yeng.deEuros(yeng.aEuros("100")));
     }
 }
