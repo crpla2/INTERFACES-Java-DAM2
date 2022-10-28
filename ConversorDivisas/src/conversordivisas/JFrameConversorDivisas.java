@@ -7,6 +7,8 @@ package conversordivisas;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -178,18 +180,19 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
         int d=domD.getIndexOf(domD.getSelectedItem());
         int a=domA.getIndexOf(domA.getSelectedItem());
         try {
-            cambio=valor.get(d)*Double.valueOf(jTextFieldImporte.getText());
+            cambio=Double.valueOf(jTextFieldImporte.getText());
+            if(cambio<=0)
+                throw new Exception();
+            cambio=valor.get(d)*cambio;
             cambio=cambio/valor.get(a);
             DecimalFormat df= new DecimalFormat(String.valueOf("0.00"));
             jLabelResultado.setText(df.format(cambio)+" "+jComboBoxA.getSelectedItem().toString());
-        } catch (NumberFormatException e) {
+        } catch ( Exception e) {
             JOptionPane.showMessageDialog(rootPane, "El formato del importe no es correcto ",
                      "Error",JOptionPane.ERROR_MESSAGE);
-            jTextFieldImporte.setText("");
-        }
-        
+        jTextFieldImporte.setText("");
     }//GEN-LAST:event_jButtonConvertirActionPerformed
-        
+    }
     /**
      * @param args the command line arguments
      */
