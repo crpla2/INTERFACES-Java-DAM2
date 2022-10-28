@@ -8,6 +8,7 @@ package nuevogui;
 import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.RowFilter;
 import javax.swing.RowSorter.SortKey;
 import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
@@ -20,17 +21,19 @@ import javax.swing.table.TableRowSorter;
 public class JFrameTable extends javax.swing.JFrame {
     DefaultTableModel dtm;
     String cabecera[]={"Nombre","Apellidos","Edad"};
-
+TableRowSorter<TableModel>order;
     public JFrameTable() {
         initComponents();
         
         
         dtm= new DefaultTableModel(cabecera,0);    
+        
         TableRowSorter<TableModel> order=new TableRowSorter<>(dtm);
         jTableAlumnos.setRowSorter(order);
         ArrayList<SortKey>keys=new ArrayList<>();
         keys.add(new SortKey(0,SortOrder.ASCENDING));
         order.setSortKeys(keys);
+        
         Alumnos nuevo=(new Alumnos("Jose", "Andres", 23));
         dtm.addRow(nuevo.getAlumnos());
         
@@ -52,6 +55,8 @@ public class JFrameTable extends javax.swing.JFrame {
         jTableAlumnos = new javax.swing.JTable();
         jButtonInsertar = new javax.swing.JButton();
         jButtonBorrar = new javax.swing.JButton();
+        jButtonBuscar = new javax.swing.JButton();
+        jTextFieldBuscar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,31 +87,45 @@ public class JFrameTable extends javax.swing.JFrame {
             }
         });
 
+        jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+                HolaEvent(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTextFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonInsertar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonBorrar)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jButtonInsertar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addComponent(jButtonBorrar)
-                .addGap(84, 84, 84))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonBorrar)
                     .addComponent(jButtonInsertar)
-                    .addComponent(jButtonBorrar))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(jButtonBuscar)
+                    .addComponent(jTextFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,8 +142,18 @@ public class JFrameTable extends javax.swing.JFrame {
 
     private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
         JDialogInsertar d=new JDialogInsertar(this, true);
-       d.setVisible(true);
+        d.setVisible(true);
     }//GEN-LAST:event_jButtonInsertarActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        RowFilter<TableModel,Integer>rf=RowFilter.regexFilter(jTextFieldBuscar.getText(), 1);
+        order.setRowFilter(rf);
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void HolaEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HolaEvent
+        System.out.println("Hola eventos");
+            
+    }//GEN-LAST:event_HolaEvent
 
     /**
      * @param args the command line arguments
@@ -163,9 +192,11 @@ public class JFrameTable extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBorrar;
+    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonInsertar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableAlumnos;
+    private javax.swing.JTextField jTextFieldBuscar;
     // End of variables declaration//GEN-END:variables
 
 }
