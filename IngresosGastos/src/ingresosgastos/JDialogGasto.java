@@ -13,7 +13,7 @@ public class JDialogGasto extends javax.swing.JDialog {
     JFramePrincipal jf;
     /** Creates new form JDialogAlta */
     public JDialogGasto(java.awt.Frame parent, boolean modal) {
-        super(parent,"Alta de ingresos", modal);
+        super(parent,"Alta de gastos", modal);
         initComponents();
         jf = (JFramePrincipal) parent;
     }
@@ -68,7 +68,7 @@ public class JDialogGasto extends javax.swing.JDialog {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabelFecha)
                             .addGap(43, 43, 43)
-                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabelImporte)
                             .addGap(32, 32, 32)
@@ -106,6 +106,7 @@ public class JDialogGasto extends javax.swing.JDialog {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**

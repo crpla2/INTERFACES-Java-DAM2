@@ -25,7 +25,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         dtm= new DefaultTableModel(cabecera,0); 
         jTableTabla.setModel(dtm);
     }
-
+    public void anadeCol(String a,String b,String c, String d){
+        String[]balance={a,b,c,d};
+        dtm.addRow(balance);
+        jTableTabla.setModel(dtm);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,10 +39,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTabla = new javax.swing.JTable();
         jLabelBalance = new javax.swing.JLabel();
         jTextFieldBalance = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jRadioButtonGeneral = new javax.swing.JRadioButton();
+        jRadioButtonIngresos = new javax.swing.JRadioButton();
+        jRadioButtonGastos = new javax.swing.JRadioButton();
         jMenuBarAlta = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemIngreso = new javax.swing.JMenuItem();
@@ -65,6 +74,42 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jTextFieldBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldBalance.setText("00.00");
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        buttonGroup1.add(jRadioButtonGeneral);
+        jRadioButtonGeneral.setSelected(true);
+        jRadioButtonGeneral.setText("General");
+
+        buttonGroup1.add(jRadioButtonIngresos);
+        jRadioButtonIngresos.setText("Ingresos");
+
+        buttonGroup1.add(jRadioButtonGastos);
+        jRadioButtonGastos.setText("Gastos");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButtonGeneral)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonIngresos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonGastos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonGeneral)
+                    .addComponent(jRadioButtonIngresos)
+                    .addComponent(jRadioButtonGastos))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         jMenu1.setText("Alta");
 
         jMenuItemIngreso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -78,6 +123,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jMenuItemGasto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemGasto.setText("Gasto");
+        jMenuItemGasto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGastoActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemGasto);
 
         jMenuBarAlta.add(jMenu1);
@@ -89,22 +139,29 @@ public class JFramePrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabelBalance)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelBalance)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelBalance)
-                    .addComponent(jTextFieldBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelBalance)
+                        .addComponent(jTextFieldBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,6 +172,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jdi= new JDialogIngreso(this,true);
         jdi.setVisible(true);
     }//GEN-LAST:event_jMenuItemIngresoActionPerformed
+
+    private void jMenuItemGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGastoActionPerformed
+        // TODO add your handling code here:
+        jdg=new JDialogGasto(this, true);
+        jdi.setVisible(true);
+    }//GEN-LAST:event_jMenuItemGastoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,11 +215,16 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabelBalance;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBarAlta;
     private javax.swing.JMenuItem jMenuItemGasto;
     private javax.swing.JMenuItem jMenuItemIngreso;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButtonGastos;
+    private javax.swing.JRadioButton jRadioButtonGeneral;
+    private javax.swing.JRadioButton jRadioButtonIngresos;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableTabla;
     private javax.swing.JTextField jTextFieldBalance;

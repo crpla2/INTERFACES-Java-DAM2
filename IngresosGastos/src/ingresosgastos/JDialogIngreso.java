@@ -5,6 +5,8 @@
 
 package ingresosgastos;
 
+import java.awt.FontFormatException;
+
 /**
  *
  * @author DAM2Alu10
@@ -45,6 +47,11 @@ public class JDialogIngreso extends javax.swing.JDialog {
         jLabelImporte.setText("Importe:");
 
         jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceptarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +75,7 @@ public class JDialogIngreso extends javax.swing.JDialog {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabelFecha)
                             .addGap(43, 43, 43)
-                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabelImporte)
                             .addGap(32, 32, 32)
@@ -106,7 +113,20 @@ public class JDialogIngreso extends javax.swing.JDialog {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (!jTextFieldFecha.getText().matches("^(?:3[01]|[12][0-9]|0?[1-9])([\\-/.])(0?[1-9]|1[1-2])\\1\\d{4}$"))
+                throw new Exception();
+            jf.anadeCol(jTextFieldFecha.getText(), jTextFieldConcepto.getText(), String.valueOf(jTextFieldImporte.getText()), "");
+        } catch (NumberFormatException e) {
+          
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     /**
      * @param args the command line arguments
