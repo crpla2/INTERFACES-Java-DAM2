@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,11 +30,14 @@ public class JFrameGaraje extends javax.swing.JFrame {
     public JFrameGaraje() {
         super("Garaje de coches");
         initComponents();
-        setIconImage(new ImageIcon("../GarajeCoches/img/taller.png").getImage());
         lista= new ArrayList<>();
+        //Cambiamos el icono de la ventana
+        setIconImage(new ImageIcon("../GarajeCoches/img/taller.png").getImage());
+        //Añadimos una imagen al formulario
         imagen = new ImageIcon("img/taller.png");
         jLabelImagen.setIcon(imagen);
         jLabelImagen.setBounds(150, 150, imagen.getIconWidth(), imagen.getIconHeight());
+        //Creamos el combobox para elgir vehículo
         String labels[]={"Coche","Furgoneta","Camión"};
         jComboBoxTipo.removeAllItems();
         for(String s:labels)
@@ -315,56 +319,83 @@ public class JFrameGaraje extends javax.swing.JFrame {
 
     private void jComboBoxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoActionPerformed
         // TODO add your handling code here:
+        //Si seleccionamos camión
         if(jComboBoxTipo.getSelectedIndex()==2){
+            //mostramos el panel de camión
             jPanelPeligrosas.setVisible(true);
-            camion=true;}
+            camion=true;
+        }
         else{
-             jPanelPeligrosas.setVisible(false);
-        camion=false;}
+            jPanelPeligrosas.setVisible(false);
+            camion=false;
+        }
     }//GEN-LAST:event_jComboBoxTipoActionPerformed
 
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
         // TODO add your handling code here:
         boolean adr=false;
+        //Si es de mercancias peligrosas
         if( buttonGroup.getSelection().toString().equalsIgnoreCase("si"))
-            adr=true;
-        if (camion){
-            lista.add(
-                new Camion(
-                   Double.parseDouble(jTextFielLongitud.getText()),
-                    adr,
-                   jTextFieldNombre.getText(),
-                   jTextFieldApellidos.getText(),
-                   jTextFieldTelefono.getText(),
-                   (Date) jSpinnerFecha.getValue(),
-                   jTextFieldDNI.getText(),
-                   jTextFieldModelo.getText(),
-                   jTextFieldMatricula.getText()
-                )
-            );
-        }
-        else{
-            lista.add(
-                new Vehiculo(
-                   jTextFieldNombre.getText(),
-                   jTextFieldApellidos.getText(),
-                   jTextFieldTelefono.getText(),
-                   (Date) jSpinnerFecha.getValue(),
-                   jTextFieldDNI.getText(),
-                   jTextFieldModelo.getText(),
-                   jTextFieldMatricula.getText()
-                )
-            );
-        }
-        String formato = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(formato);
-        for (Vehiculo v:lista)
-            dom.addElement(
-                    "Matrícula: "+v.getMatricula()+
-                    " | Modelo: "+v.getModelo()+
-                    " | Fecha de entrada: "+
-                    sdf.format(v.getFechaEntrada()));
-        jComboBox1.setModel(dom);
+            adr=true; 
+        try {
+            if (camion){
+                    //Añadimos el camión a la lista
+                    lista.add(
+                    new Camion(
+                       Double.parseDouble(jTextFielLongitud.getText()),
+                       adr,
+                       jTextFieldNombre.getText(),
+                       jTextFieldApellidos.getText(),
+                       jTextFieldTelefono.getText(),
+                       (Date) jSpinnerFecha.getValue(),
+                       jTextFieldDNI.getText(),
+                       jTextFieldModelo.getText(),
+                       jTextFieldMatricula.getText()
+                    )
+                );
+            }
+            else{
+                //Añadimos el vehiculo a la lista
+                lista.add(
+                    new Vehiculo(
+                       jTextFieldNombre.getText(),
+                       jTextFieldApellidos.getText(),
+                       jTextFieldTelefono.getText(),
+                       (Date) jSpinnerFecha.getValue(),
+                       jTextFieldDNI.getText(),
+                       jTextFieldModelo.getText(),
+                       jTextFieldMatricula.getText()
+                    )
+                );
+            }
+            //Creamos el objeto para dar a la fecha el formato deseado
+            String formato = "dd/MM/yyyy";
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            //Vaciamos el combobox para que no se repitan los elementos
+            dom.removeAllElements();
+            //Rellenamos el combobox
+            for (Vehiculo v:lista)
+                dom.addElement(
+                        "Matrícula: "+v.getMatricula()+
+                        " | Modelo: "+v.getModelo()+
+                        " | Fecha de entrada: "+
+                        //Formateamos la fecha
+                        sdf.format(v.getFechaEntrada()));
+            //Vaciamos la etiquetas
+            jComboBox1.setModel(dom);
+            jTextFielLongitud.setText("");
+            jTextFieldApellidos.setText("");
+            jTextFieldDNI.setText("");
+            jTextFieldMatricula.setText("");
+            jTextFieldModelo.setText("");
+            jTextFieldNombre.setText("");
+            jTextFieldTelefono.setText("");
+        } catch (Exception e) {
+            //Si la longitud no es un double
+            jTextFielLongitud.setText("");
+            JOptionPane.showMessageDialog(rootPane, "La longitud debe de ser un número real",
+                                         "Error",JOptionPane.ERROR_MESSAGE);   
+            }
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
 
     /**
