@@ -29,13 +29,16 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
     public JFrameConversorDivisas() {
         super("Conversor de Divisas");
         initComponents();
+        //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("../ConversorDivisas/img/euro.png").getImage());
+        //Añadimos una imagen
         imagen = new ImageIcon("img/flechas.png");
         jLabelImagen.setIcon(imagen);
         jLabelImagen.setBounds(15, 15, imagen.getIconWidth(), imagen.getIconHeight());
+        //Creamos una lista con los valores de las divisas, añadimos dos por defecto
         valor = new ArrayList<>();
         valor.add(1.0);valor.add(0.995);
-        
+        //Creamos los combobox con dos valores por defecto
         domA= new DefaultComboBoxModel();
         domA.addElement("EURO");
         domA.addElement("DOLAR");
@@ -162,6 +165,7 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    //Método que añade una nueva divisa a los combobox y a la lista de valores
     public void setDivisa(String s,Double d) {
         domA.addElement(s);
         domD.addElement(s);
@@ -180,17 +184,23 @@ public class JFrameConversorDivisas extends javax.swing.JFrame {
         int d=domD.getIndexOf(domD.getSelectedItem());
         int a=domA.getIndexOf(domA.getSelectedItem());
         try {
+            //Controlamos que el número introducido sea un double
             cambio=Double.valueOf(jTextFieldImporte.getText());
+            //Controlamos que el numero introducido no sea negativo
             if(cambio<=0)
                 throw new Exception();
+            //Calculamos el cambio
             cambio=valor.get(d)*cambio;
             cambio=cambio/valor.get(a);
+            //Objeto para cambiar el formato de un double
             DecimalFormat df= new DecimalFormat(String.valueOf("0.00"));
+            //Mostramos el resultado del cambio con el número formateado
             jLabelResultado.setText(df.format(cambio)+" "+jComboBoxA.getSelectedItem().toString());
         } catch ( Exception e) {
+            //Mensaje de error que salta sie el numero introducido no es real o es negativo
             JOptionPane.showMessageDialog(rootPane, "El formato del importe no es correcto ",
                      "Error",JOptionPane.ERROR_MESSAGE);
-        jTextFieldImporte.setText("");
+            jTextFieldImporte.setText("");
     }//GEN-LAST:event_jButtonConvertirActionPerformed
     }
     /**

@@ -96,15 +96,18 @@ public class JDialogAnadeDivisa extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {  
             for(int i=0;i<jf.domA.getSize();i++)
+                //Controlamos que la divisa no exista si existe saltara un mensaje de error
                 if(jf.domA.getElementAt(i).toString().equalsIgnoreCase(jTextFieldNombreDivisa.getText()))
-                    throw new Exception();   
-            jf.setDivisa(jTextFieldNombreDivisa.getText(),Double.valueOf(jTextFieldValor.getText()));
-            }catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(rootPane, "El formato del tipo de cambio no es correcto ",
-                     "Error",JOptionPane.ERROR_MESSAGE);
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(rootPane, "La divisa ya existe",
-                        "Error",JOptionPane.ERROR_MESSAGE);}
+                    throw new Exception(); 
+                //Llamamos al metodo setdivisa, si el numero introducido no es un double saltara un mensaje de error
+                jf.setDivisa(jTextFieldNombreDivisa.getText(),Double.valueOf(jTextFieldValor.getText()));
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "El formato del tipo de cambio no es correcto ",
+               "Error",JOptionPane.ERROR_MESSAGE);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "La divisa ya existe",
+               "Error",JOptionPane.ERROR_MESSAGE);
+        }
         this.dispose();
     }//GEN-LAST:event_jButtonañadirActionPerformed
 
