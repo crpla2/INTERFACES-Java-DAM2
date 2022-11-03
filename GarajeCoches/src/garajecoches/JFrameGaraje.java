@@ -339,19 +339,31 @@ public class JFrameGaraje extends javax.swing.JFrame {
         if( buttonGroup.getSelection().toString().equalsIgnoreCase("si"))
             adr=true; 
         try {
+            //Comprobación de que los campos no están vacios
+            if( jTextFieldNombre.getText().isEmpty()||
+                jTextFieldApellidos.getText().isEmpty()||
+                jTextFieldDNI.getText().isEmpty()||
+                jTextFieldTelefono.getText().isEmpty()||
+                jTextFieldMatricula.getText().isEmpty()||
+                jTextFieldModelo.getText().isEmpty())
+                    throw new Exception();
             if (camion){
-                    //Añadimos el camión a la lista
-                    lista.add(
+                //Comprobación de el campo longitud no está vacio
+                if(jTextFielLongitud.getText().isEmpty())
+                    throw new Exception();
+                //Añadimos el camión a la lista
+                lista.add(
                     new Camion(
-                       Double.parseDouble(jTextFielLongitud.getText()),
-                       adr,
-                       jTextFieldNombre.getText(),
-                       jTextFieldApellidos.getText(),
-                       jTextFieldTelefono.getText(),
-                       (Date) jSpinnerFecha.getValue(),
-                       jTextFieldDNI.getText(),
-                       jTextFieldModelo.getText(),
-                       jTextFieldMatricula.getText()
+                         //Comprobación de formato de la longitud   
+                        Double.parseDouble(jTextFielLongitud.getText()),
+                        adr,
+                        jTextFieldNombre.getText(),
+                        jTextFieldApellidos.getText(),
+                        jTextFieldTelefono.getText(),
+                        (Date) jSpinnerFecha.getValue(),
+                        jTextFieldDNI.getText(),
+                        jTextFieldModelo.getText(),
+                        jTextFieldMatricula.getText()
                     )
                 );
             }
@@ -378,12 +390,13 @@ public class JFrameGaraje extends javax.swing.JFrame {
             for (Vehiculo v:lista)
                 dom.addElement(
                         "Matrícula: "+v.getMatricula()+
-                        " | Modelo: "+v.getModelo()+
-                        " | Fecha de entrada: "+
+                        "  |  Modelo: "+v.getModelo()+
+                        "  |  Fecha de entrada: "+
                         //Formateamos la fecha
                         sdf.format(v.getFechaEntrada()));
-            //Vaciamos la etiquetas
+            //Rellenamos el combobox
             jComboBox1.setModel(dom);
+            //Vaciamos la etiquetas
             jTextFielLongitud.setText("");
             jTextFieldApellidos.setText("");
             jTextFieldDNI.setText("");
@@ -391,12 +404,16 @@ public class JFrameGaraje extends javax.swing.JFrame {
             jTextFieldModelo.setText("");
             jTextFieldNombre.setText("");
             jTextFieldTelefono.setText("");
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             //Si la longitud no es un double
             jTextFielLongitud.setText("");
             JOptionPane.showMessageDialog(rootPane, "La longitud debe de ser un número real",
                                          "Error",JOptionPane.ERROR_MESSAGE);   
-            }
+       } catch (Exception e) {
+           //Si no se han rellenado todos los campos
+            JOptionPane.showMessageDialog(rootPane, "Debe de rellenar todos los campos",
+                                         "Error",JOptionPane.ERROR_MESSAGE);  
+       }
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
 
     /**
