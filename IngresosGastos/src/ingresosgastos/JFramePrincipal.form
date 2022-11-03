@@ -177,6 +177,9 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="General"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonGeneralActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonIngresos">
           <Properties>
@@ -185,6 +188,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Ingresos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonIngresosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonGastos">
           <Properties>
@@ -193,6 +199,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Gastos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonGastosActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

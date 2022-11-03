@@ -5,6 +5,11 @@
 
 package ingresosgastos;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DAM2Alu10
@@ -16,6 +21,9 @@ public class JDialogGasto extends javax.swing.JDialog {
         super(parent,"Alta de gastos", modal);
         initComponents();
         jf = (JFramePrincipal) parent;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        LocalDate localDate = LocalDate.now();
+        jTextFieldFecha.setText(dtf.format(localDate));
     }
 
     /** This method is called from within the constructor to
@@ -45,6 +53,11 @@ public class JDialogGasto extends javax.swing.JDialog {
         jLabelImporte.setText("Importe:");
 
         jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceptarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +121,36 @@ public class JDialogGasto extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        // TODO add your handling code here:
+         String fecha=jTextFieldFecha.getText();
+        try {
+            //comprobación del formato de la fecha
+            if (!fecha.matches("^(?:3[01]|[12][0-9]|0[1-9])([\\/])(0[1-9]|1[1-2])\\1\\d{4}$"))
+                throw new Exception();
+            //comprobación del concepto
+            if(jTextFieldConcepto.getText().isEmpty())
+                throw new RuntimeException();
+            //comprobación del formato del ingreso
+            double cantidad=Double.parseDouble(jTextFieldImporte.getText());
+            //Objeto para cambiar el formato de un double
+            DecimalFormat df= new DecimalFormat(String.valueOf("0.00"));
+            //añadimos la columna a la tabla con los datos recogidos
+            jf.anadeCol(fecha, jTextFieldConcepto.getText(), "","-"+df.format(cantidad));
+            jf.calcularBalance();
+            this.dispose();
+        } catch (NumberFormatException e) {
+           JOptionPane.showMessageDialog(rootPane, "El gasto tiene que ser un numero real negativo.",
+               "Error",JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(rootPane, "El concepto no puede estar vacio",
+               "Error",JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "El formato de la fecha no es correcto (dd/mm/aaaa)",
+               "Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     /**
      * @param args the command line arguments

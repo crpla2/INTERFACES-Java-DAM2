@@ -4,7 +4,15 @@
  */
 package ingresosgastos;
 
+import java.awt.Color;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import javax.swing.RowFilter;
+import javax.swing.RowSorter.SortKey;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -15,7 +23,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
     String cabecera[]={"Fecha","Concepto","Ingreso","Gasto"};
     JDialogGasto jdg;
     JDialogIngreso jdi;
-    
+    TableRowSorter<TableModel>order;
+     ArrayList<SortKey>keys;
+ 
     /**
      * Creates new form JFramePrincipal
      */
@@ -24,12 +34,47 @@ public class JFramePrincipal extends javax.swing.JFrame {
         initComponents();
         dtm= new DefaultTableModel(cabecera,0); 
         jTableTabla.setModel(dtm);
+        
+        order = new TableRowSorter<TableModel>(dtm);
+        jTableTabla.setRowSorter(order);
+        keys = new ArrayList<SortKey>();
+        keys.add(new SortKey(0, SortOrder.ASCENDING));
+        order.setSortKeys(keys);
+
+        //
+         
+        //
     }
     public void anadeCol(String a,String b,String c, String d){
         String[]balance={a,b,c,d};
         dtm.addRow(balance);
         jTableTabla.setModel(dtm);
+       
     }
+    public void calcularBalance() {
+        double balance=0;
+        double gastos=0;
+        double ingresos=0;
+        String resultado="";
+        try {
+            for(int i=0;i<=dtm.getRowCount()-1;i++){
+              
+                resultado=(String)dtm.getValueAt(i, 3);
+                System.out.println(Double.valueOf(resultado));
+             // ingresos +=Double.parseDouble((String)dtm.getValueAt(i, 2));
+               
+        }
+        balance=gastos+ingresos;
+      //  DecimalFormat dft= new DecimalFormat(String.valueOf("0.00"));
+    //    jTextFieldBalance.setText(dft.format(balance));
+     //   if(balance>=0)jTextFieldBalance.setBackground(Color.green);
+       // else jTextFieldBalance.setBackground(Color.red);
+       System.out.println("balance"+balance+" gastos:"+gastos+" ingresos:"+ingresos);
+        } catch (Exception e) {
+            System.out.println("balance"+balance+" gastos:"+gastos+" ingresos:"+ingresos);
+        }
+        
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,12 +124,27 @@ public class JFramePrincipal extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonGeneral);
         jRadioButtonGeneral.setSelected(true);
         jRadioButtonGeneral.setText("General");
+        jRadioButtonGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonGeneralActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButtonIngresos);
         jRadioButtonIngresos.setText("Ingresos");
+        jRadioButtonIngresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonIngresosActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButtonGastos);
         jRadioButtonGastos.setText("Gastos");
+        jRadioButtonGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonGastosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,8 +236,27 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jMenuItemGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGastoActionPerformed
         // TODO add your handling code here:
         jdg=new JDialogGasto(this, true);
-        jdi.setVisible(true);
+        jdg.setVisible(true);
     }//GEN-LAST:event_jMenuItemGastoActionPerformed
+
+    private void jRadioButtonIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonIngresosActionPerformed
+        // TODO add your handling code here:
+       //RowFilter <TableModel,Integer> rf = RowFilter.regexFilter("-500",3);
+       RowFilter <TableModel,Integer> rf = RowFilter.regexFilter("^[0-9]", 2);
+       order.setRowFilter(rf);
+    }//GEN-LAST:event_jRadioButtonIngresosActionPerformed
+
+    private void jRadioButtonGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGastosActionPerformed
+        // TODO add your handling code here:
+        RowFilter <TableModel,Integer> rf = RowFilter.regexFilter("^-",3);
+        order.setRowFilter(rf);
+    }//GEN-LAST:event_jRadioButtonGastosActionPerformed
+
+    private void jRadioButtonGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGeneralActionPerformed
+        // TODO add your handling code here:
+       RowFilter <TableModel,Integer> rf = RowFilter.regexFilter("",1);
+        order.setRowFilter(rf);
+    }//GEN-LAST:event_jRadioButtonGeneralActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,4 +308,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTableTabla;
     private javax.swing.JTextField jTextFieldBalance;
     // End of variables declaration//GEN-END:variables
+
+    
 }

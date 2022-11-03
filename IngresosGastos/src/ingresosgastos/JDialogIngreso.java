@@ -6,6 +6,12 @@
 package ingresosgastos;
 
 import java.awt.FontFormatException;
+import java.text.DecimalFormat;
+import static java.time.Instant.now;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +24,9 @@ public class JDialogIngreso extends javax.swing.JDialog {
         super(parent,"Alta de ingresos", modal);
         initComponents();
         jf = (JFramePrincipal) parent;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        LocalDate localDate = LocalDate.now();
+        jTextFieldFecha.setText(dtf.format(localDate));
     }
 
     /** This method is called from within the constructor to
@@ -57,6 +66,12 @@ public class JDialogIngreso extends javax.swing.JDialog {
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jTextFieldFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldFechaMouseClicked(evt);
             }
         });
 
@@ -118,15 +133,42 @@ public class JDialogIngreso extends javax.swing.JDialog {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
+        
+        String fecha=jTextFieldFecha.getText();
         try {
-            if (!jTextFieldFecha.getText().matches("^(?:3[01]|[12][0-9]|0?[1-9])([\\-/.])(0?[1-9]|1[1-2])\\1\\d{4}$"))
+            //comprobación del formato de la fecha
+            if (!fecha.matches("^(?:3[01]|[12][0-9]|0[1-9])([\\/])(0[1-9]|1[1-2])\\1\\d{4}$"))
                 throw new Exception();
-            jf.anadeCol(jTextFieldFecha.getText(), jTextFieldConcepto.getText(), String.valueOf(jTextFieldImporte.getText()), "");
+            //comprobación del concepto
+            if(jTextFieldConcepto.getText().isEmpty())
+                throw new RuntimeException();
+            //comprobación del formato del ingreso
+            double cantidad=Double.parseDouble(jTextFieldImporte.getText());
+            if(cantidad<=0)
+               throw new NumberFormatException();
+            //Objeto para cambiar el formato de un double
+            DecimalFormat df= new DecimalFormat(String.valueOf("0.00"));
+            //añadimos la columna a la tabla con los datos recogidos
+            jf.anadeCol(fecha, jTextFieldConcepto.getText(), df.format(cantidad), "");
+            jf.calcularBalance();
+            this.dispose();
         } catch (NumberFormatException e) {
-          
-        } catch (Exception e) {
+           JOptionPane.showMessageDialog(rootPane, "El ingreso tiene que ser un numero real positivo.",
+               "Error",JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(rootPane, "El concepto no puede estar vacio",
+               "Error",JOptionPane.ERROR_MESSAGE);
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "El formato de la fecha no es correcto (dd/mm/aaaa)",
+               "Error",JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_jButtonAceptarActionPerformed
+
+    private void jTextFieldFechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldFechaMouseClicked
+        // TODO add your handling code here:
+        jTextFieldFecha.setText("");
+    }//GEN-LAST:event_jTextFieldFechaMouseClicked
 
     /**
      * @param args the command line arguments

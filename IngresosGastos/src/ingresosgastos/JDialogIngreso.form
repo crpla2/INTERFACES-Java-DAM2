@@ -114,6 +114,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldFecha">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldFechaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldConcepto">
     </Component>
