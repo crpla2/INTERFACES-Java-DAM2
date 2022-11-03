@@ -42,6 +42,7 @@ public class JFrameGaraje extends javax.swing.JFrame {
         jComboBoxTipo.removeAllItems();
         for(String s:labels)
             jComboBoxTipo.addItem(s);
+        
         dom= new DefaultComboBoxModel();
     }
 
