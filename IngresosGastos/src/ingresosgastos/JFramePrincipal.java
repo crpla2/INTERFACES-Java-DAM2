@@ -116,6 +116,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jLabelBalance.setText("Balance:");
 
+        jTextFieldBalance.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTextFieldBalance.setForeground(new java.awt.Color(102, 255, 51));
         jTextFieldBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldBalance.setText("00.00");
