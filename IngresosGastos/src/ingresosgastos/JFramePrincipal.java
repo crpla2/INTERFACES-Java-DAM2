@@ -7,6 +7,7 @@ package ingresosgastos;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter.SortKey;
 import javax.swing.SortOrder;
@@ -21,10 +22,10 @@ import javax.swing.table.TableRowSorter;
 public class JFramePrincipal extends javax.swing.JFrame {
     DefaultTableModel dtm;
     String cabecera[]={"Fecha","Concepto","Ingreso","Gasto"};
-    JDialogGasto jdg;
-    JDialogIngreso jdi;
+    NewJDialog njd;
     TableRowSorter<TableModel>order;
-     ArrayList<SortKey>keys;
+    ArrayList<SortKey>keys;
+    ImageIcon imagen;
  
     /**
      * Creates new form JFramePrincipal
@@ -32,6 +33,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     public JFramePrincipal() {
         super("Programa de gestión de ingresos y gastos");
         initComponents();
+        setIconImage(new ImageIcon("../IngresosGastos/img/balance.png").getImage());
         dtm= new DefaultTableModel(cabecera,0); 
         jTableTabla.setModel(dtm);
         
@@ -55,23 +57,22 @@ public class JFramePrincipal extends javax.swing.JFrame {
         double balance=0;
         double gastos=0;
         double ingresos=0;
-        String resultado="";
+        String resultado;
+        DecimalFormat dft= new DecimalFormat(String.valueOf("0.00"));
         try {
             for(int i=0;i<=dtm.getRowCount()-1;i++){
-              
-                resultado=(String)dtm.getValueAt(i, 3);
-                System.out.println(Double.valueOf(resultado));
-             // ingresos +=Double.parseDouble((String)dtm.getValueAt(i, 2));
-               
-        }
-        balance=gastos+ingresos;
-      //  DecimalFormat dft= new DecimalFormat(String.valueOf("0.00"));
-    //    jTextFieldBalance.setText(dft.format(balance));
-     //   if(balance>=0)jTextFieldBalance.setBackground(Color.green);
-       // else jTextFieldBalance.setBackground(Color.red);
-       System.out.println("balance"+balance+" gastos:"+gastos+" ingresos:"+ingresos);
+                if (!dtm.getValueAt(i, 2).equals(""))               
+                ingresos+=Double.parseDouble(dtm.getValueAt(i, 2).toString().replace(",", "."));
+                if (!dtm.getValueAt(i, 3).equals("")) 
+                gastos+=Double.parseDouble(dtm.getValueAt(i, 3).toString().substring(1).replace(",", "."));
+            }        
+            balance=ingresos-gastos;
+            jTextFieldBalance.setText(dft.format(balance));
+            if(balance>=0)jTextFieldBalance.setForeground(Color.green);
+            else jTextFieldBalance.setForeground(Color.red);
+       
         } catch (Exception e) {
-            System.out.println("balance"+balance+" gastos:"+gastos+" ingresos:"+ingresos);
+            System.out.println("ERROR");
         }
         
         }
@@ -229,14 +230,29 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jMenuItemIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIngresoActionPerformed
         // TODO add your handling code here:
-        jdi= new JDialogIngreso(this,true);
-        jdi.setVisible(true);
+       // jdi= new JDialogIngreso(this,true);
+       // jdi.setVisible(true);
+       njd= new NewJDialog(this,true);
+       njd.setTitle("Alta de ingresos");
+       njd.setIconImage(new ImageIcon("../IngresosGastos/img/cobro.png").getImage());
+       imagen = new ImageIcon("img/cobro.png");
+       njd.jLabelImagen.setIcon(imagen);
+       njd.jLabelImagen.setBounds(30, 30, imagen.getIconWidth(), imagen.getIconHeight());
+       njd.setVisible(true);
+       
     }//GEN-LAST:event_jMenuItemIngresoActionPerformed
 
     private void jMenuItemGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGastoActionPerformed
         // TODO add your handling code here:
-        jdg=new JDialogGasto(this, true);
-        jdg.setVisible(true);
+        //jdg=new JDialogGasto(this, true);
+        //jdg.setVisible(true);
+        njd= new NewJDialog(this,true);
+        njd.setTitle("Alta de gastos");
+        njd.setIconImage(new ImageIcon("../IngresosGastos/img/gasto.png").getImage());
+        imagen = new ImageIcon("img/gasto.png");
+        njd.jLabelImagen.setIcon(imagen);
+        njd.jLabelImagen.setBounds(30, 30, imagen.getIconWidth(), imagen.getIconHeight());
+        njd.setVisible(true);
     }//GEN-LAST:event_jMenuItemGastoActionPerformed
 
     private void jRadioButtonIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonIngresosActionPerformed
