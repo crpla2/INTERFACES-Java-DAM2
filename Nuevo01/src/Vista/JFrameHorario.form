@@ -10,14 +10,15 @@
           </Properties>
           <Events>
             <EventHandler event="menuSelected" listener="javax.swing.event.MenuListener" parameters="javax.swing.event.MenuEvent" handler="jMenuAltaMenuSelected"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuAltaActionPerformed"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jMenuAltaKeyPressed"/>
           </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuLog">
           <Properties>
             <Property name="text" type="java.lang.String" value="Log"/>
           </Properties>
+          <Events>
+            <EventHandler event="menuSelected" listener="javax.swing.event.MenuListener" parameters="javax.swing.event.MenuEvent" handler="jMenuLogMenuSelected"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>

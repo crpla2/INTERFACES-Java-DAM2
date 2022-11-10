@@ -156,19 +156,18 @@ public class JFrameHorario extends javax.swing.JFrame {
                 jMenuAltaMenuSelected(evt);
             }
         });
-        jMenuAlta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuAltaActionPerformed(evt);
-            }
-        });
-        jMenuAlta.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jMenuAltaKeyPressed(evt);
-            }
-        });
         jMenuBar1.add(jMenuAlta);
 
         jMenuLog.setText("Log");
+        jMenuLog.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenuLogMenuSelected(evt);
+            }
+        });
         jMenuBar1.add(jMenuLog);
 
         setJMenuBar(jMenuBar1);
@@ -189,21 +188,17 @@ public class JFrameHorario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAltaActionPerformed
-        // TODO add your handling code here:
-     
-    }//GEN-LAST:event_jMenuAltaActionPerformed
-
-    private void jMenuAltaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuAltaKeyPressed
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_jMenuAltaKeyPressed
-
     private void jMenuAltaMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuAltaMenuSelected
         // TODO add your handling code here:
            jad = new JDialogAlta(this, true);
         jad.setVisible(true);
     }//GEN-LAST:event_jMenuAltaMenuSelected
+
+    private void jMenuLogMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuLogMenuSelected
+        // TODO add your handling code here:
+          jad = new JDialogAlta(this, true);
+        jad.setVisible(true);
+    }//GEN-LAST:event_jMenuLogMenuSelected
 
     /**
      * @param args the command line arguments
