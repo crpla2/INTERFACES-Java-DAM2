@@ -2,24 +2,41 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package nuevo01;
+package Vista;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
+import static java.awt.Color.blue;
+import java.awt.Transparency;
+import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
  * @author DAM2Alu10
  */
 public class JFrameHorario extends javax.swing.JFrame {
-    
+    private  JDialogAlta jad;
+    private JButton b;
     /**
      * Creates new form JFrameHorario
      */
     public JFrameHorario() {
        super("HORARIO");
-        setIconImage(new ImageIcon("../Horario/img/horario.png").getImage());
-        initComponents();
+       ImageIcon nuevo=new ImageIcon("img/horario.png");
+       setIconImage(nuevo.getImage());
+       initComponents();
+       
+        for (int i = 1; i < 7; i++) {
+             for (int j = 1; j < 6; j++) {
+                 b= new JButton();
+                 b.setText("jb"+i+j);
+                 b.setName("jb"+String.valueOf(i)+String.valueOf(j));
+                 jPanelHorario.add(b);
+            }
+        }  
     }
 
     /**
@@ -32,7 +49,7 @@ public class JFrameHorario extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelHorario = new javax.swing.JPanel();
         jPanelDias = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -41,14 +58,14 @@ public class JFrameHorario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabelTitulo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuAlta = new javax.swing.JMenu();
+        jMenuLog = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(689, 426));
 
-        jPanel3.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanel3.setLayout(new java.awt.GridLayout());
+        jPanelHorario.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanelHorario.setLayout(new java.awt.GridLayout(6, 5));
 
         jPanelDias.setBackground(new java.awt.Color(255, 255, 51));
 
@@ -116,7 +133,7 @@ public class JFrameHorario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,14 +143,33 @@ public class JFrameHorario extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jPanelDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenuAlta.setText("Alta");
+        jMenuAlta.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenuAltaMenuSelected(evt);
+            }
+        });
+        jMenuAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAltaActionPerformed(evt);
+            }
+        });
+        jMenuAlta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jMenuAltaKeyPressed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuAlta);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuLog.setText("Log");
+        jMenuBar1.add(jMenuLog);
 
         setJMenuBar(jMenuBar1);
 
@@ -145,11 +181,29 @@ public class JFrameHorario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAltaActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_jMenuAltaActionPerformed
+
+    private void jMenuAltaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuAltaKeyPressed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_jMenuAltaKeyPressed
+
+    private void jMenuAltaMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuAltaMenuSelected
+        // TODO add your handling code here:
+           jad = new JDialogAlta(this, true);
+        jad.setVisible(true);
+    }//GEN-LAST:event_jMenuAltaMenuSelected
 
     /**
      * @param args the command line arguments
@@ -193,11 +247,11 @@ public class JFrameHorario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenuAlta;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuLog;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelDias;
+    private javax.swing.JPanel jPanelHorario;
     // End of variables declaration//GEN-END:variables
 }
