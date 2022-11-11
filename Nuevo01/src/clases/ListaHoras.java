@@ -21,12 +21,12 @@ public class ListaHoras {
    public void setHora(Hora h){
        lista.add(h);
    }
-   public Hora getHora(int h){
-       lista.forEach(Hora->{if(Hora.getHora()==h)
-           return h;});
-       
-   }
+ //  public Hora getHora(int h){
+     //  lista.forEach(Hora->{if(Hora.getHora()==h)
+       //    return h;});
    
+  // }
+      
     
     
     
