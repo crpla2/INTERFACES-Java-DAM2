@@ -4,10 +4,13 @@
  */
 package Vista;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.plaf.basic.BasicBorders;
 
@@ -16,50 +19,52 @@ import javax.swing.plaf.basic.BasicBorders;
  * @author DAM2Alu10
  */
 public class JDialogAlta extends javax.swing.JDialog {
+
     JFrameHorario jf;
     ArrayList<JCheckBox> listacheck;
     ArrayList<JRadioButton> listaradio;
     DefaultComboBoxModel dom;
+    String[] horas; 
+    String[] dias; 
     /**
      * Creates new form JDialogAlta
      */
     public JDialogAlta(java.awt.Frame parent, boolean modal) {
-       super(parent,"ALTA HORAS", modal);
+        super(parent, "ALTA HORAS", modal);
         initComponents();
         jf = (JFrameHorario) parent;
+        this.horas= jf.horas;
+        this.dias= jf.dias;
         
-        String[] horas={"8:25-9:20","9:20-10:15","10:15-11:10","11:40-12:35","12:35-13:30","13:30-14:45"};
-        String[] dias={"Lunes","Martes","Miercoles","Jueves","Viernes"};
-        String[] modulos={"Diseño Interfaces","Acceso Datos","Sistemas Gestión Empresarial","Ingles","Empresa Iniciativa Emprendedora","Programación Dispositivos Moviles"};
-       
-        listaradio= new ArrayList<>();
+        String[] modulos = {"Diseño Interfaces", "Acceso Datos", "Sistemas Gestión Empresarial", "Ingles", "Empresa Iniciativa Emprendedora", "Programación Dispositivos Moviles","Programación  Servicios y Procesos"};
+
+        listaradio = new ArrayList<>();
         for (int i = 0; i < dias.length; i++) {
-            JRadioButton bu=new JRadioButton(dias[i]);
-            bu.setName(String.valueOf(i+1));
+            JRadioButton bu = new JRadioButton(dias[i]);
+            bu.setName(String.valueOf(i + 1));
             listaradio.add(bu);
         }
-        listaradio.forEach(x->{jPanelDía.add(x);
-                                buttonGroup1.add(x);
-                                }
-                            );
-        
-        listacheck= new ArrayList<>();
+        listaradio.forEach(x -> {
+            jPanelDía.add(x);
+            buttonGroup1.add(x);
+        }
+        );
+
+        listacheck = new ArrayList<>();
         for (int i = 0; i < horas.length; i++) {
-            JCheckBox ju =new JCheckBox(horas[i]);
-            ju.setName(String.valueOf(i+1));
+            JCheckBox ju = new JCheckBox(horas[i]);
+            ju.setName(String.valueOf(i + 1));
             listacheck.add(ju);
         }
-        listacheck.forEach(x->jPanelHora.add(x));
-        
-        dom= new DefaultComboBoxModel();   
-       // jComboBoxModulo.removeAllItems();
-       jComboBoxModulo.setModel(dom);
-        for(String s:modulos){
+        listacheck.forEach(x -> jPanelHora.add(x));
+
+        dom = new DefaultComboBoxModel();
+        // jComboBoxModulo.removeAllItems();
+        jComboBoxModulo.setModel(dom);
+        for (String s : modulos) {
             dom.addElement(s);
         }
-              
-       
-    
+
     }
 
     /**
@@ -126,9 +131,10 @@ public class JDialogAlta extends javax.swing.JDialog {
                         .addComponent(jPanelDía, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(jPanelHora, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
-                    .addComponent(jComboBoxModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonAñadir)
                 .addContainerGap())
@@ -139,29 +145,55 @@ public class JDialogAlta extends javax.swing.JDialog {
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
         // TODO add your handling code here:
-        String str="jb";
-        StringBuilder sb= new StringBuilder();
-        
-        listaradio.forEach(x->{if(x.isSelected())sb.append(x.getName());});
-      
-        ArrayList<String> listaString= new ArrayList<>();
-        int i=0;
-        for(JCheckBox r:listacheck){
-            if(r.isSelected()){
-                listacheck.get(i);
-                str+=r.getName()+sb.toString()+" jb";
+        String str = "jb", radio = "";
+        int rad = 0, check = 0;
+        try {
+            for (JRadioButton r : listaradio) {
+                if (r.isSelected()) {
+                    radio = r.getName();
+                    rad++;
+                }
             }
-            i++;
-        }
-        String[]hor=str.split(" ");
-        for(JButton but:jf.listabotones){
-            for(String s:hor){
-                 if(but.getName().toString().equalsIgnoreCase(s))
-                    but.setText((String)jComboBoxModulo.getSelectedItem().toString());
-                
+            if (rad == 0) {
+                throw new NullPointerException();
             }
-           
+            ArrayList<String> listaString = new ArrayList<>();
+            int i = 0;
+            for (JCheckBox r : listacheck) {
+                if (r.isSelected()) {
+                    listacheck.get(i);
+                    str += r.getName() + radio + " jb";
+                    check++;
+                }
+                i++;
+            }
+            if (check == 0) {
+                throw new Exception();
+            }
+            char[] ch;
+            String[] hor = str.split(" ");
+            for (JButton but : jf.listabotones) {
+                for (String s : hor) {
+                    if (but.getName().toString().equalsIgnoreCase(s)) {
+                        String modulo = (String) jComboBoxModulo.getSelectedItem().toString();
+                        but.setText(modulo);
+                        ch = s.toCharArray();
+                        Date d = new Date();
+                        jf.addHora(Character.getNumericValue(ch[2]), Character.getNumericValue(ch[3]), modulo, d);
+                    }
+                }
+            }
+
+            this.dispose();
+
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(rootPane, "Debe de seleccionar un día de la semana ",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Debede seleccionar una hora",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_jButtonAñadirActionPerformed
 
     /**

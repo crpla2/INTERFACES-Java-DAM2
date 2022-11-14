@@ -60,7 +60,7 @@ public class Hora {
 
     @Override
     public String toString() {
-        return super.toString(); 
+        return "Hora: "+hora+" Día: "+dia+ " Módulo: "+modulo+" Alta: "+fechaAlta.toString(); 
     }
     
     

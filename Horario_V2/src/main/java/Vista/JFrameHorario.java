@@ -4,47 +4,76 @@
  */
 package Vista;
 
+import clases.Hora;
+import clases.ListaHoras;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import static java.awt.Color.blue;
 import java.awt.Transparency;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
  * @author DAM2Alu10
  */
 public class JFrameHorario extends javax.swing.JFrame {
-    private  JDialogAlta jad;
+
+    private JDialogAlta jad;
+    private DialogLog dlog;
     private JButton b;
     ArrayList<JButton> listabotones;
+    ListaHoras lista;
+    String[] horas = {"08:25-09:20", "09:20-10:15", "10:15-11:10", "11:40-12:35", "12:35-13:30", "13:30-14:45"};
+    String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
+
     /**
      * Creates new form JFrameHorario
      */
     public JFrameHorario() {
-       super("HORARIO");
-       ImageIcon nuevo=new ImageIcon("img/horario.png");
-       setIconImage(nuevo.getImage());
-       initComponents();
-       
-       listabotones= new ArrayList<>();
+        super("HORARIO");
+        ImageIcon nuevo = new ImageIcon("img/horario.png");
+        setIconImage(nuevo.getImage());
+        initComponents();
+         try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(JFrameHorario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(JFrameHorario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(JFrameHorario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(JFrameHorario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        lista = new ListaHoras();
+
+        listabotones = new ArrayList<>();
         for (int i = 1; i < 7; i++) {
-             for (int j = 1; j < 6; j++) {
-                 b= new JButton();
-                 b.setText("jb"+i+j);
-                 b.setName("jb"+String.valueOf(i)+String.valueOf(j));
-                 listabotones.add(b);
-                 jPanelHorario.add(b);
-                 
+            for (int j = 1; j < 6; j++) {
+                b = new JButton();
+                b.setName("jb" + String.valueOf(i) + String.valueOf(j));
+                listabotones.add(b);
+                jPanelHorario.add(b);
+
             }
-        }  
+        }
     }
 
-    
+    public boolean addHora(int hora, int dia, String modulo, Date fechaAlta) {
+        lista.setHora(new Hora(hora, dia, modulo, fechaAlta));
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,7 +103,7 @@ public class JFrameHorario extends javax.swing.JFrame {
         jPanelHorario.setLayout(new java.awt.GridLayout(6, 5));
 
         jPanelDias.setBackground(new java.awt.Color(255, 255, 51));
-        jPanelDias.setLayout(new java.awt.GridLayout());
+        jPanelDias.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -129,25 +158,17 @@ public class JFrameHorario extends javax.swing.JFrame {
         );
 
         jMenuAlta.setText("Alta");
-        jMenuAlta.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenuAltaMenuSelected(evt);
+        jMenuAlta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuAltaMouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenuAlta);
 
         jMenuLog.setText("Log");
-        jMenuLog.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenuLogMenuSelected(evt);
+        jMenuLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuLogMouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenuLog);
@@ -170,17 +191,17 @@ public class JFrameHorario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuAltaMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuAltaMenuSelected
+    private void jMenuAltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuAltaMouseClicked
         // TODO add your handling code here:
-           jad = new JDialogAlta(this, true);
+        jad = new JDialogAlta(this, true);
         jad.setVisible(true);
-    }//GEN-LAST:event_jMenuAltaMenuSelected
+    }//GEN-LAST:event_jMenuAltaMouseClicked
 
-    private void jMenuLogMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuLogMenuSelected
+    private void jMenuLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuLogMouseClicked
         // TODO add your handling code here:
-          jad = new JDialogAlta(this, true);
-        jad.setVisible(true);
-    }//GEN-LAST:event_jMenuLogMenuSelected
+        dlog = new DialogLog(this, false);
+        dlog.setVisible(true);
+    }//GEN-LAST:event_jMenuLogMouseClicked
 
     /**
      * @param args the command line arguments
