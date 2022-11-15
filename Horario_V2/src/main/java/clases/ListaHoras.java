@@ -27,9 +27,24 @@ public class ListaHoras {
         return lista.get(h);
 
     }
-    public int tamanyo(){
+   
+    public void borraHora(int h) {
+        lista.remove(h);
+    }
+
+    public int buscaHora(int dia,int hora){
+        int posicion=0;
+        for(Hora h :lista){
+            if(h.getDia()==dia&&h.getHora()==hora)
+                    posicion=lista.indexOf(h);
+        }
+        return posicion;
+    }
+    
+    public int tamanyo() {
         return lista.size();
     }
+
     public void imprime() {
         for (Hora h : lista) {
             System.out.println(h.toString());

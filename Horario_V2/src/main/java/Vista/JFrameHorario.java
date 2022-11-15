@@ -26,7 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author DAM2Alu10
  */
 public class JFrameHorario extends javax.swing.JFrame {
-
+    
     private JDialogAlta jad;
     private DialogLog dlog;
     private JButton b;
@@ -34,6 +34,7 @@ public class JFrameHorario extends javax.swing.JFrame {
     ListaHoras lista;
     String[] horas = {"08:25-09:20", "09:20-10:15", "10:15-11:10", "11:40-12:35", "12:35-13:30", "13:30-14:45"};
     String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
+    String[] modulos = {"Diseño Interfaces", "Acceso Datos", "Sistemas Gestión Empresarial", "Ingles", "Empresa Iniciativa Emprendedora", "Programación Dispositivos Moviles", "Programación  Servicios y Procesos"};
 
     /**
      * Creates new form JFrameHorario
@@ -43,8 +44,8 @@ public class JFrameHorario extends javax.swing.JFrame {
         ImageIcon nuevo = new ImageIcon("img/horario.png");
         setIconImage(nuevo.getImage());
         initComponents();
-         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JFrameHorario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -56,7 +57,7 @@ public class JFrameHorario extends javax.swing.JFrame {
         }
         
         lista = new ListaHoras();
-
+        
         listabotones = new ArrayList<>();
         for (int i = 1; i < 7; i++) {
             for (int j = 1; j < 6; j++) {
@@ -64,14 +65,30 @@ public class JFrameHorario extends javax.swing.JFrame {
                 b.setName("jb" + String.valueOf(i) + String.valueOf(j));
                 listabotones.add(b);
                 jPanelHorario.add(b);
-
+                
             }
         }
     }
-
+    
     public boolean addHora(int hora, int dia, String modulo, Date fechaAlta) {
         lista.setHora(new Hora(hora, dia, modulo, fechaAlta));
+        
+        actualiza();
         return true;
+    }
+    
+    public void actualiza() {
+        for (JButton but : listabotones) {
+            but.setText("");
+        }
+        for (JButton but : listabotones) {
+            for (int i = 0; i < lista.tamanyo(); i++) {
+                if (but.getName().toString().equalsIgnoreCase("jb" + String.valueOf(lista.getHora(i).getHora())
+                        + String.valueOf(lista.getHora(i).getDia()))) {
+                    but.setText(lista.getHora(i).getModulo());
+                }                
+            }            
+        }
     }
 
     /**

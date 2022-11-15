@@ -24,8 +24,10 @@ public class JDialogAlta extends javax.swing.JDialog {
     ArrayList<JCheckBox> listacheck;
     ArrayList<JRadioButton> listaradio;
     DefaultComboBoxModel dom;
-    String[] horas; 
-    String[] dias; 
+    String[] horas;
+    String[] dias;
+    String[] modulos;
+
     /**
      * Creates new form JDialogAlta
      */
@@ -33,10 +35,9 @@ public class JDialogAlta extends javax.swing.JDialog {
         super(parent, "ALTA HORAS", modal);
         initComponents();
         jf = (JFrameHorario) parent;
-        this.horas= jf.horas;
-        this.dias= jf.dias;
-        
-        String[] modulos = {"Diseño Interfaces", "Acceso Datos", "Sistemas Gestión Empresarial", "Ingles", "Empresa Iniciativa Emprendedora", "Programación Dispositivos Moviles","Programación  Servicios y Procesos"};
+        this.horas = jf.horas;
+        this.dias = jf.dias;
+        this.modulos = jf.modulos;
 
         listaradio = new ArrayList<>();
         for (int i = 0; i < dias.length; i++) {
@@ -170,8 +171,18 @@ public class JDialogAlta extends javax.swing.JDialog {
             if (check == 0) {
                 throw new Exception();
             }
+
             char[] ch;
+            str = str.substring(0, str.length() - 2);
             String[] hor = str.split(" ");
+            String modulo = (String) jComboBoxModulo.getSelectedItem().toString();
+            for (int j = 0; j < hor.length; j++) {
+                ch = hor[j].toCharArray();
+                Date d = new Date();
+                jf.addHora(Character.getNumericValue(ch[2]), Character.getNumericValue(ch[3]), modulo, d);
+            }
+
+            /*
             for (JButton but : jf.listabotones) {
                 for (String s : hor) {
                     if (but.getName().toString().equalsIgnoreCase(s)) {
@@ -183,7 +194,7 @@ public class JDialogAlta extends javax.swing.JDialog {
                     }
                 }
             }
-
+             */
             this.dispose();
 
         } catch (NullPointerException e) {

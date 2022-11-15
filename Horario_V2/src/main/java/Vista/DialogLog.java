@@ -5,9 +5,12 @@
 package Vista;
 
 import clases.Hora;
+import java.awt.List;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +29,8 @@ public class DialogLog extends javax.swing.JDialog {
     ArrayList<RowSorter.SortKey> keys;
     JFrameHorario jf;
     JDialogAlta jd;
+    String[] dias ;
+    String[] horas;
 
     /**
      * Creates new form DialogLog
@@ -34,6 +39,8 @@ public class DialogLog extends javax.swing.JDialog {
         super(parent, "LISTADO LOG", false);
         initComponents();
         jf = (JFrameHorario) parent;
+        this.dias=jf.dias;
+        this.horas=jf.horas;
         dtm = new DefaultTableModel(cabecera, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -110,9 +117,31 @@ public class DialogLog extends javax.swing.JDialog {
 
     private void jTableTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTablaMouseClicked
         // TODO add your handling code here:
+
         if (evt.getClickCount() == 2) {
+            int resultado= JOptionPane.showConfirmDialog(null, "¿Seguro que quieres borrar el registro?","ATENCIÓN",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(resultado==JOptionPane.YES_OPTION){
+            String dia = dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString();
+            String hora = dtm.getValueAt(jTableTabla.getSelectedRow(), 1).toString();
+            
             dtm.removeRow(jTableTabla.getSelectedRow());
-        }
+            int d = 0;
+            int h = 0;
+            for (int i = 0; i < dias.length; i++) {
+                if (dias[i].equalsIgnoreCase(dia)) {
+                    d = i+1;
+                }
+            }
+            for (int i = 0; i < horas.length; i++) {
+                if (horas[i].equalsIgnoreCase(hora)) {
+                    h = i+1;
+                }
+            }
+           
+            jf.lista.borraHora(jf.lista.buscaHora(d, h));
+            jf.actualiza();
+        }}
+        
     }//GEN-LAST:event_jTableTablaMouseClicked
 
     /**
