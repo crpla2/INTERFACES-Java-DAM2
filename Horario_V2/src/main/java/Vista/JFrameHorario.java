@@ -45,7 +45,7 @@ public class JFrameHorario extends javax.swing.JFrame {
         setIconImage(nuevo.getImage());
         initComponents();
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JFrameHorario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
