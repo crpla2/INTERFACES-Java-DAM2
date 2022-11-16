@@ -134,7 +134,7 @@ public class JFrameTaller extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonDiaNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDiaNocheActionPerformed
-        boolean pulsado = false;
+      
         if (jToggleButtonDiaNoche.isSelected()) {
             jToggleButtonDiaNoche.setText("Modo diurno");
             jLabelFondo.setIcon(imagen3);
