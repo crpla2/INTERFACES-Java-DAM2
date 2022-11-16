@@ -52,6 +52,10 @@ public class JDialogLogin extends javax.swing.JDialog {
         jLabelPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabelPassword.setText("Contraseña:");
 
+        jTextFieldUsuario.setText("admin");
+
+        jPasswordFieldPassword.setText("admin");
+
         jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Por  favor identifiquese para acceder:");

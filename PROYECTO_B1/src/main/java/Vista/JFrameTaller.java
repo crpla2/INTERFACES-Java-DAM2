@@ -1,5 +1,6 @@
 package Vista;
 
+import static java.awt.Color.black;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -12,18 +13,30 @@ import javax.swing.JPanel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author carlo
  */
 public class JFrameTaller extends javax.swing.JFrame {
-     /**
+
+    ImageIcon imagen, imagen2,imagen3;
+
+    /**
      * Creates new form JFrameTaller
      */
     public JFrameTaller() {
+        super("Talleres Fitipaldi");
         initComponents();
-  
+        //Cambiamos el icono de la ventana
+        setIconImage(new ImageIcon("img/taller.png").getImage());
+        //Añadimos una imagen al formulario
+        imagen = new ImageIcon("img/corporativa.png");
+        jLabelImagen.setIcon(imagen);
+        jLabelImagen.setBounds(150, 150, imagen.getIconWidth(), imagen.getIconHeight());
+        imagen2 = new ImageIcon("img/claro.jpg");
+        jLabelFondo.setIcon(imagen2);
+        jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
+        imagen3= new ImageIcon("img/oscuro.jpg");
     }
 
     /**
@@ -35,39 +48,76 @@ public class JFrameTaller extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jToggleButtonDiaNoche = new javax.swing.JToggleButton();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabelImagen = new javax.swing.JLabel();
+        jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
         setPreferredSize(new java.awt.Dimension(600, 400));
+        setResizable(false);
 
-        javax.swing.GroupLayout jPanelPanelLayout = new javax.swing.GroupLayout(jPanelPanel);
-        jPanelPanel.setLayout(jPanelPanelLayout);
-        jPanelPanelLayout.setHorizontalGroup(
-            jPanelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanelPanelLayout.setVerticalGroup(
-            jPanelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel1.setMaximumSize(new java.awt.Dimension(600, 400));
+        jPanel1.setMinimumSize(new java.awt.Dimension(600, 400));
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 400));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jToggleButtonDiaNoche.setText("Modo nocturno");
+        jToggleButtonDiaNoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonDiaNocheActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButtonDiaNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
+
+        jLabelTitulo.setFont(new java.awt.Font("Rockwell Condensed", 1, 36)); // NOI18N
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("Talleres Fitipaldi");
+        jPanel1.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 600, 50));
+        jPanel1.add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 260, 200));
+
+        jLabelFondo.setOpaque(true);
+        jPanel1.add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 370));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jToggleButtonDiaNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDiaNocheActionPerformed
+        boolean pulsado = false;
+        if (jToggleButtonDiaNoche.isSelected()) {
+            jToggleButtonDiaNoche.setText("Modo diurno");
+            jLabelFondo.setIcon(imagen3);
+            jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
+            
+            
+        }else{
+            jToggleButtonDiaNoche.setText("Modo nocturno");
+             jLabelFondo.setIcon(imagen2);
+            jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
+        }
+
+    }//GEN-LAST:event_jToggleButtonDiaNocheActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanelPanel;
+    private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JLabel jLabelImagen;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JToggleButton jToggleButtonDiaNoche;
     // End of variables declaration//GEN-END:variables
 }
