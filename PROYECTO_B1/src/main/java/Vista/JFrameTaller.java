@@ -1,6 +1,7 @@
 package Vista;
 
 import static java.awt.Color.black;
+import static java.awt.Color.white;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class JFrameTaller extends javax.swing.JFrame {
 
-    ImageIcon imagen, imagen2,imagen3;
+    ImageIcon imagen, imagen2,imagen3,imagen4;
 
     /**
      * Creates new form JFrameTaller
@@ -37,6 +38,11 @@ public class JFrameTaller extends javax.swing.JFrame {
         jLabelFondo.setIcon(imagen2);
         jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
         imagen3= new ImageIcon("img/oscuro.jpg");
+        imagen4= new ImageIcon("img/rueda.png");
+        jLabelRueda1.setIcon(imagen4);
+        jLabelRueda1.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
+        jLabelRueda2.setIcon(imagen4);
+        jLabelRueda2.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
     }
 
     /**
@@ -49,15 +55,20 @@ public class JFrameTaller extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabelRueda1 = new javax.swing.JLabel();
+        jLabelTitulo1 = new javax.swing.JLabel();
+        jLabelTitulo2 = new javax.swing.JLabel();
+        jLabelRueda2 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
         jToggleButtonDiaNoche = new javax.swing.JToggleButton();
-        jLabelTitulo = new javax.swing.JLabel();
         jLabelImagen = new javax.swing.JLabel();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
-        setPreferredSize(new java.awt.Dimension(600, 400));
         setResizable(false);
 
         jPanel1.setMaximumSize(new java.awt.Dimension(600, 400));
@@ -65,22 +76,48 @@ public class JFrameTaller extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(600, 400));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabelRueda1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel2.add(jLabelRueda1);
+
+        jLabelTitulo1.setFont(new java.awt.Font("Rockwell Condensed", 1, 36)); // NOI18N
+        jLabelTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo1.setText("Talleres");
+        jPanel2.add(jLabelTitulo1);
+
+        jLabelTitulo2.setFont(new java.awt.Font("Rockwell Condensed", 1, 36)); // NOI18N
+        jLabelTitulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo2.setText("Fitipaldi");
+        jPanel2.add(jLabelTitulo2);
+
+        jLabelRueda2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel2.add(jLabelRueda2);
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 600, 60));
+
+        jSeparator3.setBackground(new java.awt.Color(204, 0, 0));
+        jSeparator3.setForeground(new java.awt.Color(255, 0, 0));
+        jSeparator3.setOpaque(true);
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, -1));
+
+        jSeparator4.setBackground(new java.awt.Color(204, 0, 0));
+        jSeparator4.setForeground(new java.awt.Color(255, 0, 0));
+        jSeparator4.setOpaque(true);
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 600, -1));
+
         jToggleButtonDiaNoche.setText("Modo nocturno");
         jToggleButtonDiaNoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonDiaNocheActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButtonDiaNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
-
-        jLabelTitulo.setFont(new java.awt.Font("Rockwell Condensed", 1, 36)); // NOI18N
-        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitulo.setText("Talleres Fitipaldi");
-        jPanel1.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 600, 50));
+        jPanel1.add(jToggleButtonDiaNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, -1, -1));
         jPanel1.add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 260, 200));
 
         jLabelFondo.setOpaque(true);
-        jPanel1.add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 370));
+        jPanel1.add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,12 +139,15 @@ public class JFrameTaller extends javax.swing.JFrame {
             jToggleButtonDiaNoche.setText("Modo diurno");
             jLabelFondo.setIcon(imagen3);
             jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
-            
+            jLabelTitulo1.setForeground(white);
+            jLabelTitulo2.setForeground(white);
             
         }else{
             jToggleButtonDiaNoche.setText("Modo nocturno");
-             jLabelFondo.setIcon(imagen2);
+            jLabelFondo.setIcon(imagen2);
             jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
+            jLabelTitulo1.setForeground(black);
+            jLabelTitulo2.setForeground(black);
         }
 
     }//GEN-LAST:event_jToggleButtonDiaNocheActionPerformed
@@ -116,8 +156,14 @@ public class JFrameTaller extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelFondo;
     private javax.swing.JLabel jLabelImagen;
-    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JLabel jLabelRueda1;
+    private javax.swing.JLabel jLabelRueda2;
+    private javax.swing.JLabel jLabelTitulo1;
+    private javax.swing.JLabel jLabelTitulo2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JToggleButton jToggleButtonDiaNoche;
     // End of variables declaration//GEN-END:variables
 }
