@@ -1,12 +1,16 @@
 package Vista;
 
+import java.awt.Color;
 import static java.awt.Color.black;
 import static java.awt.Color.white;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -19,21 +23,23 @@ import javax.swing.JPanel;
  * @author carlo
  */
 public class JFrameTaller extends javax.swing.JFrame {
-
+    boolean dia=true;
+    JDialogClientes jdc;
+    JDialogReparaciones jdr;
+    JDialogVehiculos jdv;
     ImageIcon imagen, imagen2,imagen3,imagen4,imagen5,imagen6,imagen7,imagen8;
-
+    ArrayList<ImageIcon>listaimagenes;
+    ArrayList<JLabel>listaJLabel;
     /**
      * Creates new form JFrameTaller
      */
     public JFrameTaller() {
-        super("Talleres Fitipaldi");
+        super("TALLERES FITIPALDI");
         initComponents();
         //Cambiamos el icono de la ventana
-        setIconImage(new ImageIcon("img/taller.png").getImage());
+        setIconImage(new ImageIcon("img/logo.png").getImage());
         //Añadimos una imagen al formulario
-        imagen = new ImageIcon("img/centro.png");
-        jLabelImagen.setIcon(imagen);
-        jLabelImagen.setBounds(150, 150, imagen.getIconWidth(), imagen.getIconHeight());
+        imagen = new ImageIcon("img/centro.png");       
         imagen2 = new ImageIcon("img/claro.jpg");
         imagen3= new ImageIcon("img/oscuro.jpg");
         imagen4= new ImageIcon("img/rueda.png");
@@ -41,6 +47,8 @@ public class JFrameTaller extends javax.swing.JFrame {
         imagen6= new ImageIcon("img/vehiculos.png");
         imagen7= new ImageIcon("img/reparaciones.png");
         imagen8= new ImageIcon("img/solluna.png");
+        jLabelImagen.setIcon(imagen);
+        jLabelImagen.setBounds(150, 150, imagen.getIconWidth(), imagen.getIconHeight());
         jLabelFondo.setIcon(imagen2);
         jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
         jLabelRueda1.setIcon(imagen4);
@@ -53,9 +61,9 @@ public class JFrameTaller extends javax.swing.JFrame {
         jLabelBotonVehiculos.setBounds(150, 150, imagen6.getIconWidth(), imagen6.getIconHeight());
         jLabelBotonReparaciones.setIcon(imagen7);
         jLabelBotonReparaciones.setBounds(150, 150, imagen7.getIconWidth(), imagen7.getIconHeight());
-       
         jToggleButtonDiaNoche.setIcon(imagen8);
-        
+        jToggleButtonDiaNoche.setBounds(150, 150, imagen8.getIconWidth(), imagen8.getIconHeight());
+       
         
     }
 
@@ -105,7 +113,7 @@ public class JFrameTaller extends javax.swing.JFrame {
                 jToggleButtonDiaNocheActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButtonDiaNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 360, 70, 30));
+        jPanel1.add(jToggleButtonDiaNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 340, 50, 50));
 
         jPanelTitulo.setOpaque(false);
         jPanelTitulo.setLayout(new java.awt.GridLayout(1, 0));
@@ -129,7 +137,7 @@ public class JFrameTaller extends javax.swing.JFrame {
         jPanel1.add(jPanelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 600, 60));
 
         jPanelBotones.setOpaque(false);
-        jPanelBotones.setLayout(new java.awt.GridLayout());
+        jPanelBotones.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabelBotonClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelBotonClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,7 +163,7 @@ public class JFrameTaller extends javax.swing.JFrame {
         });
         jPanelBotones.add(jLabelBotonVehiculos);
 
-        jPanel1.add(jPanelBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 350, 80));
+        jPanel1.add(jPanelBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 350, 80));
 
         jSeparator3.setBackground(new java.awt.Color(204, 0, 0));
         jSeparator3.setForeground(new java.awt.Color(255, 0, 0));
@@ -186,31 +194,35 @@ public class JFrameTaller extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelBotonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonClientesMouseClicked
-        // TODO add your handling code here:
+        jdc= new JDialogClientes(this, true);
+        jdc.setVisible(true);
     }//GEN-LAST:event_jLabelBotonClientesMouseClicked
 
     private void jLabelBotonReparacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonReparacionesMouseClicked
-        // TODO add your handling code here:
+        jdr= new JDialogReparaciones(this, true);
+        jdr.setVisible(true);
     }//GEN-LAST:event_jLabelBotonReparacionesMouseClicked
 
     private void jLabelBotonVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonVehiculosMouseClicked
-        // TODO add your handling code here:
+         jdv= new JDialogVehiculos(this, true);
+         jdv.setVisible(true);
     }//GEN-LAST:event_jLabelBotonVehiculosMouseClicked
 
     private void jToggleButtonDiaNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDiaNocheActionPerformed
         if (jToggleButtonDiaNoche.isSelected()) {
-           
             jLabelFondo.setIcon(imagen3);
             jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
             jLabelTitulo1.setForeground(white);
-            jLabelTitulo2.setForeground(white);
-             
+            jLabelTitulo2.setForeground(white);  
+            dia=false;
         }else{
-           
             jLabelFondo.setIcon(imagen2);
-            jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
+            jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
             jLabelTitulo1.setForeground(black);
             jLabelTitulo2.setForeground(black);
+            dia=true;
+            
+               
             
         }
     }//GEN-LAST:event_jToggleButtonDiaNocheActionPerformed
