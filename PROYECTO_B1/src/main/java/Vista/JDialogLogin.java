@@ -12,17 +12,21 @@ import javax.swing.JOptionPane;
  * @author carlo
  */
 public class JDialogLogin extends javax.swing.JDialog {
+
     JFrameTaller jf;
-    ImageIcon imagen;
+    ImageIcon imagen, imagen2, imagen3;
+
     /**
      * Creates new form JDialogLogin
      */
     public JDialogLogin(java.awt.Frame parent, boolean modal) {
-        super(parent,"LOGIN", modal);
+        super(parent, "LOGIN", modal);
         initComponents();
-        
+
         setIconImage(new ImageIcon("img/llave.png").getImage());
         imagen = new ImageIcon("img/candado.png");
+        imagen2 = new ImageIcon("img/abierto.png");
+        imagen3 = new ImageIcon("img/cerrado.png");
         jLabelImagen.setIcon(imagen);
         jLabelImagen.setBounds(15, 15, imagen.getIconWidth(), imagen.getIconHeight());
     }
@@ -117,20 +121,18 @@ public class JDialogLogin extends javax.swing.JDialog {
         try {
             String usuario = jTextFieldUsuario.getText().toString();
             char[] passwd = jPasswordFieldPassword.getPassword();
-            String pass=new String(passwd);
-          
+            String pass = new String(passwd);
+
             if (usuario.isEmpty()) {
                 throw new IllegalAccessException();
             }
             if (passwd.length == 0) {
                 throw new ClassNotFoundException();
             }
-            if (usuario.equals("admin")&& pass.equals("admin")) {
-
+            if (usuario.equals("admin") && pass.equals("admin")) {
+                JOptionPane.showMessageDialog(rootPane, "Has ingresado satisfactoriamente al sistema",
+                        "BIENVENIDO", JOptionPane.PLAIN_MESSAGE, imagen2);
                 this.dispose();
-                JOptionPane.showMessageDialog(null, "Bienvenido\n Has ingresado "
-                    + "satisfactoriamente al sistema", "Mensaje de bienvenida",
-                    JOptionPane.INFORMATION_MESSAGE);
                 jf = new JFrameTaller();
                 jf.setVisible(true);
             } else {
@@ -138,13 +140,13 @@ public class JDialogLogin extends javax.swing.JDialog {
             }
         } catch (IllegalAccessException e) {
             JOptionPane.showMessageDialog(rootPane, "El campo usuario no puede estar vacio",
-                "Error", JOptionPane.WARNING_MESSAGE);
+                    "ERROR", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(rootPane, "La contraseña no puede estar vacia",
-                "Error", JOptionPane.WARNING_MESSAGE);
+                    "ERROR", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Acceso denegado",
-                "Error", JOptionPane.ERROR_MESSAGE);
+                    "ERROR", JOptionPane.PLAIN_MESSAGE, imagen3);
             System.exit(0);
 
         }

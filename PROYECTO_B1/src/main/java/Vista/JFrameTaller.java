@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class JFrameTaller extends javax.swing.JFrame {
 
-    ImageIcon imagen, imagen2,imagen3,imagen4;
+    ImageIcon imagen, imagen2,imagen3,imagen4,imagen5,imagen6,imagen7,imagen8;
 
     /**
      * Creates new form JFrameTaller
@@ -31,20 +31,39 @@ public class JFrameTaller extends javax.swing.JFrame {
         //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/taller.png").getImage());
         //Añadimos una imagen al formulario
-        imagen = new ImageIcon("img/corporativa.png");
+        imagen = new ImageIcon("img/centro.png");
         jLabelImagen.setIcon(imagen);
         jLabelImagen.setBounds(150, 150, imagen.getIconWidth(), imagen.getIconHeight());
         imagen2 = new ImageIcon("img/claro.jpg");
-        jLabelFondo.setIcon(imagen2);
-        jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
         imagen3= new ImageIcon("img/oscuro.jpg");
         imagen4= new ImageIcon("img/rueda.png");
+        imagen5= new ImageIcon("img/clientes.png");
+        imagen6= new ImageIcon("img/vehiculos.png");
+        imagen7= new ImageIcon("img/reparaciones.png");
+        imagen8= new ImageIcon("img/solluna.png");
+        jLabelFondo.setIcon(imagen2);
+        jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
         jLabelRueda1.setIcon(imagen4);
         jLabelRueda1.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
         jLabelRueda2.setIcon(imagen4);
         jLabelRueda2.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
+        jLabelBotonClientes.setIcon(imagen5);
+        jLabelBotonClientes.setBounds(150, 150, imagen5.getIconWidth(), imagen5.getIconHeight());
+        jLabelBotonVehiculos.setIcon(imagen6);
+        jLabelBotonVehiculos.setBounds(150, 150, imagen6.getIconWidth(), imagen6.getIconHeight());
+        jLabelBotonReparaciones.setIcon(imagen7);
+        jLabelBotonReparaciones.setBounds(150, 150, imagen7.getIconWidth(), imagen7.getIconHeight());
+       
+        jToggleButtonDiaNoche.setIcon(imagen8);
+        
+        
     }
 
+    /**
+     *  
+      
+     */
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,14 +74,18 @@ public class JFrameTaller extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jToggleButtonDiaNoche = new javax.swing.JToggleButton();
+        jPanelTitulo = new javax.swing.JPanel();
         jLabelRueda1 = new javax.swing.JLabel();
         jLabelTitulo1 = new javax.swing.JLabel();
         jLabelTitulo2 = new javax.swing.JLabel();
         jLabelRueda2 = new javax.swing.JLabel();
+        jPanelBotones = new javax.swing.JPanel();
+        jLabelBotonClientes = new javax.swing.JLabel();
+        jLabelBotonReparaciones = new javax.swing.JLabel();
+        jLabelBotonVehiculos = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jToggleButtonDiaNoche = new javax.swing.JToggleButton();
         jLabelImagen = new javax.swing.JLabel();
         jLabelFondo = new javax.swing.JLabel();
 
@@ -76,26 +99,63 @@ public class JFrameTaller extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(600, 400));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+        jToggleButtonDiaNoche.setAlignmentY(0.0F);
+        jToggleButtonDiaNoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonDiaNocheActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButtonDiaNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 360, 70, 30));
+
+        jPanelTitulo.setOpaque(false);
+        jPanelTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabelRueda1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel2.add(jLabelRueda1);
+        jPanelTitulo.add(jLabelRueda1);
 
         jLabelTitulo1.setFont(new java.awt.Font("Rockwell Condensed", 1, 36)); // NOI18N
         jLabelTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo1.setText("Talleres");
-        jPanel2.add(jLabelTitulo1);
+        jPanelTitulo.add(jLabelTitulo1);
 
         jLabelTitulo2.setFont(new java.awt.Font("Rockwell Condensed", 1, 36)); // NOI18N
         jLabelTitulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo2.setText("Fitipaldi");
-        jPanel2.add(jLabelTitulo2);
+        jPanelTitulo.add(jLabelTitulo2);
 
         jLabelRueda2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel2.add(jLabelRueda2);
+        jPanelTitulo.add(jLabelRueda2);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 600, 60));
+        jPanel1.add(jPanelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 600, 60));
+
+        jPanelBotones.setOpaque(false);
+        jPanelBotones.setLayout(new java.awt.GridLayout());
+
+        jLabelBotonClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelBotonClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBotonClientesMouseClicked(evt);
+            }
+        });
+        jPanelBotones.add(jLabelBotonClientes);
+
+        jLabelBotonReparaciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBotonReparaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBotonReparacionesMouseClicked(evt);
+            }
+        });
+        jPanelBotones.add(jLabelBotonReparaciones);
+
+        jLabelBotonVehiculos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelBotonVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBotonVehiculosMouseClicked(evt);
+            }
+        });
+        jPanelBotones.add(jLabelBotonVehiculos);
+
+        jPanel1.add(jPanelBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 350, 80));
 
         jSeparator3.setBackground(new java.awt.Color(204, 0, 0));
         jSeparator3.setForeground(new java.awt.Color(255, 0, 0));
@@ -106,15 +166,7 @@ public class JFrameTaller extends javax.swing.JFrame {
         jSeparator4.setForeground(new java.awt.Color(255, 0, 0));
         jSeparator4.setOpaque(true);
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 600, -1));
-
-        jToggleButtonDiaNoche.setText("Modo nocturno");
-        jToggleButtonDiaNoche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonDiaNocheActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jToggleButtonDiaNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, -1, -1));
-        jPanel1.add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 260, 200));
+        jPanel1.add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 260, 200));
 
         jLabelFondo.setOpaque(true);
         jPanel1.add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
@@ -133,27 +185,41 @@ public class JFrameTaller extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabelBotonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonClientesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelBotonClientesMouseClicked
+
+    private void jLabelBotonReparacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonReparacionesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelBotonReparacionesMouseClicked
+
+    private void jLabelBotonVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonVehiculosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelBotonVehiculosMouseClicked
+
     private void jToggleButtonDiaNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDiaNocheActionPerformed
-      
         if (jToggleButtonDiaNoche.isSelected()) {
-            jToggleButtonDiaNoche.setText("Modo diurno");
+           
             jLabelFondo.setIcon(imagen3);
             jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
             jLabelTitulo1.setForeground(white);
             jLabelTitulo2.setForeground(white);
-            
+             
         }else{
-            jToggleButtonDiaNoche.setText("Modo nocturno");
+           
             jLabelFondo.setIcon(imagen2);
             jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
             jLabelTitulo1.setForeground(black);
             jLabelTitulo2.setForeground(black);
+            
         }
-
     }//GEN-LAST:event_jToggleButtonDiaNocheActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelBotonClientes;
+    private javax.swing.JLabel jLabelBotonReparaciones;
+    private javax.swing.JLabel jLabelBotonVehiculos;
     private javax.swing.JLabel jLabelFondo;
     private javax.swing.JLabel jLabelImagen;
     private javax.swing.JLabel jLabelRueda1;
@@ -161,7 +227,8 @@ public class JFrameTaller extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitulo1;
     private javax.swing.JLabel jLabelTitulo2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelBotones;
+    private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JToggleButton jToggleButtonDiaNoche;
