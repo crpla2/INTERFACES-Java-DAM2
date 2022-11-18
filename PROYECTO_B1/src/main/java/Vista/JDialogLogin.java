@@ -147,6 +147,7 @@ public class JDialogLogin extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Acceso denegado",
                     "ERROR", JOptionPane.PLAIN_MESSAGE, imagen3);
+           
             System.exit(0);
 
         }

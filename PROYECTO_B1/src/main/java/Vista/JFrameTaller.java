@@ -38,40 +38,36 @@ public class JFrameTaller extends javax.swing.JFrame {
         initComponents();
         //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());
-        //Añadimos una imagen al formulario
-        imagen = new ImageIcon("img/centro.png");       
-        imagen2 = new ImageIcon("img/claro.jpg");
-        imagen3= new ImageIcon("img/oscuro.jpg");
-        imagen4= new ImageIcon("img/rueda.png");
-        imagen5= new ImageIcon("img/clientes.png");
-        imagen6= new ImageIcon("img/vehiculos.png");
-        imagen7= new ImageIcon("img/reparaciones.png");
-        imagen8= new ImageIcon("img/solluna.png");
-        jLabelImagen.setIcon(imagen);
-        jLabelImagen.setBounds(150, 150, imagen.getIconWidth(), imagen.getIconHeight());
-        jLabelFondo.setIcon(imagen2);
-        jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
-        jLabelRueda1.setIcon(imagen4);
-        jLabelRueda1.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
-        jLabelRueda2.setIcon(imagen4);
-        jLabelRueda2.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
-        jLabelBotonClientes.setIcon(imagen5);
-        jLabelBotonClientes.setBounds(150, 150, imagen5.getIconWidth(), imagen5.getIconHeight());
-        jLabelBotonVehiculos.setIcon(imagen6);
-        jLabelBotonVehiculos.setBounds(150, 150, imagen6.getIconWidth(), imagen6.getIconHeight());
-        jLabelBotonReparaciones.setIcon(imagen7);
-        jLabelBotonReparaciones.setBounds(150, 150, imagen7.getIconWidth(), imagen7.getIconHeight());
-        jToggleButtonDiaNoche.setIcon(imagen8);
-        jToggleButtonDiaNoche.setBounds(150, 150, imagen8.getIconWidth(), imagen8.getIconHeight());
+        //Añadimos las imagenes a una lista
+        listaimagenes= new ArrayList<>();
+        listaimagenes.add(new ImageIcon("img/claro.jpg"));
+        listaimagenes.add(new ImageIcon("img/centro.png"));             
+        listaimagenes.add( new ImageIcon("img/rueda.png"));
+        listaimagenes.add( new ImageIcon("img/clientes.png"));
+        listaimagenes.add( new ImageIcon("img/vehiculos.png"));
+        listaimagenes.add( new ImageIcon("img/reparaciones.png"));
+        //
+        listaimagenes.add( new ImageIcon("img/oscuro.jpg"));
+        listaimagenes.add( new ImageIcon("img/solluna.png"));
+        //Añadimos los jlabel a una lista
+        listaJLabel= new ArrayList<>();
+        listaJLabel.add(jLabelFondo);
+        listaJLabel.add(jLabelImagen);
+        listaJLabel.add(jLabelRueda1);
+        listaJLabel.add(jLabelBotonClientes);
+        listaJLabel.add(jLabelBotonVehiculos);
+        listaJLabel.add(jLabelBotonReparaciones);            
+        for(int i=0;i<listaJLabel.size();i++){
+            listaJLabel.get(i).setIcon(listaimagenes.get(i));
+            listaJLabel.get(i).setBounds(150, 150, listaimagenes.get(i).getIconWidth(), listaimagenes.get(i).getIconHeight());
+        }
+        jLabelRueda2.setIcon(listaimagenes.get(2));
+        jLabelRueda2.setBounds(150, 150, listaimagenes.get(2).getIconWidth(), listaimagenes.get(2).getIconHeight());
+        jToggleButtonDiaNoche.setIcon(listaimagenes.get(7));
+        jToggleButtonDiaNoche.setBounds(150, 150, listaimagenes.get(7).getIconWidth(), listaimagenes.get(7).getIconHeight());
        
         
     }
-
-    /**
-     *  
-      
-     */
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -210,14 +206,14 @@ public class JFrameTaller extends javax.swing.JFrame {
 
     private void jToggleButtonDiaNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDiaNocheActionPerformed
         if (jToggleButtonDiaNoche.isSelected()) {
-            jLabelFondo.setIcon(imagen3);
-            jLabelFondo.setBounds(150, 150, imagen3.getIconWidth(), imagen3.getIconHeight());
+            listaJLabel.get(0).setIcon(listaimagenes.get(6));
+            listaJLabel.get(0).setBounds(150, 150, listaimagenes.get(6).getIconWidth(), listaimagenes.get(6).getIconHeight());
             jLabelTitulo1.setForeground(white);
             jLabelTitulo2.setForeground(white);  
             dia=false;
         }else{
-            jLabelFondo.setIcon(imagen2);
-            jLabelFondo.setBounds(150, 150, imagen2.getIconWidth(), imagen2.getIconHeight());
+           listaJLabel.get(0).setIcon(listaimagenes.get(0));
+            listaJLabel.get(0).setBounds(150, 150, listaimagenes.get(0).getIconWidth(), listaimagenes.get(0).getIconHeight());
             jLabelTitulo1.setForeground(black);
             jLabelTitulo2.setForeground(black);
             dia=true;
