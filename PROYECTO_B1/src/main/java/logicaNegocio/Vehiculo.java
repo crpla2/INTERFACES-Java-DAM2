@@ -14,13 +14,13 @@ class Vehiculo {
 
     private String matricula;
     private String modelo;
-    private char tipo;
-    public static final char TIPO_TURISMO = 't';
-    public static final char TIPO_FURGONETA = 'f';
-    public static final char TIPO_MOTOCICLETA = 'm';
+    private String tipo;
+    public static final String TIPO_TURISMO = "Turismo";
+    public static final String TIPO_FURGONETA = "Furgoneta";
+    public static final String TIPO_MOTOCICLETA = "Motocicleta";
     private boolean enReparacion;
 
-    public Vehiculo(String matricula, String modelo, char tipo, boolean enReparacion) {
+    public Vehiculo(String matricula, String modelo, String tipo, boolean enReparacion) {
 
         this.matricula = matricula;
         this.modelo = modelo;
@@ -44,11 +44,11 @@ class Vehiculo {
         this.modelo = modelo;
     }
 
-    public char getTipo() {
+    public String getTipo() {
         return this.tipo;
     }
 
-    public void setTipo(char tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

@@ -4,6 +4,7 @@
  */
 package logicaNegocio;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -23,7 +24,7 @@ public class ParteReparacion {
     private Date fechaSalida;
     private double cuantiaReparacion;
     private String tipoAveria;
-
+    
     /**
      * Crea un parte de reparacion a partir de los parametros pasados.
      *

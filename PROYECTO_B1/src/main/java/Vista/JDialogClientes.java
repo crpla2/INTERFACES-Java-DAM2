@@ -5,35 +5,63 @@
 package Vista;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author carlo
  */
 public class JDialogClientes extends javax.swing.JDialog {
+
     boolean dia;
     JFrameTaller jf;
-    ArrayList<JLabel>listaEtiq;
+    ArrayList<JLabel> listaEtiq;
+    ArrayList<JTextField> listaTex;
+    ImageIcon icono;
+
     /**
      * Creates new form JDialogClientes
      */
     public JDialogClientes(java.awt.Frame parent, boolean modal) {
-        super(parent,"CLIENTES", modal);
-        jf=(JFrameTaller)parent;
+        super(parent, "CLIENTES", modal);
+        jf = (JFrameTaller) parent;
         initComponents();
-        dia=jf.dia;
-        if(dia)jPanelFondo.setBackground(Color.lightGray);
-        else jPanelFondo.setBackground(Color.darkGray);
-        
-        listaEtiq= new ArrayList<>();
-        String[]etiquetas={"Primer Apellido:","Segundo apellido:","Nombre: ","Dirección:","DNI:","Teléfono:"};
+        dia = jf.dia;
+       
+        jLabelIcono1.setIcon(new ImageIcon("img/clientes.png"));
+        jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
+        jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
+        jLabelBotonActualiza.setIcon(new ImageIcon("img/actualizar.png"));
+        //Añadir etiquetas y jlabels
+        listaEtiq = new ArrayList<>();
+        listaTex = new ArrayList<>();
+        String[] etiquetas = {"Primer Apellido:", "Segundo apellido:", "Nombre: ", "Dirección:", "DNI:", "Teléfono:"};
         for (int i = 0; i < etiquetas.length; i++) {
-            jPanelTF.add(new JLabel(etiquetas[i]));
-            jPanelTF.add(new JTextField());
-            
+            JLabel jl = new JLabel(etiquetas[i]);
+            JTextField jt = new JTextField();
+            listaEtiq.add(jl);
+            listaTex.add(jt);
+            jPanelTF.add(jl);
+            jPanelTF.add(jt);
+        }
+        //modificar fuente etiquetas
+        listaEtiq.forEach(x -> {
+            x.setFont(new Font(Font.SERIF, Font.PLAIN, 18));
+        });
+
+        if (dia) {
+            jPanelFondo.setBackground(Color.lightGray);
+            listaEtiq.forEach(x->x.setForeground(Color.black));
+            jLabelTitulo.setForeground(Color.black);
+        } else {
+            jPanelFondo.setBackground(Color.darkGray);
+            listaEtiq.forEach(x->x.setForeground(Color.white));
+            jLabelTitulo.setForeground(Color.white);
         }
     }
 
@@ -46,47 +74,98 @@ public class JDialogClientes extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanelTF = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jPanelFondo = new javax.swing.JPanel();
+        jPanelbotones = new javax.swing.JPanel();
+        jLabelBotonNuevo = new javax.swing.JLabel();
+        jLabelBotonActualiza = new javax.swing.JLabel();
+        jLabelBotonBorra = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanelTitulo = new javax.swing.JPanel();
+        jLabelIcono1 = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabelIcono2 = new javax.swing.JLabel();
+        jPanelTF = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanelFondo.setBackground(new java.awt.Color(204, 204, 204));
+
+        jPanelbotones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelbotones.setOpaque(false);
+        jPanelbotones.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabelBotonNuevo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanelbotones.add(jLabelBotonNuevo);
+
+        jLabelBotonActualiza.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanelbotones.add(jLabelBotonActualiza);
+
+        jLabelBotonBorra.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanelbotones.add(jLabelBotonBorra);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 620, 30));
+
+        jPanelTitulo.setOpaque(false);
+        jPanelTitulo.setLayout(new java.awt.GridLayout());
+
+        jLabelIcono1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanelTitulo.add(jLabelIcono1);
+
+        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("Clientes");
+        jPanelTitulo.add(jLabelTitulo);
+
+        jLabelIcono2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanelTitulo.add(jLabelIcono2);
 
         jPanelTF.setOpaque(false);
         jPanelTF.setLayout(new java.awt.GridLayout(3, 2, 3, 0));
-        getContentPane().add(jPanelTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 610, 130));
-
-        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
-
-        jButton1.setText("jButton1");
-        jPanel1.add(jButton1);
-
-        jButton2.setText("jButton2");
-        jPanel1.add(jButton2);
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 630, 100));
-
-        jPanelFondo.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, 590, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+            .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
+                    .addContainerGap(165, Short.MAX_VALUE)
+                    .addComponent(jPanelbotones, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(165, Short.MAX_VALUE)))
         );
         jPanelFondoLayout.setVerticalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jPanelTF, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150))
+            .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
+                    .addContainerGap(303, Short.MAX_VALUE)
+                    .addComponent(jPanelbotones, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)))
         );
 
-        getContentPane().add(jPanelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 390));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -96,11 +175,16 @@ public class JDialogClientes extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabelBotonActualiza;
+    private javax.swing.JLabel jLabelBotonBorra;
+    private javax.swing.JLabel jLabelBotonNuevo;
+    private javax.swing.JLabel jLabelIcono1;
+    private javax.swing.JLabel jLabelIcono2;
+    private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelTF;
+    private javax.swing.JPanel jPanelTitulo;
+    private javax.swing.JPanel jPanelbotones;
     // End of variables declaration//GEN-END:variables
 }
