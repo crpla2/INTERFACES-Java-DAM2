@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import logicaNegocio.Taller;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -23,6 +24,7 @@ import javax.swing.JPanel;
  * @author carlo
  */
 public class JFrameTaller extends javax.swing.JFrame {
+    Taller taller;
     boolean dia=true;
     JDialogClientes jdc;
     JDialogReparaciones jdr;
@@ -36,6 +38,7 @@ public class JFrameTaller extends javax.swing.JFrame {
     public JFrameTaller() {
         super("TALLERES FITIPALDI");
         initComponents();
+        taller= new Taller();
         //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());
         //Añadimos las imagenes a una lista

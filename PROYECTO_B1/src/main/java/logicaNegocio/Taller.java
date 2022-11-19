@@ -58,9 +58,9 @@ public class Taller {
     }
 
   
-    public boolean addVehiculo(String matricula, String modelo, String tipo, boolean enReparacion) {
+    public boolean addVehiculo(String matricula,String marca, String modelo, String tipo, boolean enReparacion) {
         if (getVehiculo(matricula) == null) {
-            return listaVehiculo.add(new Vehiculo(matricula, modelo, tipo,enReparacion));
+            return listaVehiculo.add(new Vehiculo(matricula,marca, modelo, tipo,enReparacion));
            
         }
 

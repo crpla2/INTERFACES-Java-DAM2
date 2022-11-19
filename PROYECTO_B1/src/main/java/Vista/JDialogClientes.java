@@ -11,13 +11,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import logicaNegocio.Taller;
 
 /**
  *
  * @author carlo
  */
 public class JDialogClientes extends javax.swing.JDialog {
-
+    Taller taller;
     boolean dia;
     JFrameTaller jf;
     ArrayList<JLabel> listaEtiq;
@@ -33,6 +34,7 @@ public class JDialogClientes extends javax.swing.JDialog {
         initComponents();
         dia = jf.dia;
        
+        taller=jf.taller;
         jLabelIcono1.setIcon(new ImageIcon("img/clientes.png"));
         jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
@@ -95,18 +97,33 @@ public class JDialogClientes extends javax.swing.JDialog {
         jPanelbotones.setLayout(new java.awt.GridLayout(1, 2));
 
         jLabelBotonNuevo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelBotonNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBotonNuevoMouseClicked(evt);
+            }
+        });
         jPanelbotones.add(jLabelBotonNuevo);
 
         jLabelBotonActualiza.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBotonActualiza.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBotonActualizaMouseClicked(evt);
+            }
+        });
         jPanelbotones.add(jLabelBotonActualiza);
 
         jLabelBotonBorra.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelBotonBorra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBotonBorraMouseClicked(evt);
+            }
+        });
         jPanelbotones.add(jLabelBotonBorra);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jPanelTitulo.setOpaque(false);
-        jPanelTitulo.setLayout(new java.awt.GridLayout());
+        jPanelTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabelIcono1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanelTitulo.add(jLabelIcono1);
@@ -170,6 +187,18 @@ public class JDialogClientes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabelBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonNuevoMouseClicked
+        taller.addCliente(nombre, apellidos, direccion, dni, telefono)
+    }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
+
+    private void jLabelBotonActualizaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonActualizaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelBotonActualizaMouseClicked
+
+    private void jLabelBotonBorraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonBorraMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelBotonBorraMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -182,7 +211,7 @@ public class JDialogClientes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelIcono1;
     private javax.swing.JLabel jLabelIcono2;
     private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JPanel jPanelFondo;
+    protected javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelTF;
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JPanel jPanelbotones;

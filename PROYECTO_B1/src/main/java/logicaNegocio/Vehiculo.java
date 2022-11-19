@@ -10,19 +10,21 @@ import java.util.Date;
  *
  * @author carlo
  */
-class Vehiculo {
+public class Vehiculo {
 
     private String matricula;
+    private String marca;
     private String modelo;
     private String tipo;
-    public static final String TIPO_TURISMO = "Turismo";
-    public static final String TIPO_FURGONETA = "Furgoneta";
-    public static final String TIPO_MOTOCICLETA = "Motocicleta";
+    public static final String TIPO_TURISMO = "TURISMO";
+    public static final String TIPO_FURGONETA = "FURGONETA";
+    public static final String TIPO_MOTOCICLETA = "MOTOCICLETA";
     private boolean enReparacion;
 
-    public Vehiculo(String matricula, String modelo, String tipo, boolean enReparacion) {
+    public Vehiculo(String matricula,String marca, String modelo, String tipo, boolean enReparacion) {
 
         this.matricula = matricula;
+         this.marca = marca;
         this.modelo = modelo;
         this.tipo = tipo;
         this.enReparacion = enReparacion;
@@ -36,6 +38,14 @@ class Vehiculo {
         this.matricula = matricula;
     }
 
+    public String getMarca() {
+        return this.marca;
+    }
+
+    public void setMarca(String modelo) {
+        this.modelo = marca;
+    }
+    
     public String getModelo() {
         return this.modelo;
     }

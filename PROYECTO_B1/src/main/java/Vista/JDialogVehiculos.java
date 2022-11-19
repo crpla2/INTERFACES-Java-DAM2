@@ -9,12 +9,16 @@ import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import logicaNegocio.Taller;
+import logicaNegocio.Vehiculo;
 
 /**
  *
@@ -22,11 +26,12 @@ import javax.swing.table.TableRowSorter;
  */
 public class JDialogVehiculos extends javax.swing.JDialog {
 
+    Taller taller;
     boolean dia;
     JFrameTaller jf;
     JDialogFORMvehiculo jdf;
     DefaultTableModel dtm;
-    String cabecera[] = {"Matricula", "Modelo", "Tipo", "En reparación"};
+    String cabecera[] = {"Matricula", "Marca", "Modelo", "Tipo", "En reparación"};
     TableRowSorter<TableModel> order;
     ArrayList<RowSorter.SortKey> keys;
 
@@ -38,7 +43,9 @@ public class JDialogVehiculos extends javax.swing.JDialog {
         jf = (JFrameTaller) parent;
         initComponents();
         dia = jf.dia;
-
+        taller = new Taller();
+        taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false);
+        taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false);
         jLabelIcono1.setIcon(new ImageIcon("img/vehiculos.png"));
         jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
@@ -61,6 +68,12 @@ public class JDialogVehiculos extends javax.swing.JDialog {
         };
         jTableTabla.setModel(dtm);
 
+        order = new TableRowSorter<TableModel>(dtm);
+        jTableTabla.setRowSorter(order);
+        keys = new ArrayList<RowSorter.SortKey>();
+        keys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        order.setSortKeys(keys);
+        actualiza();
     }
 
     /**
@@ -193,12 +206,24 @@ public class JDialogVehiculos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonNuevoMouseClicked
-       jdf= new JDialogFORMvehiculo(this, true);
-       jdf.setVisible(true);
+        jdf = new JDialogFORMvehiculo(this, true);
+        jdf.setVisible(true);
     }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
 
     private void jLabelBotonBorraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonBorraMouseClicked
-        // TODO add your handling code here:
+        try {
+            if(dtm.getRowCount()==0)throw  new IllegalAccessException();
+            if (jTableTabla.getSelectedRow()<0)throw  new Exception();
+             String matricula = dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString();
+        taller.getListaVehiculo().remove(taller.getVehiculo(matricula));
+        dtm.removeRow(jTableTabla.getSelectedRow());
+        } catch (IllegalAccessException e) {
+             JOptionPane.showMessageDialog(null, "Tabla vacia","ERROR",JOptionPane.ERROR_MESSAGE);
+        }catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+       
+        
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
     /**
@@ -218,4 +243,24 @@ public class JDialogVehiculos extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTabla;
     // End of variables declaration//GEN-END:variables
+
+    void anadeVehiculo(Vehiculo v) {
+        taller.addVehiculo(v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), v.getEnReparacion());
+        actualiza();
+    }
+
+    private void actualiza() {
+        String s;
+        jTableTabla.removeAll();
+        for (Vehiculo v : taller.getListaVehiculo()) {
+            if (v.getEnReparacion()) {
+                s = "SI";
+            } else {
+                s = "NO";
+            }
+            String[] campos = {v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), s};
+            dtm.addRow(campos);
+        }
+
+    }
 }
