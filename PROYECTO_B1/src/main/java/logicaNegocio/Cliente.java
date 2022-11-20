@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package logicaNegocio;
 
 /**
@@ -67,7 +64,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return apellidos+", "+nombre+"\t|\t"+telefono+"\t|\t"+direccion+"\t|\t"+dni; 
+        return nombre+", "+apellidos+" | DNI: "+dni+ " | Telefono: "+telefono+" | Dirección: "+direccion; 
     }
     
 }

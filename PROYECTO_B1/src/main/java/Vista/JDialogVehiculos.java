@@ -52,11 +52,9 @@ public class JDialogVehiculos extends javax.swing.JDialog {
 
         if (dia) {
             jPanelFondo.setBackground(Color.lightGray);
-
             jLabelTitulo.setForeground(Color.black);
         } else {
             jPanelFondo.setBackground(Color.darkGray);
-
             jLabelTitulo.setForeground(Color.white);
         }
 
@@ -66,14 +64,14 @@ public class JDialogVehiculos extends javax.swing.JDialog {
                 return false;
             }
         };
-        jTableTabla.setModel(dtm);
-
         order = new TableRowSorter<TableModel>(dtm);
         jTableTabla.setRowSorter(order);
-        keys = new ArrayList<RowSorter.SortKey>();
+        keys = new ArrayList<>();
         keys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         order.setSortKeys(keys);
         actualiza();
+       
+
     }
 
     /**
@@ -212,18 +210,22 @@ public class JDialogVehiculos extends javax.swing.JDialog {
 
     private void jLabelBotonBorraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonBorraMouseClicked
         try {
-            if(dtm.getRowCount()==0)throw  new IllegalAccessException();
-            if (jTableTabla.getSelectedRow()<0)throw  new Exception();
-             String matricula = dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString();
-        taller.getListaVehiculo().remove(taller.getVehiculo(matricula));
-        dtm.removeRow(jTableTabla.getSelectedRow());
+            if (dtm.getRowCount() == 0) {
+                throw new IllegalAccessException();
+            }
+            if (jTableTabla.getSelectedRow() < 0) {
+                throw new Exception();
+            }
+            String matricula = dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString();
+            taller.getListaVehiculo().remove(taller.getVehiculo(matricula));
+            dtm.removeRow(jTableTabla.getSelectedRow());
         } catch (IllegalAccessException e) {
-             JOptionPane.showMessageDialog(null, "Tabla vacia","ERROR",JOptionPane.ERROR_MESSAGE);
-        }catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada","ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Tabla vacia", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-       
-        
+
+
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
     /**
@@ -245,13 +247,19 @@ public class JDialogVehiculos extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     void anadeVehiculo(Vehiculo v) {
+        String s;
+        if (v.getEnReparacion()) {
+            s = "SI";
+        } else {
+            s = "NO";
+        }
         taller.addVehiculo(v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), v.getEnReparacion());
         actualiza();
     }
 
     private void actualiza() {
         String s;
-        jTableTabla.removeAll();
+        dtm.setRowCount(0);
         for (Vehiculo v : taller.getListaVehiculo()) {
             if (v.getEnReparacion()) {
                 s = "SI";
@@ -261,6 +269,7 @@ public class JDialogVehiculos extends javax.swing.JDialog {
             String[] campos = {v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), s};
             dtm.addRow(campos);
         }
+         jTableTabla.setModel(dtm);
 
     }
 }

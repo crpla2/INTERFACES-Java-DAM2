@@ -6,11 +6,15 @@ package Vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import logicaNegocio.Cliente;
 import logicaNegocio.Taller;
 
 /**
@@ -18,11 +22,13 @@ import logicaNegocio.Taller;
  * @author carlo
  */
 public class JDialogClientes extends javax.swing.JDialog {
+
     Taller taller;
     boolean dia;
     JFrameTaller jf;
     ArrayList<JLabel> listaEtiq;
     ArrayList<JTextField> listaTex;
+    DefaultComboBoxModel dom;
     ImageIcon icono;
 
     /**
@@ -33,8 +39,8 @@ public class JDialogClientes extends javax.swing.JDialog {
         jf = (JFrameTaller) parent;
         initComponents();
         dia = jf.dia;
-       
-        taller=jf.taller;
+
+        taller = jf.taller;
         jLabelIcono1.setIcon(new ImageIcon("img/clientes.png"));
         jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
@@ -58,13 +64,34 @@ public class JDialogClientes extends javax.swing.JDialog {
 
         if (dia) {
             jPanelFondo.setBackground(Color.lightGray);
-            listaEtiq.forEach(x->x.setForeground(Color.black));
+            listaEtiq.forEach(x -> x.setForeground(Color.black));
             jLabelTitulo.setForeground(Color.black);
         } else {
             jPanelFondo.setBackground(Color.darkGray);
-            listaEtiq.forEach(x->x.setForeground(Color.white));
+            listaEtiq.forEach(x -> x.setForeground(Color.white));
             jLabelTitulo.setForeground(Color.white);
         }
+
+        actualiza();
+                //NO FUNCIONA!!!
+        listaTex.get(listaTex.size()-1).addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    actualiza();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+
+        });
+
     }
 
     /**
@@ -81,7 +108,7 @@ public class JDialogClientes extends javax.swing.JDialog {
         jLabelBotonNuevo = new javax.swing.JLabel();
         jLabelBotonActualiza = new javax.swing.JLabel();
         jLabelBotonBorra = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxClientes = new javax.swing.JComboBox<>();
         jPanelTitulo = new javax.swing.JPanel();
         jLabelIcono1 = new javax.swing.JLabel();
         jLabelTitulo = new javax.swing.JLabel();
@@ -120,7 +147,12 @@ public class JDialogClientes extends javax.swing.JDialog {
         });
         jPanelbotones.add(jLabelBotonBorra);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxClientesActionPerformed(evt);
+            }
+        });
 
         jPanelTitulo.setOpaque(false);
         jPanelTitulo.setLayout(new java.awt.GridLayout(1, 0));
@@ -143,13 +175,15 @@ public class JDialogClientes extends javax.swing.JDialog {
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelFondoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, 590, Short.MAX_VALUE))
+                .addComponent(jPanelTF, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+            .addGroup(jPanelFondoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
                     .addContainerGap(165, Short.MAX_VALUE)
@@ -162,7 +196,7 @@ public class JDialogClientes extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jPanelTF, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(150, 150, 150))
@@ -188,23 +222,45 @@ public class JDialogClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonNuevoMouseClicked
-        taller.addCliente(nombre, apellidos, direccion, dni, telefono)
+
+        for (JTextField c : listaTex) {
+            int i = 0;
+            String s = listaTex.get(i).getText() + " " + listaTex.get(i + 1).getText();
+            taller.addCliente(s, listaTex.get(i + 2).getText(), listaTex.get(i + 3).getText(), listaTex.get(i + 4).getText(), listaTex.get(i + 5).getText());
+            i++;
+        }
+        actualiza();
+        for (JTextField j : listaTex)
+            j.setText("");
     }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
 
     private void jLabelBotonActualizaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonActualizaMouseClicked
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jLabelBotonActualizaMouseClicked
 
     private void jLabelBotonBorraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonBorraMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
+    private void jComboBoxClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxClientesActionPerformed
+        String[] str=dom.getSelectedItem().toString().split(" ");
+        for (int i =0; i<str.length;i++){
+        System.out.println(str[i]);}        //AQUI ME HE QUEDADO!!!
+    }//GEN-LAST:event_jComboBoxClientesActionPerformed
+    private void actualiza() {
+        dom = new DefaultComboBoxModel();
+        dom.removeAllElements();
+        for (Cliente c : taller.getListaCliente()) {
+            dom.addElement(c.toString());
+        }
+        jComboBoxClientes.setModel(dom);
+    }
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxClientes;
     private javax.swing.JLabel jLabelBotonActualiza;
     private javax.swing.JLabel jLabelBotonBorra;
     private javax.swing.JLabel jLabelBotonNuevo;
@@ -216,4 +272,5 @@ public class JDialogClientes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JPanel jPanelbotones;
     // End of variables declaration//GEN-END:variables
+
 }

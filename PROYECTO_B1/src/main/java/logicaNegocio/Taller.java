@@ -5,6 +5,8 @@
 package logicaNegocio;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -54,6 +56,12 @@ public class Taller {
 
    
     public ArrayList<Cliente> getListaCliente() {
+        Collections.sort(listaCliente,new Comparator<Cliente>(){
+            @Override
+            public int compare(Cliente o1, Cliente o2) {
+               return o1.getApellidos().compareTo(o2.getApellidos());}
+            
+        });
         return this.listaCliente;
     }
 
@@ -84,7 +92,12 @@ public class Taller {
 
     
     public ArrayList<Vehiculo> getListaVehiculo() {
-        
+        Collections.sort(listaVehiculo,new Comparator<Vehiculo>(){
+            @Override
+            public int compare(Vehiculo o1, Vehiculo o2) {
+               return o1.getMarca().compareTo(o2.getMarca());}
+            
+        });
         return this.listaVehiculo;
     }
 
