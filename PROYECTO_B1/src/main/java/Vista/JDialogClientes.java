@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import com.sun.org.apache.bcel.internal.classfile.ClassFormatException;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import logicaNegocio.Cliente;
@@ -30,6 +32,7 @@ public class JDialogClientes extends javax.swing.JDialog {
     ArrayList<JTextField> listaTex;
     DefaultComboBoxModel dom;
     ImageIcon icono;
+    Cliente clienteSeleccionado;
 
     /**
      * Creates new form JDialogClientes
@@ -39,8 +42,9 @@ public class JDialogClientes extends javax.swing.JDialog {
         jf = (JFrameTaller) parent;
         initComponents();
         dia = jf.dia;
-
+        clienteSeleccionado = null;
         taller = jf.taller;
+        taller.addCliente("Carlos", "Rodrigo Pla", "Calle MiCalle 2", "18048688C", "974243494");
         jLabelIcono1.setIcon(new ImageIcon("img/clientes.png"));
         jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
@@ -73,8 +77,8 @@ public class JDialogClientes extends javax.swing.JDialog {
         }
 
         actualiza();
-                //NO FUNCIONA!!!
-        listaTex.get(listaTex.size()-1).addKeyListener(new KeyListener() {
+        //NO FUNCIONA!!!
+        listaTex.get(listaTex.size() - 1).addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
             }
@@ -222,32 +226,53 @@ public class JDialogClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonNuevoMouseClicked
-
-        for (JTextField c : listaTex) {
-            int i = 0;
-            String s = listaTex.get(i).getText() + " " + listaTex.get(i + 1).getText();
-            taller.addCliente(s, listaTex.get(i + 2).getText(), listaTex.get(i + 3).getText(), listaTex.get(i + 4).getText(), listaTex.get(i + 5).getText());
-            i++;
-        }
-        actualiza();
-        for (JTextField j : listaTex)
-            j.setText("");
+        if (inserta())
+            limpia();
     }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
 
     private void jLabelBotonActualizaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonActualizaMouseClicked
-       
+        if (clienteSeleccionado != null) {
+            taller.removeCliente(clienteSeleccionado.getDni());
+            if (inserta()) {
+                actualiza();
+                limpia();
+            }
+            clienteSeleccionado = null;
+        } else
+            JOptionPane.showMessageDialog(null, "Ningun Cliente seleccionado", "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jLabelBotonActualizaMouseClicked
 
     private void jLabelBotonBorraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonBorraMouseClicked
-        // TODO add your handling code here:
+        if (clienteSeleccionado != null) {
+            taller.removeCliente(clienteSeleccionado.getDni());
+            actualiza();
+            limpia();
+            clienteSeleccionado = null;
+        } else
+            JOptionPane.showMessageDialog(null, "Ningun Cliente seleccionado", "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
     private void jComboBoxClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxClientesActionPerformed
-        String[] str=dom.getSelectedItem().toString().split(" ");
-        for (int i =0; i<str.length;i++){
-        System.out.println(str[i]);}        //AQUI ME HE QUEDADO!!!
+        String[] str = dom.getSelectedItem().toString().split(" ");
+        for (int i = 0; i < str.length; i++) {
+            System.out.println(str[i]);
+        }
+        int i = 0;
+        for (Cliente c : taller.getListaCliente()) {
+            if (c.getDni().equals(str[5])) {
+                clienteSeleccionado = c;
+                String[] apellidos = c.getApellidos().split(" ");
+                listaTex.get(0).setText(apellidos[0]);
+                listaTex.get(1).setText(apellidos[1]);
+                listaTex.get(2).setText(c.getNombre());
+                listaTex.get(3).setText(c.getDireccion());
+                listaTex.get(4).setText(c.getDni());
+                listaTex.get(5).setText(c.getTelefono());
+            }
+        }
     }//GEN-LAST:event_jComboBoxClientesActionPerformed
     private void actualiza() {
+        taller.getListaCliente().sort((o1, o2) -> 0);
         dom = new DefaultComboBoxModel();
         dom.removeAllElements();
         for (Cliente c : taller.getListaCliente()) {
@@ -272,5 +297,56 @@ public class JDialogClientes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JPanel jPanelbotones;
     // End of variables declaration//GEN-END:variables
+
+    private boolean inserta() {
+        try {
+
+            if (!listaTex.get(0).getText().matches("[A-Z][a-zA-Z]*")) {
+                throw new ClassCastException();
+            }
+            if (!listaTex.get(1).getText().matches("[A-Z][a-zA-Z]*")) {
+                throw new ClassNotFoundException();
+            }
+            if (!listaTex.get(2).getText().matches("[A-Z][a-zA-Z]*")) {
+                throw new ClassFormatException();
+            }
+            if (!(listaTex.get(4).getText().toUpperCase()).matches("\\d{8}[A-HJ-NP-TV-Z]")) {
+                throw new ArithmeticException();
+            }
+            if (!listaTex.get(5).getText().matches("^?[6789][0-9]{8}$")) {
+                throw new ArrayStoreException();
+            }
+            for (JTextField c : listaTex) {
+                if (c.getText().isEmpty()) {
+                    throw new Exception();
+                }
+            }
+            String s = listaTex.get(0).getText() + " " + listaTex.get(1).getText();
+            return taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(), "+34 " + listaTex.get(5).getText());
+
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "El segundo apellido no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } catch (ClassCastException e) {
+            JOptionPane.showMessageDialog(null, "El primer apellido no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } catch (ArrayStoreException e) {
+            JOptionPane.showMessageDialog(null, "El Teléfono no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } catch (ArithmeticException e) {
+            JOptionPane.showMessageDialog(null, "El DNI no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No ha rellenado todos los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            return false;
+        }
+    }
+
+    private void limpia() {
+        for (JTextField j : listaTex) {
+            j.setText("");
+        }
+    }
 
 }
