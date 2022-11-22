@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import jdk.tools.jlink.resources.jlink;
+import logicaNegocio.ParteReparacion;
 import logicaNegocio.Taller;
 import logicaNegocio.Vehiculo;
 
@@ -28,13 +29,14 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
     Boolean dia;
     ArrayList<JLabel> lista;
     DefaultComboBoxModel dom1;
-       
+    ParteReparacion parte;
+    int codigo;
 
     /**
      * Creates new form JDialogFORMvehiculo
      */
     public JDialogFORMreparacionActualizar(java.awt.Dialog parent, boolean modal) {
-        super(parent, "VEHICULO NUEVO", false);
+        super(parent, "ACTUALIZA ", false);
         jd = (JDialogReparaciones) parent;
         initComponents();
         taller=jd.taller;
@@ -42,26 +44,17 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jLabelIcono.setIcon(new ImageIcon("img/actualizar.png"));
         jLabelBotonCancelar.setIcon(new ImageIcon("img/cancelar.png"));
         jLabelBotonGuardar.setIcon(new ImageIcon("img/guardar.png"));
-        
+        codigo=jd.codigo;
 
         lista = new ArrayList<>();
         lista.add(jLabelTitulo1);
         lista.add(jLabelTitulo2);
         lista.add(jLabelFecha);
         lista.add(jLabelhoras);
-
-        dom1 = new DefaultComboBoxModel();
-        String labels[] = new String[taller.getTodosParte().size()];
-        for (int i = 0; i < taller.getTodosParte().size(); i++) {
-            labels[i]=String.valueOf(taller.getTodosParte().get(i).getCodigo());
-        }
-        dom1.removeAllElements();
-        for (String s : labels) {
-            dom1.addElement(s);
-        }
-        jComboBoxcodigo.setModel(dom1);
-
-        
+        lista.add(jLabelMatricula);
+        lista.add(jLabelMecanico);
+        lista.add(jLabelcodigo);
+        lista.add(jLabelAveria);      
         if (dia) {
             jPanelFondo.setBackground(Color.lightGray);
             lista.forEach(x -> x.setForeground(Color.black));
@@ -70,6 +63,14 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
             jPanelFondo.setBackground(Color.darkGray);
             lista.forEach(x -> x.setForeground(Color.white));
         }
+        
+         parte= taller.getParte(codigo);
+        
+        jLabelcodigo.setText("NÚMERO DE PARTE: "+codigo);
+        jLabelMecanico.setText("MECANICO: "+parte.getMecanico());
+        jLabelMatricula.setText("VEHICULO: "+parte.getMatriculaVehiculo());
+        jLabelAveria.setText("AVERIA: "+parte.getTipoAveria());
+        jSpinnerHoras.setValue(parte.getHorasEstimadas());
     }
 
     /**
@@ -90,8 +91,10 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jLabelTitulo1 = new javax.swing.JLabel();
         jLabelTitulo2 = new javax.swing.JLabel();
         jPanelInsercion = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBoxcodigo = new javax.swing.JComboBox<>();
+        jLabelcodigo = new javax.swing.JLabel();
+        jLabelMecanico = new javax.swing.JLabel();
+        jLabelMatricula = new javax.swing.JLabel();
+        jLabelAveria = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
         jSpinnerFecha = new javax.swing.JSpinner();
         jLabelhoras = new javax.swing.JLabel();
@@ -131,22 +134,20 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
 
         jLabelTitulo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabelTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelTitulo1.setText("FIN");
+        jLabelTitulo1.setText("FIN REPARACIÓN");
         jPanelTitulo.add(jLabelTitulo1);
 
         jLabelTitulo2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabelTitulo2.setText(" REPARACIÓN");
         jPanelTitulo.add(jLabelTitulo2);
 
         jPanelInsercion.setOpaque(false);
-        jPanelInsercion.setLayout(new java.awt.GridLayout(3, 4));
+        jPanelInsercion.setLayout(new java.awt.GridLayout(2, 4));
+        jPanelInsercion.add(jLabelcodigo);
+        jPanelInsercion.add(jLabelMecanico);
+        jPanelInsercion.add(jLabelMatricula);
+        jPanelInsercion.add(jLabelAveria);
 
-        jLabel1.setText("  PARTE");
-        jPanelInsercion.add(jLabel1);
-
-        jComboBoxcodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanelInsercion.add(jComboBoxcodigo);
-
+        jLabelFecha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelFecha.setText("  FECHA:");
         jPanelInsercion.add(jLabelFecha);
 
@@ -154,6 +155,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jSpinnerFecha.setEditor(new javax.swing.JSpinner.DateEditor(jSpinnerFecha, "dd/MM/yyyy"));
         jPanelInsercion.add(jSpinnerFecha);
 
+        jLabelhoras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelhoras.setText("  HORAS:");
         jPanelInsercion.add(jLabelhoras);
 
@@ -164,22 +166,22 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 516, Short.MAX_VALUE)
+            .addGap(0, 642, Short.MAX_VALUE)
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
-                    .addContainerGap(133, Short.MAX_VALUE)
-                    .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(130, 130, 130)))
+                    .addContainerGap(176, Short.MAX_VALUE)
+                    .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(171, 171, 171)))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelFondoLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addComponent(jPanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 488, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelFondoLayout.createSequentialGroup()
-                    .addGap(146, 146, 146)
-                    .addComponent(jPanelInsercion, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(131, Short.MAX_VALUE)))
+                    .addGap(37, 37, 37)
+                    .addComponent(jPanelInsercion, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(32, Short.MAX_VALUE)))
         );
         jPanelFondoLayout.setVerticalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,8 +198,8 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
                     .addContainerGap(202, Short.MAX_VALUE)))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelFondoLayout.createSequentialGroup()
-                    .addGap(104, 104, 104)
-                    .addComponent(jPanelInsercion, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(116, 116, 116)
+                    .addComponent(jPanelInsercion, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(118, Short.MAX_VALUE)))
         );
 
@@ -205,7 +207,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,6 +219,8 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
 
     private void jLabelBotonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonGuardarMouseClicked
         guardar();
+        jd.actualiza();
+        this.dispose();
     }//GEN-LAST:event_jLabelBotonGuardarMouseClicked
 
     private void jLabelBotonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonCancelarMouseClicked
@@ -224,31 +228,30 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabelBotonCancelarMouseClicked
     
     private void guardar() {
-      /*  double pre=0;
-        for (int i = 0; i < labels3.length; i++) {
-            if(labels3[i].equals(dom3.getSelectedItem().toString()))
-                pre=precio[i];
-        }
-       
-      taller.addParte(taller.getTodosParte().size()+1, dom1.getSelectedItem().toString(), dom2.getSelectedItem().toString(),
-              (Date)jSpinnerFecha.getValue(), false, (int)jSpinnerHoras.getValue(), 0, jf.getDateFormat("03/03/0003"),
-              pre,dom3.getSelectedItem().toString(),1);
-      jd.actualiza();
-      this.dispose();*/
+       for(ParteReparacion p: taller.getTodosParte()){
+           if(p.getCodigo()==parte.getCodigo()){
+               p.setEstadoReparacion(true);
+               p.setFechaSalida((Date)jSpinnerFecha.getValue());
+               p.setHorasReales((int)jSpinnerHoras.getValue());
+           }
+       }
+      
     }
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBoxcodigo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelAveria;
     private javax.swing.JLabel jLabelBotonCancelar;
     private javax.swing.JLabel jLabelBotonGuardar;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelIcono;
+    private javax.swing.JLabel jLabelMatricula;
+    private javax.swing.JLabel jLabelMecanico;
     private javax.swing.JLabel jLabelTitulo1;
     private javax.swing.JLabel jLabelTitulo2;
+    private javax.swing.JLabel jLabelcodigo;
     private javax.swing.JLabel jLabelhoras;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelFondo;

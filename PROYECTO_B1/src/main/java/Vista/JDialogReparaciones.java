@@ -26,13 +26,14 @@ import logicaNegocio.Vehiculo;
  * @author carlo
  */
 public class JDialogReparaciones extends javax.swing.JDialog {
-
+    int codigo;
     Taller taller;
     boolean dia;
     JFrameTaller jf;
     JDialogFORMreparacionNuevo jdf;
+    JDialogFORMreparacionActualizar jdfa;
     DefaultTableModel dtm;
-    String cabecera[] = {"Código", "Mecanico", "DNI", "Matricula", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};
+    String cabecera[] = {"Código", "Mecanico", "Cliente","Vehículo", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};
     TableRowSorter<TableModel> order;
     ArrayList<RowSorter.SortKey> keys;
 
@@ -208,23 +209,26 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
 
     private void jLabelBotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonActualizarMouseClicked
+     
+        int seleccionada=jTableTabla.getSelectedRow();
+           System.out.println(seleccionada);
         try {
             if (dtm.getRowCount() == 0) {
                 throw new IllegalAccessException();
             }
-            if (jTableTabla.getSelectedRow() < 0) {
+            if (seleccionada < 0) {
                 throw new Exception();
             }
-            String matricula = dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString();
-            taller.getListaVehiculo().remove(taller.getVehiculo(matricula));
-            dtm.removeRow(jTableTabla.getSelectedRow());
+           codigo =Integer.parseInt(dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString());
+           System.out.println(codigo);
+           jdfa = new JDialogFORMreparacionActualizar(this, true);
+           jdfa.setVisible(true);
         } catch (IllegalAccessException e) {
             JOptionPane.showMessageDialog(null, "Tabla vacia", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_jLabelBotonActualizarMouseClicked
 
     /**
@@ -245,20 +249,9 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     private javax.swing.JTable jTableTabla;
     // End of variables declaration//GEN-END:variables
 
-    void anadeParte(ParteReparacion p) {
-        /*String s;
-        if (v.getEnReparacion()) {
-            s = "SI";
-        } else {
-            s = "NO";
-        }
-        taller.addVehiculo(v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), v.getEnReparacion());
-        actualiza();*/
-    }
-
     public void actualiza() {
-        String s, f,hr;
-      
+        String s, f, hr;
+
         dtm.setRowCount(0);
 
         for (ParteReparacion p : taller.getTodosParte()) {
@@ -272,13 +265,14 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             } else {
                 f = jf.getStringFormat(p.getFechaSalida());
             }
-            if(p.getHorasReales()==0){
-                hr= "  - - - - - -";
-            }else
-                hr= String.valueOf(p.getHorasReales());
-            
+            if (p.getHorasReales() == 0) {
+                hr = "  - - - - - -";
+            } else {
+                hr = String.valueOf(p.getHorasReales());
+            }
+
             String[] campos = {String.valueOf(p.getCodigo()), String.valueOf(p.getMecanico()), p.getDniCliente(), p.getMatriculaVehiculo(), jf.getStringFormat(p.getFechaEntrada()),
-                s, f, String.valueOf(p.getHorasEstimadas()),hr,
+                s, f, String.valueOf(p.getHorasEstimadas()), hr,
                 p.getTipoAveria(), String.valueOf(p.getCuantiaReparacion())};
             dtm.addRow(campos);
         }

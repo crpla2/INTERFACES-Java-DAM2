@@ -235,7 +235,7 @@ public class JDialogClientes extends javax.swing.JDialog {
             taller.removeCliente(clienteSeleccionado.getDni());
             inserta();
 
-            clienteSeleccionado = null;
+          
         } else
             JOptionPane.showMessageDialog(null, "Ningun Cliente seleccionado", "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jLabelBotonActualizaMouseClicked
@@ -249,7 +249,7 @@ public class JDialogClientes extends javax.swing.JDialog {
             }
             actualiza();
             limpia();
-            clienteSeleccionado = null;
+           
         } else
             JOptionPane.showMessageDialog(null, "Ningun Cliente seleccionado", "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
@@ -333,7 +333,7 @@ public class JDialogClientes extends javax.swing.JDialog {
                 }
             }
             String s = listaTex.get(0).getText() + " " + listaTex.get(1).getText();
-            taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(), "+34 " + listaTex.get(5).getText());
+            taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(),listaTex.get(5).getText());
             actualiza();
             limpia();
 
@@ -347,6 +347,7 @@ public class JDialogClientes extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "El nombre no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (IllegalCallerException e) {
+            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "El Teléfono no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (ArithmeticException e) {

@@ -35,7 +35,7 @@ public class JDialogFORMreparacionNuevo extends javax.swing.JDialog {
      * Creates new form JDialogFORMvehiculo
      */
     public JDialogFORMreparacionNuevo(java.awt.Dialog parent, boolean modal) {
-        super(parent, "VEHICULO NUEVO", false);
+        super(parent, "NUEVO PARTE", false);
         jd = (JDialogReparaciones) parent;
         initComponents();
         taller=jd.taller;
