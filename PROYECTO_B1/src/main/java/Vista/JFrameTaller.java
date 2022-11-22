@@ -51,8 +51,8 @@ public class JFrameTaller extends javax.swing.JFrame {
         taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false);
         taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "+34 974243494");
         taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "+34 914243494");
-        taller.addParte(1, taller.getListaCliente().get(0).getDni(), taller.getListaVehiculo().get(0).getMatricula(), getDateFormat("21/11/2021"), true, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola");
-        taller.addParte(2, taller.getListaCliente().get(1).getDni(), taller.getListaVehiculo().get(1).getMatricula(), getDateFormat("19/08/2022"), true, 4, 6, getDateFormat("17/08/2022"), 850, "Filtro antipartículas");
+        taller.addParte(1, taller.getListaCliente().get(0).getDni(), taller.getListaVehiculo().get(0).getMatricula(), getDateFormat("21/11/2021"), true, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola",1);
+        taller.addParte(2, taller.getListaCliente().get(1).getDni(), taller.getListaVehiculo().get(1).getMatricula(), getDateFormat("19/08/2022"), true, 4, 6, getDateFormat("17/08/2022"), 850, "Filtro antipartículas",2);
         //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());
         //Añadimos las imagenes a una lista

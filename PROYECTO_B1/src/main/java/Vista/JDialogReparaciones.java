@@ -30,9 +30,9 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     Taller taller;
     boolean dia;
     JFrameTaller jf;
-    JDialogFORMvehiculo jdf;
+    JDialogFORMreparacionNuevo jdf;
     DefaultTableModel dtm;
-    String cabecera[] = {"Código", "DNI", "Matricula", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas","Horas reales","Avería","Precio"};
+    String cabecera[] = {"Código", "Mecanico", "DNI", "Matricula", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};
     TableRowSorter<TableModel> order;
     ArrayList<RowSorter.SortKey> keys;
 
@@ -45,9 +45,9 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         initComponents();
         dia = jf.dia;
         taller = jf.taller;
-        
-        jLabelIcono1.setIcon(new ImageIcon("img/vehiculos.png"));
-        jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
+
+        jLabelIcono1.setIcon(new ImageIcon("img/reparaciones.png"));
+        jLabelBotonActualizar.setIcon(new ImageIcon("img/actualizar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
 
         if (dia) {
@@ -70,7 +70,6 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         keys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         order.setSortKeys(keys);
         actualiza();
-       
 
     }
 
@@ -86,7 +85,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jPanelFondo = new javax.swing.JPanel();
         jPanelbotones = new javax.swing.JPanel();
         jLabelBotonNuevo = new javax.swing.JLabel();
-        jLabelBotonBorra = new javax.swing.JLabel();
+        jLabelBotonActualizar = new javax.swing.JLabel();
         jPanelTitulo = new javax.swing.JPanel();
         jLabelIcono1 = new javax.swing.JLabel();
         jLabelTitulo = new javax.swing.JLabel();
@@ -111,13 +110,13 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         });
         jPanelbotones.add(jLabelBotonNuevo);
 
-        jLabelBotonBorra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelBotonBorra.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelBotonActualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBotonActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelBotonBorraMouseClicked(evt);
+                jLabelBotonActualizarMouseClicked(evt);
             }
         });
-        jPanelbotones.add(jLabelBotonBorra);
+        jPanelbotones.add(jLabelBotonActualizar);
 
         jPanelTitulo.setOpaque(false);
         jPanelTitulo.setLayout(new java.awt.GridLayout(1, 0));
@@ -163,7 +162,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 971, Short.MAX_VALUE)
+            .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 1217, Short.MAX_VALUE)
             .addGroup(jPanelFondoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -204,11 +203,11 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonNuevoMouseClicked
-        jdf = new JDialogFORMvehiculo(this, true);
+        jdf = new JDialogFORMreparacionNuevo(this, true);
         jdf.setVisible(true);
     }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
 
-    private void jLabelBotonBorraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonBorraMouseClicked
+    private void jLabelBotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonActualizarMouseClicked
         try {
             if (dtm.getRowCount() == 0) {
                 throw new IllegalAccessException();
@@ -226,14 +225,14 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         }
 
 
-    }//GEN-LAST:event_jLabelBotonBorraMouseClicked
+    }//GEN-LAST:event_jLabelBotonActualizarMouseClicked
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelBotonBorra;
+    private javax.swing.JLabel jLabelBotonActualizar;
     private javax.swing.JLabel jLabelBotonNuevo;
     private javax.swing.JLabel jLabelIcono1;
     private javax.swing.JLabel jLabelIcono2;
@@ -256,20 +255,34 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         taller.addVehiculo(v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), v.getEnReparacion());
         actualiza();*/
     }
-//"Código", "DNI", "Matricula", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas","Horas reales","Avería","Precio"
-    private void actualiza() {
-        String s;
+
+    public void actualiza() {
+        String s, f,hr;
+      
         dtm.setRowCount(0);
-       
+
         for (ParteReparacion p : taller.getTodosParte()) {
-            if(p.getEstadoReparacion()) s="NO";
-            else s="SI";
-            String[] campos = {String.valueOf(p.getCodigo()),p.getDniCliente(),p.getMatriculaVehiculo(),jf.getStringFormat(p.getFechaEntrada()),
-                                s,jf.getStringFormat(p.getFechaSalida()),String.valueOf(p.getHorasEstimadas()),String.valueOf(p.getHorasReales()),
-                                p.getTipoAveria(),String.valueOf(p.getCuantiaReparacion())};
+            if (p.getEstadoReparacion()) {
+                s = "NO";
+            } else {
+                s = "SI";
+            }
+            if (jf.getStringFormat(p.getFechaSalida()).equals("03/03/0003")) {
+                f = "  - - - - - -";
+            } else {
+                f = jf.getStringFormat(p.getFechaSalida());
+            }
+            if(p.getHorasReales()==0){
+                hr= "  - - - - - -";
+            }else
+                hr= String.valueOf(p.getHorasReales());
+            
+            String[] campos = {String.valueOf(p.getCodigo()), String.valueOf(p.getMecanico()), p.getDniCliente(), p.getMatriculaVehiculo(), jf.getStringFormat(p.getFechaEntrada()),
+                s, f, String.valueOf(p.getHorasEstimadas()),hr,
+                p.getTipoAveria(), String.valueOf(p.getCuantiaReparacion())};
             dtm.addRow(campos);
         }
-         jTableTabla.setModel(dtm);
+        jTableTabla.setModel(dtm);
 
     }
 }

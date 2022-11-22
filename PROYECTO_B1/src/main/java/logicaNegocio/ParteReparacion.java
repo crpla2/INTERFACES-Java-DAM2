@@ -23,6 +23,7 @@ public class ParteReparacion {
     private Date fechaSalida;
     private double cuantiaReparacion;
     private String tipoAveria;
+    private int mecanico;
     
     /**
      * Crea un parte de reparacion a partir de los parametros pasados.
@@ -48,7 +49,7 @@ public class ParteReparacion {
      * como su posible reparacion realizada.
      */
     public ParteReparacion(int codigo, String dniCliente, String matriculaVehiculo, Date fechaEntrada, boolean estadoReparacion, int horasEstimadas, int horasReales,
-            Date fechaSalida, double cuantiaReparacion, String tipoAveria) {
+            Date fechaSalida, double cuantiaReparacion, String tipoAveria,int mecanico) {
         //Se almacenan en cada uno de los datos miembros los valores pasados como parametros.
         this.codigo = codigo;
         this.dniCliente = dniCliente;
@@ -60,8 +61,13 @@ public class ParteReparacion {
         this.fechaSalida = fechaSalida;
         this.cuantiaReparacion = cuantiaReparacion;
         this.tipoAveria = tipoAveria;
+          this.mecanico = mecanico;
     }
 
+      public int getMecanico() {
+        return this.mecanico;}
+        public void setMecanico(int mecanico) {
+        this.mecanico = mecanico;}
     /**
      * Metodo que devuelve el codigo identificador de un parte de reparacion.
      *

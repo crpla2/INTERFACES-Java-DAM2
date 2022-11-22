@@ -7,6 +7,7 @@ package Vista;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -19,53 +20,74 @@ import logicaNegocio.Vehiculo;
  *
  * @author DAM2Alu10
  */
-public class JDialogFORMreparacion extends javax.swing.JDialog {
+public class JDialogFORMreparacionNuevo extends javax.swing.JDialog {
     Taller taller;
     Vehiculo vehiculo;
-    JDialogVehiculos jd;
+    JDialogReparaciones jd;
+    JFrameTaller jf;
     Boolean dia;
     ArrayList<JLabel> lista;
-    DefaultComboBoxModel dom1, dom2;
+    DefaultComboBoxModel dom1,dom2,dom3;
+         double[]precio={700,850,100,500,1000,1500};
+        String labels3[] = {"Junta de la trocola","Filtro antipartículas","Cambio ruedas","Cadena de distribucion","Turbo","Embrague"};
 
     /**
      * Creates new form JDialogFORMvehiculo
      */
-    public JDialogFORMreparacion(java.awt.Dialog parent, boolean modal) {
+    public JDialogFORMreparacionNuevo(java.awt.Dialog parent, boolean modal) {
         super(parent, "VEHICULO NUEVO", false);
-        jd = (JDialogVehiculos) parent;
+        jd = (JDialogReparaciones) parent;
         initComponents();
         taller=jd.taller;
         dia = jd.dia;
         jLabelIcono.setIcon(new ImageIcon("img/añadir.png"));
         jLabelBotonCancelar.setIcon(new ImageIcon("img/cancelar.png"));
         jLabelBotonGuardar.setIcon(new ImageIcon("img/guardar.png"));
+        
 
         lista = new ArrayList<>();
         lista.add(jLabelTitulo1);
         lista.add(jLabelTitulo2);
         lista.add(jLabelMatricula);
-        lista.add(jLabelRepa);
-        lista.add(jLabelTipo);
-        lista.add(jLabelModelo);
-        lista.add(jLabelMarca);
+        lista.add(jLabelFecha);
+        lista.add(jLabelDNI);
+        lista.add(jLabelAveria);
+        lista.add(jLabelhoras);
 
-        //Creamos elos combobox
+        //Creamos los combobox
         dom1 = new DefaultComboBoxModel();
-        String labels1[] = {Vehiculo.TIPO_TURISMO, Vehiculo.TIPO_FURGONETA, Vehiculo.TIPO_MOTOCICLETA};
+        String labels[] = new String[taller.getListaCliente().size()];
+        for (int i = 0; i < taller.getListaCliente().size(); i++) {
+            labels[i]=taller.getListaCliente().get(i).getDni();
+        }
         dom1.removeAllElements();
-        for (String s : labels1) {
+        for (String s : labels) {
             dom1.addElement(s);
         }
-        jComboBoxTipo.setModel(dom1);
+        jComboBoxDNI.setModel(dom1);
 
-        dom2 = new DefaultComboBoxModel();
-        String labels2[] = {"SI", "NO"};
-        dom2.removeAllElements();
-        for (String s : labels2) {
-            dom2.addElement(s);
+        dom2= new DefaultComboBoxModel();
+        String[]labels2= new String[taller.getListaVehiculo().size()];
+        for (int i = 0; i < taller.getListaVehiculo().size(); i++) {
+            labels2[i]=(String)taller.getListaVehiculo().get(i).getMatricula();
+            
         }
-        jComboBoxRepara.setModel(dom2);
-
+        dom2.removeAllElements();
+        for(String s: labels2){
+            dom2.addElement(s);
+            System.out.println(s);
+        }
+        jComboBoxMatricula.setModel(dom2);
+        
+        
+        dom3 = new DefaultComboBoxModel();
+       
+        dom3.removeAllElements();
+        for (String s : labels3) {
+            dom3.addElement(s);
+        }
+        jComboBoxAverias.setModel(dom3);
+        
         if (dia) {
             jPanelFondo.setBackground(Color.lightGray);
             lista.forEach(x -> x.setForeground(Color.black));
@@ -95,15 +117,15 @@ public class JDialogFORMreparacion extends javax.swing.JDialog {
         jLabelTitulo2 = new javax.swing.JLabel();
         jPanelInsercion = new javax.swing.JPanel();
         jLabelMatricula = new javax.swing.JLabel();
-        jTextFieldMatricula = new javax.swing.JTextField();
-        jLabelTipo = new javax.swing.JLabel();
-        jComboBoxTipo = new javax.swing.JComboBox<>();
-        jLabelMarca = new javax.swing.JLabel();
-        jTextFieldMarca = new javax.swing.JTextField();
-        jLabelRepa = new javax.swing.JLabel();
-        jComboBoxRepara = new javax.swing.JComboBox<>();
-        jLabelModelo = new javax.swing.JLabel();
-        jTextFieldModelo = new javax.swing.JTextField();
+        jComboBoxMatricula = new javax.swing.JComboBox<>();
+        jLabelDNI = new javax.swing.JLabel();
+        jComboBoxDNI = new javax.swing.JComboBox<>();
+        jLabelAveria = new javax.swing.JLabel();
+        jComboBoxAverias = new javax.swing.JComboBox<>();
+        jLabelFecha = new javax.swing.JLabel();
+        jSpinnerFecha = new javax.swing.JSpinner();
+        jLabelhoras = new javax.swing.JLabel();
+        jSpinnerHoras = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 200));
@@ -138,11 +160,12 @@ public class JDialogFORMreparacion extends javax.swing.JDialog {
         jPanelTitulo.add(jLabelIcono);
 
         jLabelTitulo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabelTitulo1.setText("DATOS  DEL");
+        jLabelTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelTitulo1.setText("NUEVA");
         jPanelTitulo.add(jLabelTitulo1);
 
         jLabelTitulo2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabelTitulo2.setText("VEHICULO");
+        jLabelTitulo2.setText(" REPARACIÓN");
         jPanelTitulo.add(jLabelTitulo2);
 
         jPanelInsercion.setOpaque(false);
@@ -150,39 +173,40 @@ public class JDialogFORMreparacion extends javax.swing.JDialog {
 
         jLabelMatricula.setText("  MATRICULA:");
         jPanelInsercion.add(jLabelMatricula);
-        jPanelInsercion.add(jTextFieldMatricula);
 
-        jLabelTipo.setText("    TIPO:");
-        jPanelInsercion.add(jLabelTipo);
+        jComboBoxMatricula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanelInsercion.add(jComboBoxMatricula);
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanelInsercion.add(jComboBoxTipo);
+        jLabelDNI.setText("    DNI:");
+        jPanelInsercion.add(jLabelDNI);
 
-        jLabelMarca.setText("  MARCA:");
-        jPanelInsercion.add(jLabelMarca);
-        jPanelInsercion.add(jTextFieldMarca);
+        jComboBoxDNI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanelInsercion.add(jComboBoxDNI);
 
-        jLabelRepa.setText("    EN REPARACION:");
-        jPanelInsercion.add(jLabelRepa);
+        jLabelAveria.setText("  AVERÍA:");
+        jPanelInsercion.add(jLabelAveria);
 
-        jComboBoxRepara.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanelInsercion.add(jComboBoxRepara);
+        jComboBoxAverias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanelInsercion.add(jComboBoxAverias);
 
-        jLabelModelo.setText("  MODELO:");
-        jPanelInsercion.add(jLabelModelo);
+        jLabelFecha.setText("    FECHA:");
+        jPanelInsercion.add(jLabelFecha);
 
-        jTextFieldModelo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldModeloKeyPressed(evt);
-            }
-        });
-        jPanelInsercion.add(jTextFieldModelo);
+        jSpinnerFecha.setModel(new javax.swing.SpinnerDateModel());
+        jSpinnerFecha.setEditor(new javax.swing.JSpinner.DateEditor(jSpinnerFecha, "dd/MM/yyyy"));
+        jPanelInsercion.add(jSpinnerFecha);
+
+        jLabelhoras.setText("  HORAS:");
+        jPanelInsercion.add(jLabelhoras);
+
+        jSpinnerHoras.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanelInsercion.add(jSpinnerHoras);
 
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 516, Short.MAX_VALUE)
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
                     .addContainerGap(133, Short.MAX_VALUE)
@@ -223,7 +247,7 @@ public class JDialogFORMreparacion extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,67 +264,44 @@ public class JDialogFORMreparacion extends javax.swing.JDialog {
     private void jLabelBotonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonCancelarMouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabelBotonCancelarMouseClicked
-
-    private void jTextFieldModeloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldModeloKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            guardar();
-        }
-    }//GEN-LAST:event_jTextFieldModeloKeyPressed
     
     private void guardar() {
-        boolean b = true;
-        try {
-            if (!jTextFieldMatricula.getText().toUpperCase().matches("^[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}")) {
-                throw new NoSuchFieldException();
-            }
-            if (jTextFieldMatricula.getText().isEmpty() || jTextFieldMarca.getText().isEmpty() || jTextFieldModelo.getText().isEmpty()) {
-                throw new IndexOutOfBoundsException();
-            }
-            if (dom2.getSelectedItem().toString().equals("NO")) {
-                b = false;
-            }
-            jd.anadeVehiculo(new Vehiculo(jTextFieldMatricula.getText().toUpperCase(), jTextFieldMarca.getText().toUpperCase(),
-                    jTextFieldModelo.getText().toUpperCase(), dom1.getSelectedItem().toString(), b));
-            
-                
-            jTextFieldMarca.setText("");
-            jTextFieldMatricula.setText("");
-            jTextFieldModelo.setText("");
-        } catch (NoSuchFieldException e) {
-            //matricula no valida
-            JOptionPane.showMessageDialog(jd, "Matricula no valida (0000XXX)", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (IndexOutOfBoundsException e) {
-            //campos vacios
-            JOptionPane.showMessageDialog(jd, "Debe de rellenar todos los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }catch (Exception e) {
-            //campos vacios
-            JOptionPane.showMessageDialog(jd, "Ya existe un vehículo con esa matrícula", "ERROR", JOptionPane.ERROR_MESSAGE);
+        double pre=0;
+        for (int i = 0; i < labels3.length; i++) {
+            if(labels3[i].equals(dom3.getSelectedItem().toString()))
+                pre=precio[i];
         }
+       
+      taller.addParte(taller.getTodosParte().size()+1, dom1.getSelectedItem().toString(), dom2.getSelectedItem().toString(),
+              (Date)jSpinnerFecha.getValue(), false, (int)jSpinnerHoras.getValue(), 0, jf.getDateFormat("03/03/0003"),
+              pre,dom3.getSelectedItem().toString(),1);
+      jd.actualiza();
+      this.dispose();
     }
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBoxRepara;
-    private javax.swing.JComboBox<String> jComboBoxTipo;
+    private javax.swing.JComboBox<String> jComboBoxAverias;
+    private javax.swing.JComboBox<String> jComboBoxDNI;
+    private javax.swing.JComboBox<String> jComboBoxMatricula;
+    private javax.swing.JLabel jLabelAveria;
     private javax.swing.JLabel jLabelBotonCancelar;
     private javax.swing.JLabel jLabelBotonGuardar;
+    private javax.swing.JLabel jLabelDNI;
+    private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelIcono;
-    private javax.swing.JLabel jLabelMarca;
     private javax.swing.JLabel jLabelMatricula;
-    private javax.swing.JLabel jLabelModelo;
-    private javax.swing.JLabel jLabelRepa;
-    private javax.swing.JLabel jLabelTipo;
     private javax.swing.JLabel jLabelTitulo1;
     private javax.swing.JLabel jLabelTitulo2;
+    private javax.swing.JLabel jLabelhoras;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelInsercion;
     private javax.swing.JPanel jPanelTitulo;
-    private javax.swing.JTextField jTextFieldMarca;
-    private javax.swing.JTextField jTextFieldMatricula;
-    private javax.swing.JTextField jTextFieldModelo;
+    private javax.swing.JSpinner jSpinnerFecha;
+    private javax.swing.JSpinner jSpinnerHoras;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -132,9 +132,9 @@ public class Taller {
     }
 
     public void addParte(int codigo, String dniCliente, String matriculaVehiculo, Date fechaEntrada, boolean estadoReparacion, int horasEstimadas, int horasReales,
-            Date fechaSalida, double cuantiaReparacion, String tipoAveria) {
+            Date fechaSalida, double cuantiaReparacion, String tipoAveria,int mecanico) {
         //Creamos un nuevo parte de reparacion con los valores pasados como parametros.
-        listaParte.add(new ParteReparacion(codigo, dniCliente, matriculaVehiculo, fechaEntrada, estadoReparacion, horasEstimadas, horasReales, fechaSalida, cuantiaReparacion, tipoAveria));
+        listaParte.add(new ParteReparacion(codigo, dniCliente, matriculaVehiculo, fechaEntrada, estadoReparacion, horasEstimadas, horasReales, fechaSalida, cuantiaReparacion, tipoAveria,mecanico));
     }
 
     /**
