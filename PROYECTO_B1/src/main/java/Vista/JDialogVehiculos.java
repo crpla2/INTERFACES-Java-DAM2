@@ -43,9 +43,7 @@ public class JDialogVehiculos extends javax.swing.JDialog {
         jf = (JFrameTaller) parent;
         initComponents();
         dia = jf.dia;
-        taller = new Taller();
-        taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false);
-        taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false);
+        taller = jf.taller;
         jLabelIcono1.setIcon(new ImageIcon("img/vehiculos.png"));
         jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));

@@ -15,7 +15,6 @@ public class ParteReparacion {
     private int codigo;
     private String dniCliente;
     private String matriculaVehiculo;
-    //Todas las fechas seran del tipo GregorianCalendar.
     private Date fechaEntrada;
     //El valor del booleano sera "true" mientras el parte de reparacion no esta finalizado y "false" desde el momento que el mismo sea finalizado.
     private boolean estadoReparacion;

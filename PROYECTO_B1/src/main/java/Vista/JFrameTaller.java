@@ -6,7 +6,12 @@ import static java.awt.Color.white;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -14,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import logicaNegocio.Taller;
+import logicaNegocio.Vehiculo;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,43 +30,51 @@ import logicaNegocio.Taller;
  * @author carlo
  */
 public class JFrameTaller extends javax.swing.JFrame {
+
     Taller taller;
-    boolean dia=true;
+    boolean dia = true;
     JDialogClientes jdc;
     JDialogReparaciones jdr;
     JDialogVehiculos jdv;
-    ImageIcon imagen, imagen2,imagen3,imagen4,imagen5,imagen6,imagen7,imagen8;
-    ArrayList<ImageIcon>listaimagenes;
-    ArrayList<JLabel>listaJLabel;
+    ImageIcon imagen, imagen2, imagen3, imagen4, imagen5, imagen6, imagen7, imagen8;
+    ArrayList<ImageIcon> listaimagenes;
+    ArrayList<JLabel> listaJLabel;
+
     /**
      * Creates new form JFrameTaller
      */
     public JFrameTaller() {
         super("TALLERES FITIPALDI");
         initComponents();
-        taller= new Taller();
+        taller = new Taller();
+        taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false);
+        taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false);
+        taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "+34 974243494");
+        taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "+34 914243494");
+        taller.addParte(1, taller.getListaCliente().get(0).getDni(), taller.getListaVehiculo().get(0).getMatricula(), getDateFormat("21/11/2021"), true, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola");
+        taller.addParte(2, taller.getListaCliente().get(1).getDni(), taller.getListaVehiculo().get(1).getMatricula(), getDateFormat("19/08/2022"), true, 4, 6, getDateFormat("17/08/2022"), 850, "Filtro antipartículas");
         //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());
         //Añadimos las imagenes a una lista
-        listaimagenes= new ArrayList<>();
+        listaimagenes = new ArrayList<>();
         listaimagenes.add(new ImageIcon("img/claro.jpg"));
-        listaimagenes.add(new ImageIcon("img/centro.png"));             
-        listaimagenes.add( new ImageIcon("img/rueda.png"));
-        listaimagenes.add( new ImageIcon("img/clientes.png"));
-        listaimagenes.add( new ImageIcon("img/vehiculos.png"));
-        listaimagenes.add( new ImageIcon("img/reparaciones.png"));
+        listaimagenes.add(new ImageIcon("img/centro.png"));
+        listaimagenes.add(new ImageIcon("img/rueda.png"));
+        listaimagenes.add(new ImageIcon("img/clientes.png"));
+        listaimagenes.add(new ImageIcon("img/vehiculos.png"));
+        listaimagenes.add(new ImageIcon("img/reparaciones.png"));
         //
-        listaimagenes.add( new ImageIcon("img/oscuro.jpg"));
-        listaimagenes.add( new ImageIcon("img/solluna.png"));
+        listaimagenes.add(new ImageIcon("img/oscuro.jpg"));
+        listaimagenes.add(new ImageIcon("img/solluna.png"));
         //Añadimos los jlabel a una lista
-        listaJLabel= new ArrayList<>();
+        listaJLabel = new ArrayList<>();
         listaJLabel.add(jLabelFondo);
         listaJLabel.add(jLabelImagen);
         listaJLabel.add(jLabelRueda1);
         listaJLabel.add(jLabelBotonClientes);
         listaJLabel.add(jLabelBotonVehiculos);
-        listaJLabel.add(jLabelBotonReparaciones);            
-        for(int i=0;i<listaJLabel.size();i++){
+        listaJLabel.add(jLabelBotonReparaciones);
+        for (int i = 0; i < listaJLabel.size(); i++) {
             listaJLabel.get(i).setIcon(listaimagenes.get(i));
             listaJLabel.get(i).setBounds(150, 150, listaimagenes.get(i).getIconWidth(), listaimagenes.get(i).getIconHeight());
         }
@@ -68,9 +82,9 @@ public class JFrameTaller extends javax.swing.JFrame {
         jLabelRueda2.setBounds(150, 150, listaimagenes.get(2).getIconWidth(), listaimagenes.get(2).getIconHeight());
         jToggleButtonDiaNoche.setIcon(listaimagenes.get(7));
         jToggleButtonDiaNoche.setBounds(150, 150, listaimagenes.get(7).getIconWidth(), listaimagenes.get(7).getIconHeight());
-       
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,19 +206,33 @@ public class JFrameTaller extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public static Date getDateFormat(String date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return formatter.parse(date);
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
+
+    public static String getStringFormat(Date d) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(d);
+    }
+
     private void jLabelBotonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonClientesMouseClicked
-        jdc= new JDialogClientes(this, true);
+        jdc = new JDialogClientes(this, true);
         jdc.setVisible(true);
     }//GEN-LAST:event_jLabelBotonClientesMouseClicked
 
     private void jLabelBotonReparacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonReparacionesMouseClicked
-        jdr= new JDialogReparaciones(this, true);
+        jdr = new JDialogReparaciones(this, true);
         jdr.setVisible(true);
     }//GEN-LAST:event_jLabelBotonReparacionesMouseClicked
 
     private void jLabelBotonVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonVehiculosMouseClicked
-         jdv= new JDialogVehiculos(this, true);
-         jdv.setVisible(true);
+        jdv = new JDialogVehiculos(this, true);
+        jdv.setVisible(true);
     }//GEN-LAST:event_jLabelBotonVehiculosMouseClicked
 
     private void jToggleButtonDiaNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDiaNocheActionPerformed
@@ -212,17 +240,15 @@ public class JFrameTaller extends javax.swing.JFrame {
             listaJLabel.get(0).setIcon(listaimagenes.get(6));
             listaJLabel.get(0).setBounds(150, 150, listaimagenes.get(6).getIconWidth(), listaimagenes.get(6).getIconHeight());
             jLabelTitulo1.setForeground(white);
-            jLabelTitulo2.setForeground(white);  
-            dia=false;
-        }else{
-           listaJLabel.get(0).setIcon(listaimagenes.get(0));
+            jLabelTitulo2.setForeground(white);
+            dia = false;
+        } else {
+            listaJLabel.get(0).setIcon(listaimagenes.get(0));
             listaJLabel.get(0).setBounds(150, 150, listaimagenes.get(0).getIconWidth(), listaimagenes.get(0).getIconHeight());
             jLabelTitulo1.setForeground(black);
             jLabelTitulo2.setForeground(black);
-            dia=true;
-            
-               
-            
+            dia = true;
+
         }
     }//GEN-LAST:event_jToggleButtonDiaNocheActionPerformed
 

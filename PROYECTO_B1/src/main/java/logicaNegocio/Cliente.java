@@ -64,7 +64,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return nombre+", "+apellidos+" | DNI: "+dni+ " | Telefono: "+telefono+" | Dirección: "+direccion; 
+        return apellidos+", "+nombre+" | DNI: "+dni+ " | Telefono: "+telefono+" | Dirección: "+direccion; 
     }
     
 }

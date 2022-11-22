@@ -44,7 +44,6 @@ public class JDialogClientes extends javax.swing.JDialog {
         dia = jf.dia;
         clienteSeleccionado = null;
         taller = jf.taller;
-        taller.addCliente("Carlos", "Rodrigo Pla", "Calle MiCalle 2", "18048688C", "974243494");
         jLabelIcono1.setIcon(new ImageIcon("img/clientes.png"));
         jLabelBotonBorra.setIcon(new ImageIcon("img/borrar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
@@ -56,6 +55,7 @@ public class JDialogClientes extends javax.swing.JDialog {
         for (int i = 0; i < etiquetas.length; i++) {
             JLabel jl = new JLabel(etiquetas[i]);
             JTextField jt = new JTextField();
+
             listaEtiq.add(jl);
             listaTex.add(jt);
             jPanelTF.add(jl);
@@ -226,25 +226,27 @@ public class JDialogClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonNuevoMouseClicked
-        if (inserta())
-            limpia();
+        inserta();
+
     }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
 
     private void jLabelBotonActualizaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonActualizaMouseClicked
         if (clienteSeleccionado != null) {
             taller.removeCliente(clienteSeleccionado.getDni());
-            if (inserta()) {
-                actualiza();
-                limpia();
-            }
+            inserta();
+
             clienteSeleccionado = null;
         } else
             JOptionPane.showMessageDialog(null, "Ningun Cliente seleccionado", "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jLabelBotonActualizaMouseClicked
 
     private void jLabelBotonBorraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonBorraMouseClicked
+
         if (clienteSeleccionado != null) {
-            taller.removeCliente(clienteSeleccionado.getDni());
+            if (JOptionPane.showConfirmDialog(rootPane, "Eliminar Registro!, ¿desea continuar?",
+                    "Eliminar Registro", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                taller.removeCliente(clienteSeleccionado.getDni());
+            }
             actualiza();
             limpia();
             clienteSeleccionado = null;
@@ -253,12 +255,8 @@ public class JDialogClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
     private void jComboBoxClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxClientesActionPerformed
-        String[] str = dom.getSelectedItem().toString().split(" ");
-        for (int i = 0; i < str.length; i++) {
-            System.out.println(str[i]);
-        }
-        int i = 0;
-        for (Cliente c : taller.getListaCliente()) {
+        /* String[] str = dom.getSelectedItem().toString().split(" ");
+       for (Cliente c : taller.getListaCliente()) {
             if (c.getDni().equals(str[5])) {
                 clienteSeleccionado = c;
                 String[] apellidos = c.getApellidos().split(" ");
@@ -269,15 +267,28 @@ public class JDialogClientes extends javax.swing.JDialog {
                 listaTex.get(4).setText(c.getDni());
                 listaTex.get(5).setText(c.getTelefono());
             }
-        }
+        }*/
+        clienteSeleccionado = (Cliente) dom.getSelectedItem();
+        String[] apellidos = clienteSeleccionado.getApellidos().split(" ");
+        System.out.println(apellidos[0] + ", " + apellidos[1]);
+        listaTex.get(0).setText(apellidos[0]);
+        listaTex.get(1).setText(apellidos[1]);
+        listaTex.get(2).setText(clienteSeleccionado.getNombre());
+        listaTex.get(3).setText(clienteSeleccionado.getDireccion());
+        listaTex.get(4).setText(clienteSeleccionado.getDni());
+        listaTex.get(5).setText(clienteSeleccionado.getTelefono().substring(3));
+
     }//GEN-LAST:event_jComboBoxClientesActionPerformed
     private void actualiza() {
-        taller.getListaCliente().sort((o1, o2) -> 0);
         dom = new DefaultComboBoxModel();
         dom.removeAllElements();
+        /*
         for (Cliente c : taller.getListaCliente()) {
             dom.addElement(c.toString());
         }
+         */
+        dom.addAll(taller.getListaCliente());
+
         jComboBoxClientes.setModel(dom);
     }
     /**
@@ -298,7 +309,7 @@ public class JDialogClientes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanelbotones;
     // End of variables declaration//GEN-END:variables
 
-    private boolean inserta() {
+    private void inserta() {
         try {
 
             if (!listaTex.get(0).getText().matches("[A-Z][a-zA-Z]*")) {
@@ -308,13 +319,13 @@ public class JDialogClientes extends javax.swing.JDialog {
                 throw new ClassNotFoundException();
             }
             if (!listaTex.get(2).getText().matches("[A-Z][a-zA-Z]*")) {
-                throw new ClassFormatException();
+                throw new NullPointerException();
             }
             if (!(listaTex.get(4).getText().toUpperCase()).matches("\\d{8}[A-HJ-NP-TV-Z]")) {
                 throw new ArithmeticException();
             }
             if (!listaTex.get(5).getText().matches("^?[6789][0-9]{8}$")) {
-                throw new ArrayStoreException();
+                throw new IllegalCallerException();
             }
             for (JTextField c : listaTex) {
                 if (c.getText().isEmpty()) {
@@ -322,7 +333,9 @@ public class JDialogClientes extends javax.swing.JDialog {
                 }
             }
             String s = listaTex.get(0).getText() + " " + listaTex.get(1).getText();
-            return taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(), "+34 " + listaTex.get(5).getText());
+            taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(), "+34 " + listaTex.get(5).getText());
+            actualiza();
+            limpia();
 
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "El segundo apellido no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -330,16 +343,18 @@ public class JDialogClientes extends javax.swing.JDialog {
         } catch (ClassCastException e) {
             JOptionPane.showMessageDialog(null, "El primer apellido no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
-        } catch (ArrayStoreException e) {
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El nombre no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } catch (IllegalCallerException e) {
             JOptionPane.showMessageDialog(null, "El Teléfono no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (ArithmeticException e) {
             JOptionPane.showMessageDialog(null, "El DNI no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "No ha rellenado todos los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            return false;
         }
     }
 
