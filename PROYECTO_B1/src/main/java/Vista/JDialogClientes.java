@@ -255,7 +255,7 @@ public class JDialogClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
     private void jComboBoxClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxClientesActionPerformed
-        /* String[] str = dom.getSelectedItem().toString().split(" ");
+        String[] str = dom.getSelectedItem().toString().split(" ");
        for (Cliente c : taller.getListaCliente()) {
             if (c.getDni().equals(str[5])) {
                 clienteSeleccionado = c;
@@ -267,7 +267,7 @@ public class JDialogClientes extends javax.swing.JDialog {
                 listaTex.get(4).setText(c.getDni());
                 listaTex.get(5).setText(c.getTelefono());
             }
-        }*/
+        } /*
         clienteSeleccionado = (Cliente) dom.getSelectedItem();
         String[] apellidos = clienteSeleccionado.getApellidos().split(" ");
         System.out.println(apellidos[0] + ", " + apellidos[1]);
@@ -277,17 +277,17 @@ public class JDialogClientes extends javax.swing.JDialog {
         listaTex.get(3).setText(clienteSeleccionado.getDireccion());
         listaTex.get(4).setText(clienteSeleccionado.getDni());
         listaTex.get(5).setText(clienteSeleccionado.getTelefono().substring(3));
-
+*/
     }//GEN-LAST:event_jComboBoxClientesActionPerformed
     private void actualiza() {
         dom = new DefaultComboBoxModel();
         dom.removeAllElements();
-        /*
+     
         for (Cliente c : taller.getListaCliente()) {
             dom.addElement(c.toString());
         }
-         */
-        dom.addAll(taller.getListaCliente());
+            /**/
+      //  dom.addAll(taller.getListaCliente());
 
         jComboBoxClientes.setModel(dom);
     }

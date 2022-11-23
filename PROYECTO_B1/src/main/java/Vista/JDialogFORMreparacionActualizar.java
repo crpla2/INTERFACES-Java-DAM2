@@ -235,6 +235,10 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
                p.setHorasReales((int)jSpinnerHoras.getValue());
            }
        }
+      for(Vehiculo v: taller.getListaVehiculo()){
+          if(v.getMatricula().equals(parte.getMatriculaVehiculo()))
+              v.setEnReparacion(false);
+      }
       
     }
     /**

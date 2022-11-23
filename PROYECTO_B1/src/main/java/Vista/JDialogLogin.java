@@ -4,8 +4,13 @@
  */
 package Vista;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import logicaNegocio.Acceso;
+import logicaNegocio.Usuario;
 
 /**
  *
@@ -13,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class JDialogLogin extends javax.swing.JDialog {
 
+    Acceso acceso;
     JFrameTaller jf;
     ImageIcon imagen, imagen2, imagen3;
 
@@ -22,6 +28,10 @@ public class JDialogLogin extends javax.swing.JDialog {
     public JDialogLogin(java.awt.Frame parent, boolean modal) {
         super(parent, "LOGIN", modal);
         initComponents();
+        acceso = new Acceso();
+        acceso.addUsuario(new Usuario("admin", "admin", 0));
+        acceso.addUsuario(new Usuario("m1", "m1", 1));
+        acceso.addUsuario(new Usuario("m2", "m2", 2));
 
         setIconImage(new ImageIcon("img/llave.png").getImage());
         imagen = new ImageIcon("img/candado.png");
@@ -129,12 +139,17 @@ public class JDialogLogin extends javax.swing.JDialog {
             if (passwd.length == 0) {
                 throw new ClassNotFoundException();
             }
-            if (usuario.equals("admin") && pass.equals("admin")) {
+
+            if (acceso.getUsuario(usuario).getPassword().equals(pass)) {
+                System.out.println(acceso.getUsuario(usuario).getUsuario());
+                acceso.setAcceso(acceso.getUsuario(usuario));
                 JOptionPane.showMessageDialog(rootPane, "Has ingresado satisfactoriamente al sistema",
                         "BIENVENIDO", JOptionPane.PLAIN_MESSAGE, imagen2);
-                this.dispose();
-                jf = new JFrameTaller();
+
+                jf = new JFrameTaller(acceso);
+
                 jf.setVisible(true);
+                this.dispose();
             } else {
                 throw new Exception();
             }
@@ -145,9 +160,10 @@ public class JDialogLogin extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "La contraseña no puede estar vacia",
                     "ERROR", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(rootPane, "Acceso denegado",
                     "ERROR", JOptionPane.PLAIN_MESSAGE, imagen3);
-           
+
             System.exit(0);
 
         }

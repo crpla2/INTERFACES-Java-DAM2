@@ -18,7 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import logicaNegocio.Acceso;
 import logicaNegocio.Taller;
+import logicaNegocio.Usuario;
 import logicaNegocio.Vehiculo;
 
 /*
@@ -31,6 +33,7 @@ import logicaNegocio.Vehiculo;
  */
 public class JFrameTaller extends javax.swing.JFrame {
 
+    int mecaN;
     Taller taller;
     boolean dia = true;
     JDialogClientes jdc;
@@ -39,20 +42,22 @@ public class JFrameTaller extends javax.swing.JFrame {
     ImageIcon imagen, imagen2, imagen3, imagen4, imagen5, imagen6, imagen7, imagen8;
     ArrayList<ImageIcon> listaimagenes;
     ArrayList<JLabel> listaJLabel;
+    Acceso acceso;
 
     /**
      * Creates new form JFrameTaller
      */
-    public JFrameTaller() {
+    public JFrameTaller(Acceso acceso) {
         super("TALLERES FITIPALDI");
         initComponents();
+        this.acceso=acceso;
         taller = new Taller();
         taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false);
         taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false);
-        taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "+34 974243494");
-        taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "+34 914243494");
-        taller.addParte(1, taller.getListaCliente().get(0).getDni(), taller.getListaVehiculo().get(0).getMatricula(), getDateFormat("21/11/2021"), true, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola",1);
-        taller.addParte(2, taller.getListaCliente().get(1).getDni(), taller.getListaVehiculo().get(1).getMatricula(), getDateFormat("19/08/2022"), true, 4, 6, getDateFormat("23/08/2022"), 850, "Filtro antipartículas",2);
+        taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "974243494");
+        taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "914243494");
+        taller.addParte(1, taller.getListaCliente().get(0).getDni(), taller.getListaVehiculo().get(0).getMatricula(), getDateFormat("21/11/2021"), true, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
+        taller.addParte(2, taller.getListaCliente().get(1).getDni(), taller.getListaVehiculo().get(1).getMatricula(), getDateFormat("19/08/2022"), true, 4, 6, getDateFormat("23/08/2022"), 850, "Filtro antipartículas", 2);
         //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());
         //Añadimos las imagenes a una lista
@@ -82,7 +87,11 @@ public class JFrameTaller extends javax.swing.JFrame {
         jLabelRueda2.setBounds(150, 150, listaimagenes.get(2).getIconWidth(), listaimagenes.get(2).getIconHeight());
         jToggleButtonDiaNoche.setIcon(listaimagenes.get(7));
         jToggleButtonDiaNoche.setBounds(150, 150, listaimagenes.get(7).getIconWidth(), listaimagenes.get(7).getIconHeight());
-
+       
+        if (acceso.getUsuarioIdentificado().getMecanico()>0) {
+            jLabelBotonClientes.setVisible(false);
+            jLabelBotonVehiculos.setVisible(false);
+        }
     }
 
     /**
@@ -205,7 +214,9 @@ public class JFrameTaller extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+void setMecaN(int i) {
+        this.mecaN=i;
+    }
     public static Date getDateFormat(String date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -270,4 +281,6 @@ public class JFrameTaller extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JToggleButton jToggleButtonDiaNoche;
     // End of variables declaration//GEN-END:variables
+
+    
 }
