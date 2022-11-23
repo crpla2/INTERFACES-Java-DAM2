@@ -16,20 +16,30 @@ public class Vehiculo {
     private String marca;
     private String modelo;
     private String tipo;
+    private String ClienteDni;
+
     public static final String TIPO_TURISMO = "TURISMO";
     public static final String TIPO_FURGONETA = "FURGONETA";
     public static final String TIPO_MOTOCICLETA = "MOTOCICLETA";
     private boolean enReparacion;
 
-    public Vehiculo(String matricula,String marca, String modelo, String tipo, boolean enReparacion) {
+    public Vehiculo(String matricula,String marca, String modelo, String tipo, boolean enReparacion,String clienteDni) {
 
         this.matricula = matricula;
          this.marca = marca;
         this.modelo = modelo;
         this.tipo = tipo;
         this.enReparacion = enReparacion;
+        this.ClienteDni=clienteDni;
     }
 
+    public void setClienteDni(String ClienteDni) {
+        this.ClienteDni = ClienteDni;
+    }
+
+    public String getClienteDni() {
+        return ClienteDni;
+    }
     public String getMatricula() {
         return this.matricula;
     }
