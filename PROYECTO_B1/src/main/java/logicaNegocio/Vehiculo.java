@@ -32,6 +32,8 @@ public class Vehiculo {
         this.enReparacion = enReparacion;
         this.ClienteDni=clienteDni;
     }
+    
+    
 
     public void setClienteDni(String ClienteDni) {
         this.ClienteDni = ClienteDni;

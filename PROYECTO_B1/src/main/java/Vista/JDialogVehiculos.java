@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.SwingUtilities;
@@ -68,7 +69,6 @@ public class JDialogVehiculos extends javax.swing.JDialog {
         keys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         order.setSortKeys(keys);
         actualiza();
-       
 
     }
 
@@ -144,6 +144,11 @@ public class JDialogVehiculos extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableTabla);
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
@@ -226,6 +231,15 @@ public class JDialogVehiculos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
+    private void jTableTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTablaMouseClicked
+        if (evt.getClickCount() == 2) {
+            String filtro= dtm.getValueAt(jTableTabla.getSelectedRow(), 2).toString();
+            System.out.println(filtro);
+            RowFilter <TableModel,Integer> rf = RowFilter.regexFilter(filtro, 3);
+            order.setRowFilter(rf);
+        }
+    }//GEN-LAST:event_jTableTablaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -251,7 +265,7 @@ public class JDialogVehiculos extends javax.swing.JDialog {
         } else {
             s = "NO";
         }
-        taller.addVehiculo(v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), v.getEnReparacion());
+        taller.addVehiculo(v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), v.getEnReparacion(), v.getClienteDni());
         actualiza();
     }
 
@@ -267,7 +281,7 @@ public class JDialogVehiculos extends javax.swing.JDialog {
             String[] campos = {v.getMatricula(), v.getMarca(), v.getModelo(), v.getTipo(), s};
             dtm.addRow(campos);
         }
-         jTableTabla.setModel(dtm);
+        jTableTabla.setModel(dtm);
 
     }
 }

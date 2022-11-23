@@ -25,7 +25,7 @@ public class JDialogFORMvehiculo extends javax.swing.JDialog {
     JDialogVehiculos jd;
     Boolean dia;
     ArrayList<JLabel> lista;
-    DefaultComboBoxModel dom1, dom2;
+    DefaultComboBoxModel dom1, dom2,dom3;
 
     /**
      * Creates new form JDialogFORMvehiculo
@@ -65,6 +65,18 @@ public class JDialogFORMvehiculo extends javax.swing.JDialog {
             dom2.addElement(s);
         }
         jComboBoxRepara.setModel(dom2);
+        
+         dom3 = new DefaultComboBoxModel();
+        String labels3[] = new String[taller.getListaCliente().size()];
+        for (int i = 0; i < taller.getListaCliente().size(); i++) {
+            labels3[i]=taller.getListaCliente().get(i).getDni();
+        }
+        dom3.removeAllElements();
+        for (String s : labels3) {
+            dom3.addElement(s);
+        }
+        jComboBoxDNI.setModel(dom3);
+
 
         if (dia) {
             jPanelFondo.setBackground(Color.lightGray);
@@ -104,6 +116,8 @@ public class JDialogFORMvehiculo extends javax.swing.JDialog {
         jComboBoxRepara = new javax.swing.JComboBox<>();
         jLabelModelo = new javax.swing.JLabel();
         jTextFieldModelo = new javax.swing.JTextField();
+        jLabelClienteDni = new javax.swing.JLabel();
+        jComboBoxDNI = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 200));
@@ -177,6 +191,12 @@ public class JDialogFORMvehiculo extends javax.swing.JDialog {
             }
         });
         jPanelInsercion.add(jTextFieldModelo);
+
+        jLabelClienteDni.setText("    CLIENTE:");
+        jPanelInsercion.add(jLabelClienteDni);
+
+        jComboBoxDNI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanelInsercion.add(jComboBoxDNI);
 
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
@@ -260,7 +280,7 @@ public class JDialogFORMvehiculo extends javax.swing.JDialog {
                 b = false;
             }
             jd.anadeVehiculo(new Vehiculo(jTextFieldMatricula.getText().toUpperCase(), jTextFieldMarca.getText().toUpperCase(),
-                    jTextFieldModelo.getText().toUpperCase(), dom1.getSelectedItem().toString(), b));
+                    jTextFieldModelo.getText().toUpperCase(), dom1.getSelectedItem().toString(), b,dom3.getSelectedItem().toString()));
             
                 
             jTextFieldMarca.setText("");
@@ -282,10 +302,12 @@ public class JDialogFORMvehiculo extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBoxDNI;
     private javax.swing.JComboBox<String> jComboBoxRepara;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabelBotonCancelar;
     private javax.swing.JLabel jLabelBotonGuardar;
+    private javax.swing.JLabel jLabelClienteDni;
     private javax.swing.JLabel jLabelIcono;
     private javax.swing.JLabel jLabelMarca;
     private javax.swing.JLabel jLabelMatricula;

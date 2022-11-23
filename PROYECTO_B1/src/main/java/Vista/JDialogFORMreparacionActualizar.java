@@ -25,6 +25,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
     Taller taller;
     Vehiculo vehiculo;
     JDialogReparaciones jd;
+    ArrayList<ParteReparacion> listaparte;
     JFrameTaller jf;
     Boolean dia;
     ArrayList<JLabel> lista;
@@ -41,6 +42,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         initComponents();
         taller=jd.taller;
         dia = jd.dia;
+        listaparte=jd.listaparte;
         jLabelIcono.setIcon(new ImageIcon("img/actualizar.png"));
         jLabelBotonCancelar.setIcon(new ImageIcon("img/cancelar.png"));
         jLabelBotonGuardar.setIcon(new ImageIcon("img/guardar.png"));
@@ -219,7 +221,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
 
     private void jLabelBotonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonGuardarMouseClicked
         guardar();
-        jd.actualiza();
+        jd.actualiza(listaparte);
         this.dispose();
     }//GEN-LAST:event_jLabelBotonGuardarMouseClicked
 

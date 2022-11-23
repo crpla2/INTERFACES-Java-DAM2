@@ -44,6 +44,14 @@ public class Taller {
        return listaCliente.remove(getCliente(dni));
     }
 
+    public String getDniPorMatricula(String matricula){
+         for (Vehiculo v : listaVehiculo) {
+            if (matricula.equals(v.getMatricula())) {
+                return v.getClienteDni();
+            }
+        }
+        return null;
+    }
     public Cliente getCliente(String dni) {
         for (Cliente c : listaCliente) {
             if (dni.equals(c.getDni())) {
@@ -197,6 +205,20 @@ public class Taller {
         }
 
         //Devolvemos la lista creada antes con los partes de reparacion pendientes.
+        return listaPartePendientes;
+    }
+    
+    public ArrayList<ParteReparacion> getListadoParteTerminados() {
+       
+        ArrayList<ParteReparacion> listaPartePendientes = new ArrayList<ParteReparacion>();
+
+        for (int i = 0; i < listaParte.size(); i++) {
+            if (listaParte.get(i).getEstadoReparacion() == true) {
+                listaPartePendientes.add(listaParte.get(i));
+            }
+        }
+
+      
         return listaPartePendientes;
     }
 

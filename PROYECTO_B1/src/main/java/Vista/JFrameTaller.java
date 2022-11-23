@@ -52,8 +52,8 @@ public class JFrameTaller extends javax.swing.JFrame {
         initComponents();
         this.acceso=acceso;
         taller = new Taller();
-        taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false);
-        taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false);
+        taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false,"18048688C");
+        taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false,"18048677P");
         taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "974243494");
         taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "914243494");
         taller.addParte(1, taller.getListaCliente().get(0).getDni(), taller.getListaVehiculo().get(0).getMatricula(), getDateFormat("21/11/2021"), true, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
