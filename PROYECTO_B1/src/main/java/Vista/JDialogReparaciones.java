@@ -87,6 +87,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroupPartes = new javax.swing.ButtonGroup();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanelFondo = new javax.swing.JPanel();
         jPanelbotones = new javax.swing.JPanel();
         jLabelBotonNuevo = new javax.swing.JLabel();
@@ -103,6 +104,9 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jRadioButtonTodos = new javax.swing.JRadioButton();
         jRadioButtonPendientes = new javax.swing.JRadioButton();
         jRadioButtonTerminados = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        jRadioButtonTodosDni = new javax.swing.JRadioButton();
+        jRadioButtonMatricula = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -174,10 +178,9 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("PARTES:"));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         buttonGroupPartes.add(jRadioButtonTodos);
-        jRadioButtonTodos.setSelected(true);
         jRadioButtonTodos.setText("Todos");
         jRadioButtonTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,22 +207,55 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         });
         jPanel1.add(jRadioButtonTerminados);
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Elige y haz doble click en la tabla:"));
+        jPanel2.setLayout(new java.awt.GridLayout());
+
+        buttonGroup1.add(jRadioButtonTodosDni);
+        jRadioButtonTodosDni.setSelected(true);
+        jRadioButtonTodosDni.setText("DNI");
+        jRadioButtonTodosDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTodosDniActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jRadioButtonTodosDni);
+
+        buttonGroup1.add(jRadioButtonMatricula);
+        jRadioButtonMatricula.setText("Matricula");
+        jRadioButtonMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMatriculaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jRadioButtonMatricula);
+
         javax.swing.GroupLayout jPanelFiltrosLayout = new javax.swing.GroupLayout(jPanelFiltros);
         jPanelFiltros.setLayout(jPanelFiltrosLayout);
         jPanelFiltrosLayout.setHorizontalGroup(
             jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFiltrosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelFiltrosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanelFiltrosLayout.setVerticalGroup(
             jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFiltrosLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(0, 67, Short.MAX_VALUE))
+            .addGroup(jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFiltrosLayout.createSequentialGroup()
+                    .addContainerGap(61, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
+
+        jPanel2.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
@@ -244,10 +280,10 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,15 +354,24 @@ public class JDialogReparaciones extends javax.swing.JDialog {
       if (evt.getClickCount() == 2) {
           String s=dtm.getValueAt(jTableTabla.getSelectedRow(), 2).toString();
            RowFilter <TableModel,Integer> rf = RowFilter.regexFilter(s, 2);
-        order.setRowFilter(rf);
+            order.setRowFilter(rf);
       }
     }//GEN-LAST:event_jTableTablaMouseClicked
+
+    private void jRadioButtonTodosDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonTodosDniActionPerformed
+
+    private void jRadioButtonMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMatriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonMatriculaActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroupPartes;
     private javax.swing.JLabel jLabelBotonActualizar;
     private javax.swing.JLabel jLabelBotonNuevo;
@@ -334,14 +379,17 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelIcono2;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelFiltros;
     protected javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelTabla;
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JPanel jPanelbotones;
+    private javax.swing.JRadioButton jRadioButtonMatricula;
     private javax.swing.JRadioButton jRadioButtonPendientes;
     private javax.swing.JRadioButton jRadioButtonTerminados;
     private javax.swing.JRadioButton jRadioButtonTodos;
+    private javax.swing.JRadioButton jRadioButtonTodosDni;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTabla;
     // End of variables declaration//GEN-END:variables

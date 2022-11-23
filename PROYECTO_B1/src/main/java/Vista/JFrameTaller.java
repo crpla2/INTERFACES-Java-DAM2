@@ -50,15 +50,27 @@ public class JFrameTaller extends javax.swing.JFrame {
     public JFrameTaller(Acceso acceso) {
         super("TALLERES FITIPALDI");
         initComponents();
-        this.acceso=acceso;
+        this.acceso = acceso;
         taller = new Taller();
-        taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false,"18048688C");
-        taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false,"18048677P");
+        taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false, "18048688C");
+        taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false, "18048677P");
+        taller.addVehiculo("1234YFK", "AUDI", "A8", Vehiculo.TIPO_TURISMO, true, "38048655H");
+        taller.addVehiculo("4004PKD", "VOLKSWAGEN", "GOLF", Vehiculo.TIPO_TURISMO, false, "18048677P");
+        taller.addVehiculo("2012JJK", "RENAULT", "TWINGO", Vehiculo.TIPO_TURISMO, true, "42548677M");
+        taller.addVehiculo("0006PLK", "BMW", "SERIE3", Vehiculo.TIPO_TURISMO, true, "38048655H");
         taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "974243494");
         taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "914243494");
-        taller.addParte(1, taller.getListaCliente().get(0).getDni(), taller.getListaVehiculo().get(0).getMatricula(), getDateFormat("21/11/2021"), true, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
-        taller.addParte(2, taller.getListaCliente().get(1).getDni(), taller.getListaVehiculo().get(1).getMatricula(), getDateFormat("19/08/2022"), true, 4, 6, getDateFormat("23/08/2022"), 850, "Filtro antipartículas", 2);
-        //Cambiamos el icono de la ventana
+        taller.addCliente("Sanchez Castejón", "Pedro", "La Moncloa 12", "38048655H", "914243666");
+        taller.addCliente("Nuñez Feijoo", "Alberto", "Calle PaTuCasa 28", "42548677M", "91425566");
+
+        taller.addParte(taller.getCodigoParteReparacion(), "18048688C", "2112JFK", getDateFormat("21/11/2022"), false, 4, 6, getDateFormat("03/03/0003"), 700, "Junta de la trocola", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "0004PKK", getDateFormat("01/12/2021"), false, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "1234YFK", getDateFormat("19/08/2022"), true, 4, 0, getDateFormat("03/03/0003"), 850, "Filtro antipartículas", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "4004PKD", getDateFormat("17/06/2021"), false, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2021"), false, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("22/11/2022"), true, 4, 0, getDateFormat("03/03/0003"), 850, "Filtro antipartículas", 2);
+       
+    //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());
         //Añadimos las imagenes a una lista
         listaimagenes = new ArrayList<>();
@@ -87,8 +99,8 @@ public class JFrameTaller extends javax.swing.JFrame {
         jLabelRueda2.setBounds(150, 150, listaimagenes.get(2).getIconWidth(), listaimagenes.get(2).getIconHeight());
         jToggleButtonDiaNoche.setIcon(listaimagenes.get(7));
         jToggleButtonDiaNoche.setBounds(150, 150, listaimagenes.get(7).getIconWidth(), listaimagenes.get(7).getIconHeight());
-       
-        if (acceso.getUsuarioIdentificado().getMecanico()>0) {
+
+        if (acceso.getUsuarioIdentificado().getMecanico() > 0) {
             jLabelBotonClientes.setVisible(false);
             jLabelBotonVehiculos.setVisible(false);
         }
@@ -215,8 +227,9 @@ public class JFrameTaller extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 void setMecaN(int i) {
-        this.mecaN=i;
+        this.mecaN = i;
     }
+
     public static Date getDateFormat(String date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -282,5 +295,4 @@ void setMecaN(int i) {
     private javax.swing.JToggleButton jToggleButtonDiaNoche;
     // End of variables declaration//GEN-END:variables
 
-    
 }
