@@ -172,21 +172,53 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
             <Property name="columns" type="int" value="4"/>
-            <Property name="rows" type="int" value="2"/>
+            <Property name="rows" type="int" value="3"/>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="       Codigo de parte:"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="jLabelcodigo">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="C&#xf3;digo de Mec&#xe1;nico:"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelMecanico">
             </Component>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="                   Matr&#xed;cula:"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="jLabelMatricula">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel4">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="          Tipo de Aver&#xed;a:"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelAveria">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelFecha">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="  FECHA:"/>
+                <Property name="text" type="java.lang.String" value="                          FECHA:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="jSpinnerFecha">
@@ -202,7 +234,7 @@
             <Component class="javax.swing.JLabel" name="jLabelhoras">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="  HORAS:"/>
+                <Property name="text" type="java.lang.String" value="                  HORAS:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="jSpinnerHoras">

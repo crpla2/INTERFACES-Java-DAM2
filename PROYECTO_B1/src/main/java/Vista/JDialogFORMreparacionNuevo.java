@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import jdk.tools.jlink.resources.jlink;
+import logicaNegocio.Acceso;
 import logicaNegocio.ParteReparacion;
 import logicaNegocio.Taller;
 import logicaNegocio.Vehiculo;
@@ -22,6 +23,7 @@ import logicaNegocio.Vehiculo;
  * @author DAM2Alu10
  */
 public class JDialogFORMreparacionNuevo extends javax.swing.JDialog {
+    Acceso acceso;
     Taller taller;
     Vehiculo vehiculo;
     ArrayList<ParteReparacion> listaparte;
@@ -42,6 +44,7 @@ public class JDialogFORMreparacionNuevo extends javax.swing.JDialog {
         initComponents();
         taller=jd.taller;
         dia = jd.dia;
+        acceso=jd.acceso;
         listaparte=jd.listaparte;
         jLabelIcono.setIcon(new ImageIcon("img/añadir.png"));
         jLabelBotonCancelar.setIcon(new ImageIcon("img/cancelar.png"));
@@ -275,7 +278,7 @@ public class JDialogFORMreparacionNuevo extends javax.swing.JDialog {
        
       taller.addParte(taller.getCodigoParteReparacion(), jTextFieldDNI.getText(), dom2.getSelectedItem().toString(),
               (Date)jSpinnerFecha.getValue(), false, (int)jSpinnerHoras.getValue(), 0, jf.getDateFormat("03/03/0003"),
-              pre,dom3.getSelectedItem().toString(),1);
+              pre,dom3.getSelectedItem().toString(),acceso.getUsuarioIdentificado().getMecanico());
       jd.actualiza(listaparte);
       this.dispose();
     }

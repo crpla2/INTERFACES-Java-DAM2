@@ -11,12 +11,22 @@ package logicaNegocio;
 public class Usuario {
     String usuario;
     String password;
+    int rol;
     int mecanico;
 
-    public Usuario(String usuario, String password, int mecanico) {
+    public Usuario(String usuario, String password, int mecanico, int rol) {
         this.usuario = usuario;
         this.password = password;
         this.mecanico = mecanico;
+        this.rol=rol;
+    }
+
+    public int getRol() {
+        return rol;
+    }
+
+    public void setRol(int rol) {
+        this.rol = rol;
     }
 
   

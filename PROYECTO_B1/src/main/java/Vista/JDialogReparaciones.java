@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import logicaNegocio.Acceso;
 import logicaNegocio.ParteReparacion;
 import logicaNegocio.Taller;
 import logicaNegocio.Vehiculo;
@@ -27,16 +28,18 @@ import logicaNegocio.Vehiculo;
  * @author carlo
  */
 public class JDialogReparaciones extends javax.swing.JDialog {
+
+    Acceso acceso;
     int codigo;
     Taller taller;
     boolean dia;
-    String filtro="NO";
+    String filtro = "NO";
     JFrameTaller jf;
     ArrayList<ParteReparacion> listaparte;
     JDialogFORMreparacionNuevo jdf;
     JDialogFORMreparacionActualizar jdfa;
     DefaultTableModel dtm;
-    String cabecera[] = {"Código", "Mecanico", "Cliente","Vehículo", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};
+    String cabecera[] = {"Código", "Mecanico", "Cliente", "Vehículo", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};
     TableRowSorter<TableModel> order;
     ArrayList<RowSorter.SortKey> keys;
 
@@ -47,13 +50,25 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         super(parent, "REPARACIONES", modal);
         jf = (JFrameTaller) parent;
         initComponents();
-        dia = jf.dia;
-        taller = jf.taller;
-        
-        listaparte=taller.getTodosParte();
+        this.dia = jf.dia;
+        this.taller = jf.taller;
+        this.acceso = jf.acceso;
+
+        listaparte = taller.getTodosParte();
         jLabelIcono1.setIcon(new ImageIcon("img/reparaciones.png"));
         jLabelBotonActualizar.setIcon(new ImageIcon("img/actualizar.png"));
         jLabelBotonNuevo.setIcon(new ImageIcon("img/añadir.png"));
+        jLabelFactura.setIcon(new ImageIcon("img/factura.png"));
+
+        if (acceso.getUsuarioIdentificado().getRol() == 2) {
+            jPanelFiltros.setVisible(false);
+            
+           
+        }
+        if (acceso.getUsuarioIdentificado().getRol() == 1) {
+            jPanelbotones.setVisible(false);
+
+        }
 
         if (dia) {
             jPanelFondo.setBackground(Color.lightGray);
@@ -74,7 +89,16 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         keys = new ArrayList<>();
         keys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         order.setSortKeys(keys);
+        String s = "";
+        if (acceso.getUsuarioIdentificado().getMecanico() == 1) {
+            s = "1";
+        }
+        if (acceso.getUsuarioIdentificado().getMecanico() == 2) {
+            s = "2";
+        }
         actualiza(listaparte);
+        RowFilter<TableModel, Integer> rf = RowFilter.regexFilter(s, 1);
+        order.setRowFilter(rf);
 
     }
 
@@ -91,8 +115,8 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanelFondo = new javax.swing.JPanel();
         jPanelbotones = new javax.swing.JPanel();
-        jLabelBotonNuevo = new javax.swing.JLabel();
         jLabelBotonActualizar = new javax.swing.JLabel();
+        jLabelBotonNuevo = new javax.swing.JLabel();
         jPanelTitulo = new javax.swing.JPanel();
         jLabelIcono1 = new javax.swing.JLabel();
         jLabelTitulo = new javax.swing.JLabel();
@@ -101,14 +125,14 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabla = new javax.swing.JTable();
         jPanelFiltros = new javax.swing.JPanel();
+        jLabelFactura = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jRadioButtonTodos = new javax.swing.JRadioButton();
         jRadioButtonPendientes = new javax.swing.JRadioButton();
         jRadioButtonTerminados = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButtonNoFilter = new javax.swing.JRadioButton();
-        jRadioButtonTodosDni = new javax.swing.JRadioButton();
+        jRadioButtonDni = new javax.swing.JRadioButton();
         jRadioButtonMatricula = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,14 +142,6 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jPanelbotones.setOpaque(false);
         jPanelbotones.setLayout(new java.awt.GridLayout(1, 2));
 
-        jLabelBotonNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelBotonNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelBotonNuevoMouseClicked(evt);
-            }
-        });
-        jPanelbotones.add(jLabelBotonNuevo);
-
         jLabelBotonActualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBotonActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -133,6 +149,14 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             }
         });
         jPanelbotones.add(jLabelBotonActualizar);
+
+        jLabelBotonNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBotonNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBotonNuevoMouseClicked(evt);
+            }
+        });
+        jPanelbotones.add(jLabelBotonNuevo);
 
         jPanelTitulo.setOpaque(false);
         jPanelTitulo.setLayout(new java.awt.GridLayout(1, 0));
@@ -182,15 +206,6 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("PARTES:"));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        buttonGroupPartes.add(jRadioButtonTodos);
-        jRadioButtonTodos.setText("Todos");
-        jRadioButtonTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonTodosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jRadioButtonTodos);
-
         buttonGroupPartes.add(jRadioButtonPendientes);
         jRadioButtonPendientes.setText("Pendientes");
         jRadioButtonPendientes.addActionListener(new java.awt.event.ActionListener() {
@@ -212,18 +227,14 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Elige y haz doble click en la tabla:"));
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
-        buttonGroup1.add(jRadioButtonNoFilter);
-        jRadioButtonNoFilter.setText("Sin filtrar");
-        jPanel2.add(jRadioButtonNoFilter);
-
-        buttonGroup1.add(jRadioButtonTodosDni);
-        jRadioButtonTodosDni.setText("DNI");
-        jRadioButtonTodosDni.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonDni);
+        jRadioButtonDni.setText("DNI");
+        jRadioButtonDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonTodosDniActionPerformed(evt);
+                jRadioButtonDniActionPerformed(evt);
             }
         });
-        jPanel2.add(jRadioButtonTodosDni);
+        jPanel2.add(jRadioButtonDni);
 
         buttonGroup1.add(jRadioButtonMatricula);
         jRadioButtonMatricula.setText("Matricula");
@@ -234,30 +245,50 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         });
         jPanel2.add(jRadioButtonMatricula);
 
+        jButton1.setText("TODOS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelFiltrosLayout = new javax.swing.GroupLayout(jPanelFiltros);
         jPanelFiltros.setLayout(jPanelFiltrosLayout);
         jPanelFiltrosLayout.setHorizontalGroup(
             jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFiltrosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelFiltrosLayout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelFiltrosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(165, 165, 165)
+                .addComponent(jLabelFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5))
             .addGroup(jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelFiltrosLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addGap(223, 223, 223)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(91, Short.MAX_VALUE)))
         );
         jPanelFiltrosLayout.setVerticalGroup(
             jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFiltrosLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelFiltrosLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFiltrosLayout.createSequentialGroup()
-                    .addContainerGap(61, Short.MAX_VALUE)
+                .addGroup(jPanelFiltrosLayout.createSequentialGroup()
+                    .addContainerGap()
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                    .addContainerGap(41, Short.MAX_VALUE)))
         );
 
         jPanel2.getAccessibleContext().setAccessibleName("");
@@ -277,25 +308,25 @@ public class JDialogReparaciones extends javax.swing.JDialog {
                 .addContainerGap())
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
-                    .addContainerGap(428, Short.MAX_VALUE)
-                    .addComponent(jPanelbotones, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(429, Short.MAX_VALUE)))
+                    .addContainerGap(458, Short.MAX_VALUE)
+                    .addComponent(jPanelbotones, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(452, Short.MAX_VALUE)))
         );
         jPanelFondoLayout.setVerticalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addComponent(jPanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jPanelFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(10, 10, 10))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
-                    .addContainerGap(404, Short.MAX_VALUE)
-                    .addComponent(jPanelbotones, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(16, 16, 16)))
+                    .addContainerGap(430, Short.MAX_VALUE)
+                    .addComponent(jPanelbotones, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,9 +349,9 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabelBotonNuevoMouseClicked
 
     private void jLabelBotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBotonActualizarMouseClicked
-     
-        int seleccionada=jTableTabla.getSelectedRow();
-           System.out.println(seleccionada);
+
+        int seleccionada = jTableTabla.getSelectedRow();
+        System.out.println(seleccionada);
         try {
             if (dtm.getRowCount() == 0) {
                 throw new IllegalAccessException();
@@ -328,10 +359,10 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             if (seleccionada < 0) {
                 throw new Exception();
             }
-           codigo =Integer.parseInt(dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString());
-           System.out.println(codigo);
-           jdfa = new JDialogFORMreparacionActualizar(this, true);
-           jdfa.setVisible(true);
+            codigo = Integer.parseInt(dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString());
+            System.out.println(codigo);
+            jdfa = new JDialogFORMreparacionActualizar(this, true);
+            jdfa.setVisible(true);
         } catch (IllegalAccessException e) {
             JOptionPane.showMessageDialog(null, "Tabla vacia", "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
@@ -340,47 +371,52 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jLabelBotonActualizarMouseClicked
 
-    private void jRadioButtonTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosActionPerformed
-        listaparte=taller.getTodosParte();
-        actualiza(listaparte);
-    }//GEN-LAST:event_jRadioButtonTodosActionPerformed
-
     private void jRadioButtonPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPendientesActionPerformed
-        listaparte=taller.getListadoPartePendientes(); 
+        listaparte = taller.getListadoPartePendientes();
         actualiza(listaparte);
     }//GEN-LAST:event_jRadioButtonPendientesActionPerformed
 
     private void jRadioButtonTerminadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTerminadosActionPerformed
-       listaparte=taller.getListadoParteTerminados();
+        listaparte = taller.getListadoParteTerminados();
         actualiza(listaparte);
     }//GEN-LAST:event_jRadioButtonTerminadosActionPerformed
 
     private void jTableTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTablaMouseClicked
-      if (evt.getClickCount() == 2) {
-          String s="";
-          System.out.println(filtro);
-          if(filtro.equals("dni")){ 
-              s=dtm.getValueAt(jTableTabla.getSelectedRow(), 2).toString();
-               RowFilter <TableModel,Integer> rf = RowFilter.regexFilter(s, 2);
-            order.setRowFilter(rf);
-          }
-          if(filtro.equals("matricula")){
-              s=dtm.getValueAt(jTableTabla.getSelectedRow(), 3).toString();
-               RowFilter <TableModel,Integer> rf = RowFilter.regexFilter(s, 2);
-            order.setRowFilter(rf);
-          }
-          
-          
-      }
+        if (evt.getClickCount() == 2) {
+            String s = "";
+            System.out.println(filtro);
+            if (filtro.equals("dni")) {
+                s = dtm.getValueAt(jTableTabla.getSelectedRow(), 2).toString();
+                RowFilter<TableModel, Integer> rf = RowFilter.regexFilter(s, 2);
+                order.setRowFilter(rf);
+            }
+            if (filtro.equals("matricula")) {
+                s = dtm.getValueAt(jTableTabla.getSelectedRow(), 3).toString();
+                RowFilter<TableModel, Integer> rf = RowFilter.regexFilter(s, 3);
+                order.setRowFilter(rf);
+            }
+
+        }
     }//GEN-LAST:event_jTableTablaMouseClicked
 
-    private void jRadioButtonTodosDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosDniActionPerformed
-      filtro="dni";
-    }//GEN-LAST:event_jRadioButtonTodosDniActionPerformed
+    private void jRadioButtonDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDniActionPerformed
+        filtro = "dni";
+    }//GEN-LAST:event_jRadioButtonDniActionPerformed
 
     private void jRadioButtonMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMatriculaActionPerformed
-       filtro="matricula"; 
+        filtro = "matricula";
     }//GEN-LAST:event_jRadioButtonMatriculaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listaparte = taller.getTodosParte();
+        actualiza(listaparte);
+        RowFilter<TableModel, Integer> rf = RowFilter.regexFilter("", 1);
+        order.setRowFilter(rf);
+        jRadioButtonMatricula.setSelected(false);
+        jRadioButtonTerminados.setSelected(false);
+        jRadioButtonPendientes.setSelected(false);
+        jRadioButtonDni.setSelected(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,8 +425,10 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroupPartes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabelBotonActualizar;
     private javax.swing.JLabel jLabelBotonNuevo;
+    private javax.swing.JLabel jLabelFactura;
     private javax.swing.JLabel jLabelIcono1;
     private javax.swing.JLabel jLabelIcono2;
     private javax.swing.JLabel jLabelTitulo;
@@ -401,19 +439,17 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     private javax.swing.JPanel jPanelTabla;
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JPanel jPanelbotones;
+    private javax.swing.JRadioButton jRadioButtonDni;
     private javax.swing.JRadioButton jRadioButtonMatricula;
-    private javax.swing.JRadioButton jRadioButtonNoFilter;
     private javax.swing.JRadioButton jRadioButtonPendientes;
     private javax.swing.JRadioButton jRadioButtonTerminados;
-    private javax.swing.JRadioButton jRadioButtonTodos;
-    private javax.swing.JRadioButton jRadioButtonTodosDni;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTabla;
     // End of variables declaration//GEN-END:variables
 
-    public void actualiza(ArrayList<ParteReparacion> listaparte) {     
-       
-    String s, f, hr;
+    public void actualiza(ArrayList<ParteReparacion> listaparte) {
+
+        String s, f, hr;
 
         dtm.setRowCount(0);
 

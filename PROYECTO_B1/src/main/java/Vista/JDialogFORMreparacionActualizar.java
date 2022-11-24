@@ -68,10 +68,10 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         
          parte= taller.getParte(codigo);
         
-        jLabelcodigo.setText("NÚMERO DE PARTE: "+codigo);
-        jLabelMecanico.setText("MECANICO: "+parte.getMecanico());
-        jLabelMatricula.setText("VEHICULO: "+parte.getMatriculaVehiculo());
-        jLabelAveria.setText("AVERIA: "+parte.getTipoAveria());
+        jLabelcodigo.setText(String.valueOf(codigo));
+        jLabelMecanico.setText(String.valueOf(parte.getMecanico()));
+        jLabelMatricula.setText(parte.getMatriculaVehiculo());
+        jLabelAveria.setText(parte.getTipoAveria());
         jSpinnerHoras.setValue(parte.getHorasEstimadas());
     }
 
@@ -93,9 +93,13 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jLabelTitulo1 = new javax.swing.JLabel();
         jLabelTitulo2 = new javax.swing.JLabel();
         jPanelInsercion = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabelcodigo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabelMecanico = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabelMatricula = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabelAveria = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
         jSpinnerFecha = new javax.swing.JSpinner();
@@ -143,14 +147,30 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jPanelTitulo.add(jLabelTitulo2);
 
         jPanelInsercion.setOpaque(false);
-        jPanelInsercion.setLayout(new java.awt.GridLayout(2, 4));
+        jPanelInsercion.setLayout(new java.awt.GridLayout(3, 4));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("       Codigo de parte:");
+        jPanelInsercion.add(jLabel1);
         jPanelInsercion.add(jLabelcodigo);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Código de Mecánico:");
+        jPanelInsercion.add(jLabel2);
         jPanelInsercion.add(jLabelMecanico);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("                   Matrícula:");
+        jPanelInsercion.add(jLabel3);
         jPanelInsercion.add(jLabelMatricula);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("          Tipo de Avería:");
+        jPanelInsercion.add(jLabel4);
         jPanelInsercion.add(jLabelAveria);
 
         jLabelFecha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelFecha.setText("  FECHA:");
+        jLabelFecha.setText("                          FECHA:");
         jPanelInsercion.add(jLabelFecha);
 
         jSpinnerFecha.setModel(new javax.swing.SpinnerDateModel());
@@ -158,7 +178,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jPanelInsercion.add(jSpinnerFecha);
 
         jLabelhoras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelhoras.setText("  HORAS:");
+        jLabelhoras.setText("                  HORAS:");
         jPanelInsercion.add(jLabelhoras);
 
         jSpinnerHoras.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
@@ -248,6 +268,10 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelAveria;
     private javax.swing.JLabel jLabelBotonCancelar;
     private javax.swing.JLabel jLabelBotonGuardar;

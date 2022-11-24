@@ -29,9 +29,9 @@ public class JDialogLogin extends javax.swing.JDialog {
         super(parent, "LOGIN", modal);
         initComponents();
         acceso = new Acceso();
-        acceso.addUsuario(new Usuario("admin", "admin", 0));
-        acceso.addUsuario(new Usuario("m1", "m1", 1));
-        acceso.addUsuario(new Usuario("m2", "m2", 2));
+        acceso.addUsuario(new Usuario("admin", "admin", 0,1));
+        acceso.addUsuario(new Usuario("m1", "m1", 1,2));
+        acceso.addUsuario(new Usuario("m2", "m2", 2,2));
 
         setIconImage(new ImageIcon("img/llave.png").getImage());
         imagen = new ImageIcon("img/candado.png");
