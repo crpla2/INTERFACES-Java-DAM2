@@ -49,7 +49,21 @@ public class JDialogImprimir extends javax.swing.JDialog {
         + "\n                                                                                                    "
         + "\n                                                                                                    " 
         + "\n_________________________________________________________________________________                   "
-        + "\n                                                                                                    "     
+        + "\n                                                                                                    " 
+        + "\n                                                                                                    "
+        + "\n                                                             \t\tSubtotal sin IVA                                               "
+        + "\n                                                             IVA 21%  de                                                    "
+        + "\n                                                             Total EUR                                                             "
+        + "\n                                                                                                    "
+        + "\n                                                                                                    "
+        + "\n                                                                                                    "
+        + "\n   Terminos y condiciones:                                                                                                "                                                                                         
+        + "\n   A pagar a la entrega del vehículo                                                                                              "
+        + "\n                                                                                                    "
+        + "\n                                                                                                    "
+        + "\n         "
+                
+                
       );
     }
 
