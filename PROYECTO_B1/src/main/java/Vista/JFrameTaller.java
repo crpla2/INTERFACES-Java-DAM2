@@ -63,12 +63,14 @@ public class JFrameTaller extends javax.swing.JFrame {
         taller.addCliente("Sanchez Castejón", "Pedro", "La Moncloa 12", "38048655H", "914243666");
         taller.addCliente("Nuñez Feijoo", "Alberto", "Calle PaTuCasa 28", "42548677M", "91425566");
 
-        taller.addParte(taller.getCodigoParteReparacion(), "18048688C", "2112JFK", getDateFormat("21/11/2022"), false, 4, 6, getDateFormat("03/03/0003"), 700, "Junta de la trocola", 1);
-        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "0004PKK", getDateFormat("01/12/2021"), false, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
-        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "1234YFK", getDateFormat("19/08/2022"), true, 4, 0, getDateFormat("03/03/0003"), 850, "Filtro antipartículas", 2);
-        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "4004PKD", getDateFormat("17/06/2021"), false, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
-        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2021"), false, 4, 6, getDateFormat("25/11/2021"), 700, "Junta de la trocola", 1);
-        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("22/11/2022"), true, 4, 0, getDateFormat("03/03/0003"), 850, "Filtro antipartículas", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "1234YFK", getDateFormat("20/08/2022"), true, 4, 6, getDateFormat("25/08/2022"), 850, "Filtro antipartículas", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("18/11/2022"), true, 4, 5, getDateFormat("21/11/2022"), 1500, "Embrague", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("18/11/2022"), true, 4, 5, getDateFormat("21/11/2022"), 1000, "Turbo", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "4004PKD", getDateFormat("19/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 500, "Cadena de distribución", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "0004PKK", getDateFormat("20/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 100, "Cambio de ruedas", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "18048688C", "2112JFK", getDateFormat("21/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 700, "Junta de la trocola", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 1000, "Turbo", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 850, "Filtro antipartículas", 1);
        
     //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());

@@ -30,6 +30,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     int codigo;
     Taller taller;
     boolean dia;
+    String filtro="NO";
     JFrameTaller jf;
     ArrayList<ParteReparacion> listaparte;
     JDialogFORMreparacionNuevo jdf;
@@ -105,6 +106,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jRadioButtonPendientes = new javax.swing.JRadioButton();
         jRadioButtonTerminados = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
+        jRadioButtonNoFilter = new javax.swing.JRadioButton();
         jRadioButtonTodosDni = new javax.swing.JRadioButton();
         jRadioButtonMatricula = new javax.swing.JRadioButton();
 
@@ -208,10 +210,13 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jPanel1.add(jRadioButtonTerminados);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Elige y haz doble click en la tabla:"));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+
+        buttonGroup1.add(jRadioButtonNoFilter);
+        jRadioButtonNoFilter.setText("Sin filtrar");
+        jPanel2.add(jRadioButtonNoFilter);
 
         buttonGroup1.add(jRadioButtonTodosDni);
-        jRadioButtonTodosDni.setSelected(true);
         jRadioButtonTodosDni.setText("DNI");
         jRadioButtonTodosDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +252,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFiltrosLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 67, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(jPanelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFiltrosLayout.createSequentialGroup()
                     .addContainerGap(61, Short.MAX_VALUE)
@@ -352,18 +357,29 @@ public class JDialogReparaciones extends javax.swing.JDialog {
 
     private void jTableTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTablaMouseClicked
       if (evt.getClickCount() == 2) {
-          String s=dtm.getValueAt(jTableTabla.getSelectedRow(), 2).toString();
-           RowFilter <TableModel,Integer> rf = RowFilter.regexFilter(s, 2);
+          String s="";
+          System.out.println(filtro);
+          if(filtro.equals("dni")){ 
+              s=dtm.getValueAt(jTableTabla.getSelectedRow(), 2).toString();
+               RowFilter <TableModel,Integer> rf = RowFilter.regexFilter(s, 2);
             order.setRowFilter(rf);
+          }
+          if(filtro.equals("matricula")){
+              s=dtm.getValueAt(jTableTabla.getSelectedRow(), 3).toString();
+               RowFilter <TableModel,Integer> rf = RowFilter.regexFilter(s, 2);
+            order.setRowFilter(rf);
+          }
+          
+          
       }
     }//GEN-LAST:event_jTableTablaMouseClicked
 
     private void jRadioButtonTodosDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosDniActionPerformed
-        // TODO add your handling code here:
+      filtro="dni";
     }//GEN-LAST:event_jRadioButtonTodosDniActionPerformed
 
     private void jRadioButtonMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMatriculaActionPerformed
-        // TODO add your handling code here:
+       filtro="matricula"; 
     }//GEN-LAST:event_jRadioButtonMatriculaActionPerformed
 
     /**
@@ -386,6 +402,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JPanel jPanelbotones;
     private javax.swing.JRadioButton jRadioButtonMatricula;
+    private javax.swing.JRadioButton jRadioButtonNoFilter;
     private javax.swing.JRadioButton jRadioButtonPendientes;
     private javax.swing.JRadioButton jRadioButtonTerminados;
     private javax.swing.JRadioButton jRadioButtonTodos;
