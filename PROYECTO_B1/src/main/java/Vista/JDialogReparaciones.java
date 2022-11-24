@@ -38,6 +38,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     ArrayList<ParteReparacion> listaparte;
     JDialogFORMreparacionNuevo jdf;
     JDialogFORMreparacionActualizar jdfa;
+    JDialogImprimir jdi;
     DefaultTableModel dtm;
     String cabecera[] = {"Código", "Mecanico", "Cliente", "Vehículo", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};
     TableRowSorter<TableModel> order;
@@ -202,6 +203,12 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jLabelFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelFacturaMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("PARTES:"));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
@@ -417,6 +424,11 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         jRadioButtonPendientes.setSelected(false);
         jRadioButtonDni.setSelected(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabelFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFacturaMouseClicked
+         jdi = new JDialogImprimir(this, true);
+        jdi.setVisible(true);
+    }//GEN-LAST:event_jLabelFacturaMouseClicked
 
     /**
      * @param args the command line arguments
