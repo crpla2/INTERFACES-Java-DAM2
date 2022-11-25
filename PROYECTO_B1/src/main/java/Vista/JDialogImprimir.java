@@ -4,17 +4,29 @@
  */
 package Vista;
 
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import logicaNegocio.Cliente;
+import logicaNegocio.Taller;
+import logicaNegocio.Vehiculo;
 
 /**
  *
  * @author carlo
  */
 public class JDialogImprimir extends javax.swing.JDialog {
-
+    
     JDialogReparaciones jd;
-
+    TableModel dtm;
+    JTable jt;
+    Taller taller;
+    String imprime;
+      TableRowSorter<TableModel> order;
     /**
      * Creates new form JDialogImprimir
      */
@@ -22,6 +34,35 @@ public class JDialogImprimir extends javax.swing.JDialog {
         super(parent, false);
         jd = (JDialogReparaciones) parent;
         initComponents();
+        jt=jd.jTableTabla;
+        
+        order=jd.order;
+        dtm=order.getModel();
+        order.
+        taller=jd.taller;
+        imprime=jd.imprime;
+        Vehiculo v;
+        Cliente c=taller.getCliente((String)dtm.getValueAt(0, 2));//apellido
+        String fecha,horasEstimadas,horasReales,averia,precio;
+         v=taller.getVehiculo((String)dtm.getValueAt(0, 3));//Vehículo
+         ArrayList<String[]> lista= new ArrayList<>();
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+          String[]s=new String[5];
+           s[0]=(String)dtm.getValueAt(i, 6);//fecha
+           s[1]=(String)dtm.getValueAt(i, 7);//horasEstimadas
+           s[2]=(String)dtm.getValueAt(i, 8);//horaReales
+           s[3]=(String)dtm.getValueAt(i, 9);//averia
+           s[4]=(String)dtm.getValueAt(i, 10);//e
+           lista.add(s);
+        }
+        for (int i = 0; i < lista.size(); i++) {
+            String s[]=lista.get(i);
+            for (int j = 0; j < 5; j++) {
+                System.out.println(s[j]);
+            }
+        }
+        
+        
         jLabelIcono.setIcon(new ImageIcon("img/factura.png"));
         jTextArea1.setText( 
           "\n                   ___                                                      TALLERES FITIPALDI, Ronda de la Industria 78- 22006 Huesca "
@@ -37,8 +78,8 @@ public class JDialogImprimir extends javax.swing.JDialog {
         + "\n                                                                                                    "
         + "\n                                                                                                    "
         + "\n                                                                                                    "
-        + "\n_________________________________________________________________________________                                                                        " 
-        + "\n   Descripción\t\tCantidad\tPrecio\tIVA\tImporte                                                                      "
+        + "\n_________________________________________________________________________________                   " 
+        + "\n   Descripción\t\tCantidad\tPrecio\tIVA\tImporte                                                    "
         + "\n_________________________________________________________________________________                   "
         + "\n                                                                                                    "
         + "\n                                                                                                    "
@@ -51,14 +92,18 @@ public class JDialogImprimir extends javax.swing.JDialog {
         + "\n_________________________________________________________________________________                   "
         + "\n                                                                                                    " 
         + "\n                                                                                                    "
-        + "\n                                                             \t\tSubtotal sin IVA                                               "
-        + "\n                                                             IVA 21%  de                                                    "
-        + "\n                                                             Total EUR                                                             "
+        + "\n                                                             \t\tSubtotal sin IVA                   "
+        + "\n                                                             \t\tIVA 21%  de                        "
+        + "\n                                                             \t\tTotal EUR                          "
+        + "\n                                                                                                    "
+                     + "\n                                                                                       "
+                     + "\n                                                                                       "
+                     + "\n                                                                                       "
+                     + "\n                                                                                       "
         + "\n                                                                                                    "
         + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n   Terminos y condiciones:                                                                                                "                                                                                         
-        + "\n   A pagar a la entrega del vehículo                                                                                              "
+        + "\n   Terminos y condiciones:                                                                          "                                                                                         
+        + "\n   A pagar a la entrega del vehículo                                                                "
         + "\n                                                                                                    "
         + "\n                                                                                                    "
         + "\n         "
