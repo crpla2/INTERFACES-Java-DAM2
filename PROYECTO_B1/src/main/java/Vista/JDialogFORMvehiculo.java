@@ -48,6 +48,7 @@ public class JDialogFORMvehiculo extends javax.swing.JDialog {
         lista.add(jLabelTipo);
         lista.add(jLabelModelo);
         lista.add(jLabelMarca);
+        lista.add(jLabelClienteDni);
 
         //Creamos elos combobox
         dom1 = new DefaultComboBoxModel();

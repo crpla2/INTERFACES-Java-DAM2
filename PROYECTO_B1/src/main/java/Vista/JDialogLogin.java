@@ -4,11 +4,15 @@
  */
 package Vista;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import login.Acceso;
 import login.Usuario;
 
@@ -39,6 +43,15 @@ public class JDialogLogin extends javax.swing.JDialog {
         imagen3 = new ImageIcon("img/cerrado.png");
         jLabelImagen.setIcon(imagen);
         jLabelImagen.setBounds(15, 15, imagen.getIconWidth(), imagen.getIconHeight());
+        
+          ActionListener a=new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {
+               accede();
+            }
+        };
+    getRootPane().registerKeyboardAction(a,KeyStroke.getKeyStroke("ENTER"),JComponent.WHEN_IN_FOCUSED_WINDOW);
+    
     }
 
     /**
@@ -65,10 +78,6 @@ public class JDialogLogin extends javax.swing.JDialog {
 
         jLabelPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabelPassword.setText("Contraseña:");
-
-        jTextFieldUsuario.setText("admin");
-
-        jPasswordFieldPassword.setText("admin");
 
         jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -128,45 +137,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAccederActionPerformed
-        try {
-            String usuario = jTextFieldUsuario.getText().toString();
-            char[] passwd = jPasswordFieldPassword.getPassword();
-            String pass = new String(passwd);
-
-            if (usuario.isEmpty()) {
-                throw new IllegalAccessException();
-            }
-            if (passwd.length == 0) {
-                throw new ClassNotFoundException();
-            }
-
-            if (acceso.getUsuario(usuario).getPassword().equals(pass)) {
-                System.out.println(acceso.getUsuario(usuario).getUsuario());
-                acceso.setAcceso(acceso.getUsuario(usuario));
-                JOptionPane.showMessageDialog(rootPane, "Has ingresado satisfactoriamente al sistema",
-                        "BIENVENIDO", JOptionPane.PLAIN_MESSAGE, imagen2);
-
-                jf = new JFrameTaller(acceso);
-
-                jf.setVisible(true);
-                this.dispose();
-            } else {
-                throw new Exception();
-            }
-        } catch (IllegalAccessException e) {
-            JOptionPane.showMessageDialog(rootPane, "El campo usuario no puede estar vacio",
-                    "ERROR", JOptionPane.WARNING_MESSAGE);
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(rootPane, "La contraseña no puede estar vacia",
-                    "ERROR", JOptionPane.WARNING_MESSAGE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(rootPane, "Acceso denegado",
-                    "ERROR", JOptionPane.PLAIN_MESSAGE, imagen3);
-
-            System.exit(0);
-
-        }
+       accede();
     }//GEN-LAST:event_jButtonAccederActionPerformed
 
     /**
@@ -220,4 +191,45 @@ public class JDialogLogin extends javax.swing.JDialog {
     private javax.swing.JPasswordField jPasswordFieldPassword;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void accede() {
+        try {
+            String usuario = jTextFieldUsuario.getText().toString();
+            char[] passwd = jPasswordFieldPassword.getPassword();
+            String pass = new String(passwd);
+
+            if (usuario.isEmpty()) {
+                throw new IllegalAccessException();
+            }
+            if (passwd.length == 0) {
+                throw new ClassNotFoundException();
+            }
+
+            if (acceso.getUsuario(usuario).getPassword().equals(pass)) {
+                System.out.println(acceso.getUsuario(usuario).getUsuario());
+                acceso.setAcceso(acceso.getUsuario(usuario));
+                JOptionPane.showMessageDialog(rootPane, "Has ingresado satisfactoriamente al sistema",
+                        "BIENVENIDO", JOptionPane.PLAIN_MESSAGE, imagen2);
+
+                jf = new JFrameTaller(acceso);
+
+                jf.setVisible(true);
+                this.dispose();
+            } else {
+                throw new Exception();
+            }
+        } catch (IllegalAccessException e) {
+            JOptionPane.showMessageDialog(rootPane, "El campo usuario no puede estar vacio",
+                    "ERROR", JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(rootPane, "La contraseña no puede estar vacia",
+                    "ERROR", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(rootPane, "Acceso denegado",
+                    "ERROR", JOptionPane.PLAIN_MESSAGE, imagen3);
+
+            System.exit(0);
+
+        }   }
 }

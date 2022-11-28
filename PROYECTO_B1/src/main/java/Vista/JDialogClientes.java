@@ -7,14 +7,18 @@ package Vista;
 import com.sun.org.apache.bcel.internal.classfile.ClassFormatException;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import logicaNegocio.Cliente;
 import logicaNegocio.Taller;
@@ -77,24 +81,13 @@ public class JDialogClientes extends javax.swing.JDialog {
         }
 
         actualiza();
-        //NO FUNCIONA!!!
-        listaTex.get(listaTex.size() - 1).addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
+        ActionListener a = new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                
+                System.exit(0);
             }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    actualiza();
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-
-        });
+        };
+        getRootPane().registerKeyboardAction(a, KeyStroke.getKeyStroke("ESCAPE"), JComponent.WHEN_IN_FOCUSED_WINDOW);
 
     }
 
@@ -235,7 +228,6 @@ public class JDialogClientes extends javax.swing.JDialog {
             taller.removeCliente(clienteSeleccionado.getDni());
             inserta();
 
-          
         } else
             JOptionPane.showMessageDialog(null, "Ningun Cliente seleccionado", "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jLabelBotonActualizaMouseClicked
@@ -249,14 +241,14 @@ public class JDialogClientes extends javax.swing.JDialog {
             }
             actualiza();
             limpia();
-           
+
         } else
             JOptionPane.showMessageDialog(null, "Ningun Cliente seleccionado", "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jLabelBotonBorraMouseClicked
 
     private void jComboBoxClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxClientesActionPerformed
         String[] str = dom.getSelectedItem().toString().split(" ");
-       for (Cliente c : taller.getListaCliente()) {
+        for (Cliente c : taller.getListaCliente()) {
             if (c.getDni().equals(str[5])) {
                 clienteSeleccionado = c;
                 String[] apellidos = c.getApellidos().split(" ");
@@ -267,7 +259,8 @@ public class JDialogClientes extends javax.swing.JDialog {
                 listaTex.get(4).setText(c.getDni());
                 listaTex.get(5).setText(c.getTelefono());
             }
-        } /*
+        }
+        /*
         clienteSeleccionado = (Cliente) dom.getSelectedItem();
         String[] apellidos = clienteSeleccionado.getApellidos().split(" ");
         System.out.println(apellidos[0] + ", " + apellidos[1]);
@@ -277,17 +270,17 @@ public class JDialogClientes extends javax.swing.JDialog {
         listaTex.get(3).setText(clienteSeleccionado.getDireccion());
         listaTex.get(4).setText(clienteSeleccionado.getDni());
         listaTex.get(5).setText(clienteSeleccionado.getTelefono().substring(3));
-*/
+         */
     }//GEN-LAST:event_jComboBoxClientesActionPerformed
     private void actualiza() {
         dom = new DefaultComboBoxModel();
         dom.removeAllElements();
-     
+
         for (Cliente c : taller.getListaCliente()) {
             dom.addElement(c.toString());
         }
-            /**/
-      //  dom.addAll(taller.getListaCliente());
+        /**/
+        //  dom.addAll(taller.getListaCliente());
 
         jComboBoxClientes.setModel(dom);
     }
@@ -333,7 +326,7 @@ public class JDialogClientes extends javax.swing.JDialog {
                 }
             }
             String s = listaTex.get(0).getText() + " " + listaTex.get(1).getText();
-            taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(),listaTex.get(5).getText());
+            taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(), listaTex.get(5).getText());
             actualiza();
             limpia();
 

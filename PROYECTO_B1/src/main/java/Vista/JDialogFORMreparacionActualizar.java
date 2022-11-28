@@ -12,6 +12,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import jdk.tools.jlink.resources.jlink;
 import logicaNegocio.ParteReparacion;
 import logicaNegocio.Taller;
@@ -32,6 +35,10 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
     DefaultComboBoxModel dom1;
     ParteReparacion parte;
     int codigo;
+   
+    TableModel dtm;
+    JTable jt;
+     TableRowSorter<TableModel> order;
 
     /**
      * Creates new form JDialogFORMvehiculo
@@ -46,7 +53,12 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         jLabelIcono.setIcon(new ImageIcon("img/actualizar.png"));
         jLabelBotonCancelar.setIcon(new ImageIcon("img/cancelar.png"));
         jLabelBotonGuardar.setIcon(new ImageIcon("img/guardar.png"));
-        codigo=jd.codigo;
+        
+        jt = jd.jTableTabla;
+        order = jd.order;
+        dtm = order.getModel();
+        
+        codigo= Integer.parseInt(jt.getValueAt(jt.getSelectedRow(), 0).toString());
 
         lista = new ArrayList<>();
         lista.add(jLabelTitulo1);
@@ -67,6 +79,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
         }
         
          parte= taller.getParte(codigo);
+         
         
         jLabelcodigo.setText(String.valueOf(codigo));
         jLabelMecanico.setText(String.valueOf(parte.getMecanico()));

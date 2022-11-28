@@ -3,6 +3,8 @@ package Vista;
 import java.awt.Color;
 import static java.awt.Color.black;
 import static java.awt.Color.white;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -15,9 +17,11 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import login.Acceso;
 import logicaNegocio.Taller;
 import login.Usuario;
@@ -115,6 +119,14 @@ public class JFrameTaller extends javax.swing.JFrame {
             jLabelBotonClientes.setVisible(false);//No puedes acceder a Clientes
             jLabelBotonVehiculos.setVisible(false);//No puedes acceder a Vehiculos
         }//Si eres administrativo tiens acceso a Clientes/Vehículos/Reparaciones
+
+        ActionListener a = new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                System.exit(0);
+            }
+        };
+        getRootPane().registerKeyboardAction(a, KeyStroke.getKeyStroke("ESCAPE"), JComponent.WHEN_IN_FOCUSED_WINDOW);
+
     }
 
     /**
@@ -240,11 +252,13 @@ public class JFrameTaller extends javax.swing.JFrame {
     void setMecaN(int i) {
         this.mecaN = i;
     }
-/**
- * Método estático para el formateo de Date a String
- * @param date recibe un String con el formato("dd/MM/yyyy")
- * @return devuelve un Objeto Date
- */
+
+    /**
+     * Método estático para el formateo de Date a String
+     *
+     * @param date recibe un String con el formato("dd/MM/yyyy")
+     * @return devuelve un Objeto Date
+     */
     public static Date getDateFormat(String date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -253,11 +267,13 @@ public class JFrameTaller extends javax.swing.JFrame {
             return null;
         }
     }
-/**
- * Método estático para el formateo de String a Date
- * @param d recibe un Date 
- * @return devuelve un String con el formato ("dd/MM/yyyy")
- */
+
+    /**
+     * Método estático para el formateo de String a Date
+     *
+     * @param d recibe un Date
+     * @return devuelve un String con el formato ("dd/MM/yyyy")
+     */
     public static String getStringFormat(Date d) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(d);

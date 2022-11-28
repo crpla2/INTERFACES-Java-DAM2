@@ -6,11 +6,15 @@ package Vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
@@ -100,6 +104,13 @@ public class JDialogReparaciones extends javax.swing.JDialog {
         actualiza(listaparte);
         RowFilter<TableModel, Integer> rf = RowFilter.regexFilter(s, 1);
         order.setRowFilter(rf);
+        
+        ActionListener a = new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                System.exit(0);
+            }
+        };
+        getRootPane().registerKeyboardAction(a, KeyStroke.getKeyStroke("ESCAPE"), JComponent.WHEN_IN_FOCUSED_WINDOW);
 
     }
 
@@ -366,8 +377,6 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             if (seleccionada < 0) {
                 throw new Exception();
             }
-            codigo = Integer.parseInt(dtm.getValueAt(jTableTabla.getSelectedRow(), 0).toString());
-            System.out.println(codigo);
             jdfa = new JDialogFORMreparacionActualizar(this, true);
             jdfa.setVisible(true);
         } catch (IllegalAccessException e) {
