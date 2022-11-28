@@ -26,7 +26,7 @@ import logicaNegocio.Vehiculo;
  * @author carlo
  */
 public class jDialogPresupuesto extends javax.swing.JDialog {
-    
+
     boolean dia;
     JDialogReparaciones jd;
     TableModel dtm;
@@ -59,47 +59,48 @@ public class jDialogPresupuesto extends javax.swing.JDialog {
             jPanel2.setBackground(Color.darkGray);
             jLabelTitulo.setForeground(Color.white);
         }
+        
+        
         jt = jd.jTableTabla;
         order = jd.order;
         dtm = order.getModel();
+        
+         //Extracción de los datos filtrados de la tabla del JDialogReparaciones
         Cliente c = taller.getCliente((String) jt.getValueAt(0, 2));
         Vehiculo v, v2;
         ArrayList<ParteReparacion> lista = new ArrayList<>();
 
-        try {
-
-            for (int i = 0; i < jt.getRowCount(); i++) {
-                boolean b = true;
-                if (jt.getValueAt(i, 5).equals("SI")) {
-                    b = true;
-                }
-                int x;
-                try {
-                    x = Integer.parseInt((String) jt.getValueAt(i, 8));
-                } catch (Exception e) {
-                    x = 0;
-                }
-                ParteReparacion p = new ParteReparacion(
-                        Integer.parseInt((String) jt.getValueAt(i, 0)),//codigo
-                        (String) jt.getValueAt(i, 2),//DNI
-                        (String) jt.getValueAt(i, 3),//MAtricula
-                        JFrameTaller.getDateFormat((String) jt.getValueAt(i, 4)),//FEcha entrada                   
-                        b,//estado reparacion
-                        Integer.parseInt((String) jt.getValueAt(i, 7)),//horas estimadas
-                        x,//horas reales
-                        JFrameTaller.getDateFormat((String) jt.getValueAt(i, 6)),//FEcha salida
-                        Double.parseDouble((String) jt.getValueAt(i, 10)),//precio   
-                        (String) jt.getValueAt(i, 9),//averia
-                        Integer.parseInt((String) jt.getValueAt(i, 1))//mecanico
-                );
-                lista.add(p);
+       
+        for (int i = 0; i < jt.getRowCount(); i++) {
+            boolean b = true;
+            if (jt.getValueAt(i, 5).equals("SI")) {
+                b = true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            int x;
+            try {
+                x = Integer.parseInt((String) jt.getValueAt(i, 8));
+            } catch (Exception e) {
+                x = 0;
+            }
+            ParteReparacion p = new ParteReparacion(
+                    Integer.parseInt((String) jt.getValueAt(i, 0)),//codigo
+                    (String) jt.getValueAt(i, 2),//DNI
+                    (String) jt.getValueAt(i, 3),//MAtricula
+                    JFrameTaller.getDateFormat((String) jt.getValueAt(i, 4)),//Fecha entrada                   
+                    b,//estado reparacion
+                    Integer.parseInt((String) jt.getValueAt(i, 7)),//horas estimadas
+                    x,//horas reales
+                    JFrameTaller.getDateFormat((String) jt.getValueAt(i, 6)),//FEcha salida
+                    Double.parseDouble((String) jt.getValueAt(i, 10)),//precio   
+                    (String) jt.getValueAt(i, 9),//averia
+                    Integer.parseInt((String) jt.getValueAt(i, 1))//mecanico
+            );
+            lista.add(p);
         }
 
-        String tablaCliente = ""
-                + " <p>" + c.getApellidos() + ", " + c.getNombre() + "<br>" + c.getDni() + "<br>" + c.getDireccion() + "<br>" + c.getTelefono() + "</p>";
+        //Modificación e inserción de datos en el HTML
+        String tablaCliente = " <p>" + c.getApellidos() + ", " + c.getNombre() + "<br>" + c.getDni() + "<br>" + c.getDireccion()
+                + "<br>" + c.getTelefono() + "</p>";
         String tablaVehiculo = "";
         String tituloCliente = "";
         String tablaReparacion = "";
@@ -115,79 +116,79 @@ public class jDialogPresupuesto extends javax.swing.JDialog {
         String fechaTabla = "";
         int i = 0;
         double total = 0;
-        
-            v2 = null;
-            for (ParteReparacion p : lista) {
-                v = taller.getVehiculo(p.getMatriculaVehiculo());
-                if (i == 0) {
-                    v2 = v;
-                    tablaVehiculo += "<p>" + v.getMarca() + "<br>" + v.getModelo() + "<br>" + v.getTipo() + "<br>" + v.getMatricula() + "</p></td>";
-                }
-                if (i > 0) {
-                    if (!v2.equals(v)) {
-                        tituloCliente += "<td style=\"width:250px\"><strong>Vehículo</strong> </td>\n";
-                        tablaVehiculo += " <td style=\"width:250px\"><p>" + v.getMarca() + "<br>" + v.getModelo() + "<br>" + v.getTipo() + "<br>" + v.getMatricula() + "</p></td>";
-                        v2 = v;
-                    }
-                }
-                if (imprime.equals("PRESUPUESTO")) {
-                    if (JFrameTaller.getStringFormat(p.getFechaEntrada()).compareTo(fechaE) <= 0) {
-                        fechaE = JFrameTaller.getStringFormat(p.getFechaEntrada());
-                    }
-                    tablaReparacion += ""
-                            + "<tr>"
-                            + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
-                            + "<td style=\"width:200px\">" + p.getTipoAveria() + "</td>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</td>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;" + p.getCuantiaReparacion() + "</td> "
-                            + "<td style=\"width:200px\">" + (p.getCuantiaReparacion() * 1) + "</td> "
-                            + "</tr>"
-                            + " <tr>"
-                            + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
-                            + "<td style=\"width:200px\">Mano de obra</th>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + p.getHorasEstimadas() + "</th>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;50.0</th>"
-                            + "<td style=\"width:200px\">" + (double) (p.getHorasEstimadas() * 50) + "</th>"
-                            + " </tr>";
-                    total += p.getCuantiaReparacion() + (p.getHorasEstimadas() * 50);
-                    mensaje = "El documento representa una estimación del coste real. <br>Puede ser que el precio final difiera del estimado en este documento.<br> Si acepta el presupuesto será informado en caso de que la cuantía final exceda en un 20% de este presupuesto.";
-                    fechaTabla = fechaE;
 
-                } else {
-                    if (JFrameTaller.getStringFormat(p.getFechaSalida()).compareTo(fechaS) >= 0) {
-                        fechaS = JFrameTaller.getStringFormat(p.getFechaSalida());
-                    }
-                    tablaReparacion += ""
-                            + "<tr>"
-                            + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
-                            + "<td style=\"width:200px\">" + p.getTipoAveria() + "</td>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</td>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;" + p.getCuantiaReparacion() + "</td> "
-                            + "<td style=\"width:200px\">" + (p.getCuantiaReparacion() * 1) + "</td> "
-                            + "</tr>"
-                            + " <tr>"
-                            + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
-                            + "<td style=\"width:200px\">Mano de obra</th>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + p.getHorasReales() + "</th>"
-                            + "<td style=\"width:200px\">&nbsp;&nbsp;50.0</th>"
-                            + "<td style=\"width:200px\">" + (double) (p.getHorasReales() * 50) + "</th>"
-                            + " </tr>";
-                    total += p.getCuantiaReparacion() + (p.getHorasReales() * 50);
-                    mensaje = "Gracias por confiar en TALLERES FITIPALDI.<br>Ante cualquier duda o aclaración no dude en ponerse en contacto con nosotros a través de nuestro correo electronico: fitipaldi.oficina@timofonica.net";
-                    fechaTabla = fechaS;
-                }
-                i++;
+        v2 = null;
+        for (ParteReparacion p : lista) {
+            v = taller.getVehiculo(p.getMatriculaVehiculo());
+            if (i == 0) {
+                v2 = v;
+                tablaVehiculo += "<p>" + v.getMarca() + "<br>" + v.getModelo() + "<br>" + v.getTipo() + "<br>" + v.getMatricula() + "</p></td>";
             }
+            if (i > 0) {
+                if (!v2.equals(v)) {
+                    tituloCliente += "<td style=\"width:250px\"><strong>Vehículo</strong> </td>\n";
+                    tablaVehiculo += " <td style=\"width:250px\"><p>" + v.getMarca() + "<br>" + v.getModelo() + "<br>" + v.getTipo() + "<br>" + v.getMatricula() + "</p></td>";
+                    v2 = v;
+                }
+            }
+            if (imprime.equals("PRESUPUESTO")) {
+                if (JFrameTaller.getStringFormat(p.getFechaEntrada()).compareTo(fechaE) <= 0) {
+                    fechaE = JFrameTaller.getStringFormat(p.getFechaEntrada());
+                }
+                tablaReparacion += ""
+                        + "<tr>"
+                        + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
+                        + "<td style=\"width:200px\">" + p.getTipoAveria() + "</td>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</td>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;" + p.getCuantiaReparacion() + "</td> "
+                        + "<td style=\"width:200px\">" + (p.getCuantiaReparacion() * 1) + "</td> "
+                        + "</tr>"
+                        + " <tr>"
+                        + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
+                        + "<td style=\"width:200px\">Mano de obra</th>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + p.getHorasEstimadas() + "</th>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;50.0</th>"
+                        + "<td style=\"width:200px\">" + (double) (p.getHorasEstimadas() * 50) + "</th>"
+                        + " </tr>";
+                total += p.getCuantiaReparacion() + (p.getHorasEstimadas() * 50);
+                mensaje = "El documento representa una estimación del coste real. <br>Puede ser que el precio final difiera del estimado en este documento.<br> Si acepta el presupuesto será informado en caso de que la cuantía final exceda en un 20% de este presupuesto.";
+                fechaTabla = fechaE;
 
-      
+            } else {
+                if (JFrameTaller.getStringFormat(p.getFechaSalida()).compareTo(fechaS) >= 0) {
+                    fechaS = JFrameTaller.getStringFormat(p.getFechaSalida());
+                }
+                tablaReparacion += ""
+                        + "<tr>"
+                        + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
+                        + "<td style=\"width:200px\">" + p.getTipoAveria() + "</td>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</td>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;" + p.getCuantiaReparacion() + "</td> "
+                        + "<td style=\"width:200px\">" + (p.getCuantiaReparacion() * 1) + "</td> "
+                        + "</tr>"
+                        + " <tr>"
+                        + "<td style=\"width:200px\">" + p.getMatriculaVehiculo() + "</td>"
+                        + "<td style=\"width:200px\">Mano de obra</th>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + p.getHorasReales() + "</th>"
+                        + "<td style=\"width:200px\">&nbsp;&nbsp;50.0</th>"
+                        + "<td style=\"width:200px\">" + (double) (p.getHorasReales() * 50) + "</th>"
+                        + " </tr>";
+                total += p.getCuantiaReparacion() + (p.getHorasReales() * 50);
+                mensaje = "Gracias por confiar en TALLERES FITIPALDI.<br>Ante cualquier duda o aclaración no dude en ponerse en contacto con nosotros a través de nuestro correo electronico: fitipaldi.oficina@timofonica.net";
+                fechaTabla = fechaS;
+            }
+            i++;
+        }
 
-        System.out.println(lista.size());
+        //Codificación del logo para poder mostrarlo en el HTML
         String imgsrc = "";
         try {
             imgsrc = new File("img/logo.png").toURL().toExternalForm();
         } catch (MalformedURLException ex) {
             Logger.getLogger(jDialogPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //Generación del código HTML e inserción el el JEditorPane
         jEditorPane1.setEditable(false);
         jEditorPane1.setContentType("text/html");
         jEditorPane1.setText(""
@@ -217,7 +218,7 @@ public class jDialogPresupuesto extends javax.swing.JDialog {
                 + "               " + fechaTabla + "<br>\n"
                 + "               <strong>Factura No.</strong>\n"
                 + "              <br>\n"
-                + "               "+JFrameTaller.NºFac+"</td>\n"
+                + "               " + JFrameTaller.NºFac + "</td>\n"
                 + "             </tr>\n"
                 + "             <tr>\n"
                 + "                 <td style=\"width:250px\">  <strong>TALLERES FITIPALDI S.L.</strong>\n"
