@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import logicaNegocio.Acceso;
+import login.Acceso;
 import logicaNegocio.ParteReparacion;
 import logicaNegocio.Taller;
 import logicaNegocio.Vehiculo;
@@ -38,7 +38,6 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     ArrayList<ParteReparacion> listaparte;
     JDialogFORMreparacionNuevo jdf;
     JDialogFORMreparacionActualizar jdfa;
-    JDialogImprimir jdi;
     jDialogPresupuesto jdp;
     DefaultTableModel dtm;
     String cabecera[] = {"Código", "Mecanico", "Cliente", "Vehículo", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};

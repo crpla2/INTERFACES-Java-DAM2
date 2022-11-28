@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import logicaNegocio.Acceso;
-import logicaNegocio.Usuario;
+import login.Acceso;
+import login.Usuario;
 
 /**
  *

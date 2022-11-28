@@ -18,9 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import logicaNegocio.Acceso;
+import login.Acceso;
 import logicaNegocio.Taller;
-import logicaNegocio.Usuario;
+import login.Usuario;
 import logicaNegocio.Vehiculo;
 
 /*

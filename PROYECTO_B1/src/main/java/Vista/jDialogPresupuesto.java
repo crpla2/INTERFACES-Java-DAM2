@@ -173,7 +173,7 @@ public class jDialogPresupuesto extends javax.swing.JDialog {
                             + "<td style=\"width:200px\">" + (double) (p.getHorasReales() * 50) + "</th>"
                             + " </tr>";
                     total += p.getCuantiaReparacion() + (p.getHorasReales() * 50);
-                    mensaje = "Gracias por confiar en TALLERES FITIPALDI.<br>Ante cualquier duda o aclaración no dude ne ponerse encotacto con nosotros a través de nuestro correo electronico: fitipaldi.oficina@timofonica.net";
+                    mensaje = "Gracias por confiar en TALLERES FITIPALDI.<br>Ante cualquier duda o aclaración no dude en ponerse en contacto con nosotros a través de nuestro correo electronico: fitipaldi.oficina@timofonica.net";
                     fechaTabla = fechaS;
                 }
                 i++;
@@ -190,8 +190,9 @@ public class jDialogPresupuesto extends javax.swing.JDialog {
         }
         jEditorPane1.setEditable(false);
         jEditorPane1.setContentType("text/html");
-        jEditorPane1.setText(
-                "<!DOCTYPE html>\n"
+        jEditorPane1.setText(""
+                + ""
+                + "<!DOCTYPE html>\n"
                 + "<html lang=\"es\">\n"
                 + "\n"
                 + "<head>\n"
