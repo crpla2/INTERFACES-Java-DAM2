@@ -39,6 +39,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     JDialogFORMreparacionNuevo jdf;
     JDialogFORMreparacionActualizar jdfa;
     JDialogImprimir jdi;
+    jDialogPresupuesto jdp;
     DefaultTableModel dtm;
     String cabecera[] = {"Código", "Mecanico", "Cliente", "Vehículo", "Fecha entrada", "En reparación", "Fecha salida", "Horas estimadas", "Horas reales", "Avería", "Precio"};
     TableRowSorter<TableModel> order;
@@ -381,13 +382,13 @@ public class JDialogReparaciones extends javax.swing.JDialog {
     private void jRadioButtonPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPendientesActionPerformed
         listaparte = taller.getListadoPartePendientes();
         actualiza(listaparte);
-        imprime="PRESUPUESTO";
+        imprime = "PRESUPUESTO";
     }//GEN-LAST:event_jRadioButtonPendientesActionPerformed
 
     private void jRadioButtonTerminadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTerminadosActionPerformed
         listaparte = taller.getListadoParteTerminados();
         actualiza(listaparte);
-        imprime="FACTURA";
+        imprime = "FACTURA";
     }//GEN-LAST:event_jRadioButtonTerminadosActionPerformed
 
     private void jTableTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTablaMouseClicked
@@ -398,7 +399,7 @@ public class JDialogReparaciones extends javax.swing.JDialog {
                 s = dtm.getValueAt(jTableTabla.getSelectedRow(), 2).toString();
                 RowFilter<TableModel, Integer> rf = RowFilter.regexFilter(s, 2);
                 order.setRowFilter(rf);
-                
+
             }
             if (filtro.equals("matricula")) {
                 s = dtm.getValueAt(jTableTabla.getSelectedRow(), 3).toString();
@@ -433,10 +434,18 @@ public class JDialogReparaciones extends javax.swing.JDialog {
             if (jTableTabla.getSelectedRow() == -1) {
                 throw new Exception();
             }
-            jdi = new JDialogImprimir(this, true);
-            jdi.setVisible(true);
+            if (imprime == null) {
+                throw new ClassNotFoundException();
+            }
+            jf.NºFac++;
+            jdp = new jDialogPresupuesto(this, true);
+            jdp.setVisible(true);
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Elija entre partes terminados o pendientes para emitir Factura o presupuesto", "ERROR", JOptionPane.ERROR_MESSAGE);
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Debe de ralizar un filtro antes, elija si desea fitrar por matricula o por dni de cliente", "ERROR", JOptionPane.ERROR_MESSAGE);
+            e.getStackTrace();
+            JOptionPane.showMessageDialog(null, "Debe de realizar un filtro antes, elija si desea fitrar por matricula o por dni de cliente", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         }
 

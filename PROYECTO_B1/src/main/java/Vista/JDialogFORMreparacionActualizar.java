@@ -250,6 +250,7 @@ public class JDialogFORMreparacionActualizar extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabelBotonCancelarMouseClicked
     
     private void guardar() {
+        System.out.println("GUARDO");
        for(ParteReparacion p: taller.getTodosParte()){
            if(p.getCodigo()==parte.getCodigo()){
                p.setEstadoReparacion(true);

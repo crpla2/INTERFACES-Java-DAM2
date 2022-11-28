@@ -5,6 +5,7 @@
 package Vista;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
@@ -12,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import logicaNegocio.Cliente;
+import logicaNegocio.ParteReparacion;
 import logicaNegocio.Taller;
 import logicaNegocio.Vehiculo;
 
@@ -20,13 +22,14 @@ import logicaNegocio.Vehiculo;
  * @author carlo
  */
 public class JDialogImprimir extends javax.swing.JDialog {
-    
+
     JDialogReparaciones jd;
     TableModel dtm;
     JTable jt;
     Taller taller;
     String imprime;
-      TableRowSorter<TableModel> order;
+    TableRowSorter<TableModel> order;
+
     /**
      * Creates new form JDialogImprimir
      */
@@ -34,82 +37,87 @@ public class JDialogImprimir extends javax.swing.JDialog {
         super(parent, false);
         jd = (JDialogReparaciones) parent;
         initComponents();
-        jt=jd.jTableTabla;
-        
-        order=jd.order;
-        dtm=order.getModel();
-        order.
-        taller=jd.taller;
-        imprime=jd.imprime;
+        taller = jd.taller;
+        imprime = jd.imprime;
+
+        jt = jd.jTableTabla;
+        order = jd.order;
+        dtm = order.getModel();
+        Cliente c;
         Vehiculo v;
-        Cliente c=taller.getCliente((String)dtm.getValueAt(0, 2));//apellido
-        String fecha,horasEstimadas,horasReales,averia,precio;
-         v=taller.getVehiculo((String)dtm.getValueAt(0, 3));//Vehículo
-         ArrayList<String[]> lista= new ArrayList<>();
-        for (int i = 0; i < dtm.getRowCount(); i++) {
-          String[]s=new String[5];
-           s[0]=(String)dtm.getValueAt(i, 6);//fecha
-           s[1]=(String)dtm.getValueAt(i, 7);//horasEstimadas
-           s[2]=(String)dtm.getValueAt(i, 8);//horaReales
-           s[3]=(String)dtm.getValueAt(i, 9);//averia
-           s[4]=(String)dtm.getValueAt(i, 10);//e
-           lista.add(s);
-        }
-        for (int i = 0; i < lista.size(); i++) {
-            String s[]=lista.get(i);
-            for (int j = 0; j < 5; j++) {
-                System.out.println(s[j]);
+        ArrayList<ParteReparacion> lista = new ArrayList<>();
+
+        try {
+
+            for (int i = 0; i < jt.getRowCount(); i++) {
+                boolean b = true;
+                if (jt.getValueAt(i, 5).equals("SI")) {
+                    b = true;
+                }
+                ParteReparacion p = new ParteReparacion(
+                        Integer.parseInt((String) jt.getValueAt(i, 0)),//codigo
+                        (String) jt.getValueAt(i, 2),//DNI
+                        (String) jt.getValueAt(i, 3),//MAtricula
+                        JFrameTaller.getDateFormat((String) jt.getValueAt(i, 4)),//FEcha entrada                   
+                        b,//estado reparacion
+                        Integer.parseInt((String) jt.getValueAt(i, 7)),//horas estimadas
+                        Integer.parseInt((String) jt.getValueAt(i, 8)),//horas reales
+                        JFrameTaller.getDateFormat((String) jt.getValueAt(i, 6)),//FEcha salida
+                        Double.parseDouble((String) jt.getValueAt(i, 10)),//precio   
+                        (String) jt.getValueAt(i, 9),//averia
+                        Integer.parseInt((String) jt.getValueAt(i, 1))//mecanico
+                );
+                lista.add(p);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        
+
         jLabelIcono.setIcon(new ImageIcon("img/factura.png"));
-        jTextArea1.setText( 
-          "\n                   ___                                                      TALLERES FITIPALDI, Ronda de la Industria 78- 22006 Huesca "
-        + "\n           o(_____)o                                                                                    NIF-IVA E5652117259T CIF/NIF: 65117259T "
-        + "\n        (O\\___!___/O)                                                                     E-mail:fitipaldi@gmail.com Teléfono: 987 87 87 87 "  
-        + "\n          ||| ====== |||                                                                            "
-        + "\n TALLERES FITIPALDI                                                                                 "
-        + "\n_________________________________________________________________________________                   "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n_________________________________________________________________________________                   " 
-        + "\n   Descripción\t\tCantidad\tPrecio\tIVA\tImporte                                                    "
-        + "\n_________________________________________________________________________________                   "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    " 
-        + "\n_________________________________________________________________________________                   "
-        + "\n                                                                                                    " 
-        + "\n                                                                                                    "
-        + "\n                                                             \t\tSubtotal sin IVA                   "
-        + "\n                                                             \t\tIVA 21%  de                        "
-        + "\n                                                             \t\tTotal EUR                          "
-        + "\n                                                                                                    "
-                     + "\n                                                                                       "
-                     + "\n                                                                                       "
-                     + "\n                                                                                       "
-                     + "\n                                                                                       "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n   Terminos y condiciones:                                                                          "                                                                                         
-        + "\n   A pagar a la entrega del vehículo                                                                "
-        + "\n                                                                                                    "
-        + "\n                                                                                                    "
-        + "\n         "
-                
-                
-      );
+        jTextArea1.setText(
+                "\n                   ___                                                      TALLERES FITIPALDI, Ronda de la Industria 78- 22006 Huesca "
+                + "\n           o(_____)o                                                                                    NIF-IVA E5652117259T CIF/NIF: 65117259T "
+                + "\n        (O\\___!___/O)                                                                     E-mail:fitipaldi@gmail.com Teléfono: 987 87 87 87 "
+                + "\n          ||| ====== |||                                                                            "
+                + "\n TALLERES FITIPALDI             <H1>   " + imprime + " </H1>                                                                "
+                + "\n_________________________________________________________________________________                   "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n_________________________________________________________________________________                   "
+                + "\n   Descripción\t\tCantidad\tPrecio\tIVA\tImporte                                                    "
+                + "\n_________________________________________________________________________________                   "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n_________________________________________________________________________________                   "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n                                                             \t\tSubtotal sin IVA                   "
+                + "\n                                                             \t\tIVA 21%  de                        "
+                + "\n                                                             \t\tTotal EUR                          "
+                + "\n                                                                                                    "
+                + "\n                                                                                       "
+                + "\n                                                                                       "
+                + "\n                                                                                       "
+                + "\n                                                                                       "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n   Terminos y condiciones:                                                                          "
+                + "\n   A pagar a la entrega del vehículo                                                                "
+                + "\n                                                                                                    "
+                + "\n                                                                                                    "
+                + "\n         "
+        );
     }
 
     /**

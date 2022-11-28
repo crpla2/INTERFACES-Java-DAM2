@@ -33,6 +33,7 @@ import logicaNegocio.Vehiculo;
  */
 public class JFrameTaller extends javax.swing.JFrame {
 
+    static int NºFac = 658;
     int mecaN;
     Taller taller;
     boolean dia = true;
@@ -52,6 +53,7 @@ public class JFrameTaller extends javax.swing.JFrame {
         initComponents();
         this.acceso = acceso;
         taller = new Taller();
+        //INSERCION DE DATOS DE PRUEBA
         taller.addVehiculo("2112JFK", "SEAT", "IBIZA", Vehiculo.TIPO_TURISMO, false, "18048688C");
         taller.addVehiculo("0004PKK", "VOLVO", "S40", Vehiculo.TIPO_TURISMO, false, "18048677P");
         taller.addVehiculo("1234YFK", "AUDI", "A8", Vehiculo.TIPO_TURISMO, true, "38048655H");
@@ -63,16 +65,19 @@ public class JFrameTaller extends javax.swing.JFrame {
         taller.addCliente("Sanchez Castejón", "Pedro", "La Moncloa 12", "38048655H", "914243666");
         taller.addCliente("Nuñez Feijoo", "Alberto", "Calle PaTuCasa 28", "42548677M", "91425566");
 
-        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "1234YFK", getDateFormat("20/08/2022"), true, 4, 6, getDateFormat("25/08/2022"), 850, "Filtro antipartículas", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "1234YFK", getDateFormat("20/08/2022"), true, 2, 2, getDateFormat("25/08/2022"), 850, "Filtro antipartículas", 2);
         taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("18/11/2022"), true, 4, 5, getDateFormat("21/11/2022"), 1500, "Embrague", 2);
-        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("18/11/2022"), true, 4, 5, getDateFormat("21/11/2022"), 1000, "Turbo", 2);
-        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "4004PKD", getDateFormat("19/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 500, "Cadena de distribución", 1);
-        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "0004PKK", getDateFormat("20/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 100, "Cambio de ruedas", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("18/11/2022"), true, 6, 5, getDateFormat("21/11/2022"), 1000, "Turbo", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "4004PKD", getDateFormat("19/11/2022"), false, 5, 0, getDateFormat("03/03/0003"), 500, "Cadena de distribución", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "18048677P", "0004PKK", getDateFormat("20/11/2022"), false, 1, 0, getDateFormat("03/03/0003"), 100, "Cambio de ruedas", 1);
         taller.addParte(taller.getCodigoParteReparacion(), "18048688C", "2112JFK", getDateFormat("21/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 700, "Junta de la trocola", 1);
-        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 1000, "Turbo", 1);
+        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2022"), false, 6, 0, getDateFormat("03/03/0003"), 1000, "Turbo", 1);
         taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 850, "Filtro antipartículas", 1);
-       
-    //Cambiamos el icono de la ventana
+        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2022"), false, 4, 0, getDateFormat("03/03/0003"), 700, "Junta de la trocola", 2);
+        taller.addParte(taller.getCodigoParteReparacion(), "42548677M", "2012JJK", getDateFormat("21/11/2022"), false, 1, 0, getDateFormat("03/03/0003"), 100, "Cambio de ruedas", 2);
+        // 
+
+        //Cambiamos el icono de la ventana
         setIconImage(new ImageIcon("img/logo.png").getImage());
         //Añadimos las imagenes a una lista
         listaimagenes = new ArrayList<>();
@@ -82,7 +87,7 @@ public class JFrameTaller extends javax.swing.JFrame {
         listaimagenes.add(new ImageIcon("img/clientes.png"));
         listaimagenes.add(new ImageIcon("img/vehiculos.png"));
         listaimagenes.add(new ImageIcon("img/reparaciones.png"));
-        //
+        //Imagenen e icono de botón para modo noche
         listaimagenes.add(new ImageIcon("img/oscuro.jpg"));
         listaimagenes.add(new ImageIcon("img/solluna.png"));
         //Añadimos los jlabel a una lista
@@ -93,19 +98,23 @@ public class JFrameTaller extends javax.swing.JFrame {
         listaJLabel.add(jLabelBotonClientes);
         listaJLabel.add(jLabelBotonVehiculos);
         listaJLabel.add(jLabelBotonReparaciones);
+        //Recorremos las dos listas y añadimos dinámicamente las imágenes a los jlabels
         for (int i = 0; i < listaJLabel.size(); i++) {
             listaJLabel.get(i).setIcon(listaimagenes.get(i));
             listaJLabel.get(i).setBounds(150, 150, listaimagenes.get(i).getIconWidth(), listaimagenes.get(i).getIconHeight());
         }
+        //Añadimos imagenes de decoración del titulo
         jLabelRueda2.setIcon(listaimagenes.get(2));
         jLabelRueda2.setBounds(150, 150, listaimagenes.get(2).getIconWidth(), listaimagenes.get(2).getIconHeight());
+        //Añadimos icono al ToggleButton Dia/Noche
         jToggleButtonDiaNoche.setIcon(listaimagenes.get(7));
         jToggleButtonDiaNoche.setBounds(150, 150, listaimagenes.get(7).getIconWidth(), listaimagenes.get(7).getIconHeight());
 
-        if (acceso.getUsuarioIdentificado().getMecanico() > 0) {
-            jLabelBotonClientes.setVisible(false);
-            jLabelBotonVehiculos.setVisible(false);
-        }
+        //Gestion de los ROLES (Mecánico/ Administrativo)
+        if (acceso.getUsuarioIdentificado().getMecanico() > 0) {//Si eres un mecanico
+            jLabelBotonClientes.setVisible(false);//No puedes acceder a Clientes
+            jLabelBotonVehiculos.setVisible(false);//No puedes acceder a Vehiculos
+        }//Si eres administrativo tiens acceso a Clientes/Vehículos/Reparaciones
     }
 
     /**
@@ -228,10 +237,14 @@ public class JFrameTaller extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-void setMecaN(int i) {
+    void setMecaN(int i) {
         this.mecaN = i;
     }
-
+/**
+ * Método estático para el formateo de Date a String
+ * @param date recibe un String con el formato("dd/MM/yyyy")
+ * @return devuelve un Objeto Date
+ */
     public static Date getDateFormat(String date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -240,7 +253,11 @@ void setMecaN(int i) {
             return null;
         }
     }
-
+/**
+ * Método estático para el formateo de String a Date
+ * @param d recibe un Date 
+ * @return devuelve un String con el formato ("dd/MM/yyyy")
+ */
     public static String getStringFormat(Date d) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(d);
@@ -262,12 +279,14 @@ void setMecaN(int i) {
     }//GEN-LAST:event_jLabelBotonVehiculosMouseClicked
 
     private void jToggleButtonDiaNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDiaNocheActionPerformed
+        //Modo noche
         if (jToggleButtonDiaNoche.isSelected()) {
             listaJLabel.get(0).setIcon(listaimagenes.get(6));
             listaJLabel.get(0).setBounds(150, 150, listaimagenes.get(6).getIconWidth(), listaimagenes.get(6).getIconHeight());
             jLabelTitulo1.setForeground(white);
             jLabelTitulo2.setForeground(white);
             dia = false;
+            //Modo día    
         } else {
             listaJLabel.get(0).setIcon(listaimagenes.get(0));
             listaJLabel.get(0).setBounds(150, 150, listaimagenes.get(0).getIconWidth(), listaimagenes.get(0).getIconHeight());
