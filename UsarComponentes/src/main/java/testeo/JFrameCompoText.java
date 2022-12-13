@@ -4,6 +4,13 @@
  */
 package testeo;
 
+import java.awt.Component;
+import java.io.File;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  *
  * @author DAM2Alu10
@@ -15,6 +22,8 @@ public class JFrameCompoText extends javax.swing.JFrame {
      */
     public JFrameCompoText() {
         initComponents();
+       
+
     }
 
     /**
@@ -27,27 +36,52 @@ public class JFrameCompoText extends javax.swing.JFrame {
     private void initComponents() {
 
         compoTextAmpliado2 = new componenteejemplo.CompoTextAmpliado();
+        jButtonAyudaPrincipal = new javax.swing.JButton();
+        jLabelCompoText = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuAyuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         compoTextAmpliado2.setText("compoTextAmpliado2");
-        compoTextAmpliado2.setColores(new componenteejemplo.ClaseDosColores(new java.awt.Color(-240),new java.awt.Color(-65536)));
+        compoTextAmpliado2.setColores(new componenteejemplo.ClaseDosColores(new java.awt.Color(-240),new java.awt.Color(-15732736)));
+
+        jButtonAyudaPrincipal.setText("Ayuda Principal");
+
+        jLabelCompoText.setText("Ejemplo de Compo text");
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenuAyuda.setText("Edit");
+        jMenuBar1.add(jMenuAyuda);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
-                .addComponent(compoTextAmpliado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jLabelCompoText)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAyudaPrincipal)
+                    .addComponent(compoTextAmpliado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(compoTextAmpliado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCompoText)
+                    .addComponent(compoTextAmpliado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+                .addComponent(jButtonAyudaPrincipal)
+                .addGap(54, 54, 54))
         );
 
         pack();
@@ -90,5 +124,10 @@ public class JFrameCompoText extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private componenteejemplo.CompoTextAmpliado compoTextAmpliado2;
+    private javax.swing.JButton jButtonAyudaPrincipal;
+    private javax.swing.JLabel jLabelCompoText;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenuAyuda;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
