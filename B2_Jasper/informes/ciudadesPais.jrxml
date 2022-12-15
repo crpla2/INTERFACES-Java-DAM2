@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ciudadesPais" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3554e406-d925-40a9-a4f9-91e9ca388d3f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PAIS" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     city.`ID` AS city_ID,
+     city.`Name` AS city_Name,
+     city.`District` AS city_District,
+     city.`Population` AS city_Population,
+     country.`Name` AS country_Name
+FROM
+     `country` country INNER JOIN `city` city ON country.`Code` = city.`CountryCode`
+
+WHERE
+	country.`Name`=$P{PAIS}]]>
+	</queryString>
+	<field name="city_ID" class="java.lang.Integer"/>
+	<field name="city_Name" class="java.lang.String"/>
+	<field name="city_District" class="java.lang.String"/>
+	<field name="city_Population" class="java.lang.Integer"/>
+	<field name="country_Name" class="java.lang.String"/>
+	<variable name="city_Population_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{city_Population}]]></variableExpression>
+	</variable>
+	<variable name="city_ID_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{city_ID}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="23" width="555" height="33" uuid="47fdc42a-2d19-492f-8585-a22267fbcf60"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ciudades de "+$F{country_Name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="a0ca65ce-fa4f-4690-b269-c0f6a42def43"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Ciudad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="2" width="100" height="20" uuid="a834f3ec-fc61-450a-ba88-7c84d87aebcd"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="2" width="100" height="20" uuid="b1635654-66d7-4428-9de8-ca6c6c58aa20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Región]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="2" width="100" height="20" uuid="cc019d0b-dd98-4963-9502-a55dbf1c1079"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Población]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="19bf4dfd-d457-48ce-a696-454c4db156a1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="0" width="100" height="20" uuid="704791e6-c3b5-494a-a26a-50a4f99a789a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="291" y="0" width="100" height="20" uuid="eb52054c-5449-46fc-b932-9c33a1b4c488"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city_District}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="427" y="0" width="100" height="20" uuid="45b9dd44-c1f7-4688-a0cf-59660eafb963"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city_Population}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="435" y="30" width="80" height="20" uuid="71bdc937-f2e4-4e54-a9b4-dc394d6696aa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="30" width="40" height="20" uuid="0cb58dac-ba09-4901-838a-e3c4f7b318e0"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="346" y="22" width="209" height="20" uuid="1a615434-6555-480a-8a51-ab4b3ef2a103"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total de población: "+$V{city_Population_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="22" width="166" height="20" uuid="8453ece8-5fdf-45dd-976f-9202108db99b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Número de ciudades "+$V{city_ID_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="c7a67ada-52cb-4f8b-b8c1-40fbcb70e79f"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

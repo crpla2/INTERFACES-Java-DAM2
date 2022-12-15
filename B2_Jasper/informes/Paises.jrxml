@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Paises" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c049a56a-3064-4361-93cb-28f36952645f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="8"/>
+	<queryString>
+		<![CDATA[SELECT
+     country.`Name` AS country_Name,
+     country.`Continent` AS country_Continent,
+     city.`Name` AS city_Name,
+     country.`Population` AS country_Population,
+     country.`Code` AS country_Code
+FROM
+     `country` country INNER JOIN `city` city ON country.`Capital` = city.`ID`]]>
+	</queryString>
+	<field name="country_Name" class="java.lang.String"/>
+	<field name="country_Continent" class="java.lang.String"/>
+	<field name="city_Name" class="java.lang.String"/>
+	<field name="country_Population" class="java.lang.Integer"/>
+	<field name="country_Code" class="java.lang.String"/>
+	<variable name="country_Code_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{country_Code}]]></variableExpression>
+	</variable>
+	<variable name="country_Population_1" class="java.lang.Integer" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{country_Population}]]></variableExpression>
+	</variable>
+	<variable name="country_Code_2" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{country_Code}]]></variableExpression>
+	</variable>
+	<variable name="country_Population_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{country_Population}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="50"/>
+	</background>
+	<title>
+		<band height="66" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="64" y="10" width="425" height="42" uuid="091531c1-4713-4995-b9eb-ee18a6fdfb41"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="56" uuid="65f45c39-57d0-49e4-8cc0-3bd45ed97c8d"/>
+				<textElement textAlignment="Center">
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HOLA PAISES DESDE JASPER]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="65" width="555" height="1" uuid="60446a40-1a60-47d7-8cfe-bdf3ba79cc46"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="34" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="405" y="0" width="150" height="20" uuid="067e6336-24fc-4191-b430-2ac031d2c7a2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="305" y="0" width="100" height="20" uuid="d2508c13-3d73-46de-9c6e-1edb67f2a84a"/>
+				<text><![CDATA[FECHA IMPRESIÓN:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="421966fd-ed4e-4cce-8100-ec3d213d27da"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="20" uuid="e79ddeb0-459b-4b31-93a6-62ada54afc7c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="111" height="20" uuid="5f3542de-8696-4470-a4dc-ac9c44ae8af3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="20" uuid="a91d0ad2-a0ac-4d4b-a33f-5a807f11daa1"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTINENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="20" uuid="6d54bd9f-a98a-47f1-abab-d3e851710624"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAPITAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="20" uuid="8e2df882-9e3c-4c86-a6ad-88e53c415a7f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[POBLACION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="0" y="0" width="111" height="20" uuid="bf430bde-4a80-4120-86df-002086b2acec"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{country_Code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="20" uuid="ebece5d6-c171-44bb-a8ff-872e23823002"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{country_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="20" uuid="6cadfe60-f97e-4821-8d5d-714e7b6aa7cf"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{country_Continent}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="444" y="0" width="111" height="20" uuid="311af7e4-863a-483b-9b5a-a80414ea680d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{country_Population}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="0" width="109" height="20" uuid="922150df-5d4e-4296-841c-1e4d6e93f9a6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{city_Name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="19" width="100" height="20" uuid="d4d434f2-b6d4-4ef6-aff1-2f502ad77712"/>
+				<text><![CDATA[Número de registros:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="6" width="555" height="1" uuid="2ef52dbd-ba1e-41bf-83d2-bffd638ae17c"/>
+			</line>
+			<staticText>
+				<reportElement x="355" y="19" width="100" height="20" uuid="dfcc0b2d-6c00-4d2c-8eb9-6b28eb9b92be"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total población:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="19" width="100" height="20" uuid="f4fe5d47-a368-40c8-84ec-37e0c5996abf"/>
+				<textFieldExpression><![CDATA[$V{country_Code_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="19" width="100" height="20" uuid="d22bc42a-2031-47a7-a158-1435829da8a6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{country_Population_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="43" width="80" height="20" uuid="0e785287-c037-405b-8acd-7561e6f4f4a0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="43" width="40" height="20" uuid="3f750ed2-0653-4b70-bd18-42c4e200d38b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50">
+			<staticText>
+				<reportElement x="10" y="29" width="100" height="20" uuid="4e7709ec-9f4e-4ed3-8000-c24ae9bd3f11"/>
+				<text><![CDATA[Número de registros:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="29" width="100" height="20" uuid="7a39fbb2-90c5-43d5-af98-b3a294a25cca"/>
+				<text><![CDATA[Número de registros:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="29" width="100" height="20" uuid="b244c751-3d21-45ef-805f-f3b08841db56"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total población:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="111" y="29" width="100" height="20" uuid="04a9b2d5-d8fb-4dca-b3e9-e1161cc80862"/>
+				<textFieldExpression><![CDATA[$V{country_Code_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="29" width="100" height="20" uuid="45cb09d9-d491-4f50-ad6e-9028288ee045"/>
+				<textFieldExpression><![CDATA[$V{country_Population_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
