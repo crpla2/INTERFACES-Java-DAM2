@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ciudadesSubinformePais_subinforme" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="05513057-efbf-4fc9-afdd-5bae65081e2c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="COD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     country.`Code` AS country_Code,
+     country.`Name` AS country_Name,
+     country.`Continent` AS country_Continent,
+     country.`SurfaceArea` AS country_SurfaceArea,
+     country.`Population` AS country_Population,
+     country.`Capital` AS country_Capital
+FROM
+     `country` country
+WHERE
+   country.`Name`=$P{COD}
+	]]>
+	</queryString>
+	<field name="country_Code" class="java.lang.String"/>
+	<field name="country_Name" class="java.lang.String"/>
+	<field name="country_Continent" class="java.lang.String"/>
+	<field name="country_SurfaceArea" class="java.math.BigDecimal"/>
+	<field name="country_Population" class="java.lang.Integer"/>
+	<field name="country_Capital" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="20" uuid="4db73b26-1163-48fc-88d7-6fa754c99e37"/>
+				<text><![CDATA[country_Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="92" height="20" uuid="9378ae17-ec71-4e5e-a3bd-037d2d576aa4"/>
+				<text><![CDATA[country_Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="0" width="92" height="20" uuid="9acb95b1-3117-4bf1-b687-e983573f9588"/>
+				<text><![CDATA[country_Continent]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="92" height="20" uuid="5c559672-8363-413f-94d7-4d3c57e259ba"/>
+				<text><![CDATA[country_SurfaceArea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="92" height="20" uuid="2b1547c1-4bd1-4030-bc2b-e02deef80a21"/>
+				<text><![CDATA[country_Population]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="92" height="20" uuid="08d6b7b1-159a-4cf1-9467-2f722825962c"/>
+				<text><![CDATA[country_Capital]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="92" height="20" uuid="3494df38-6c10-4d67-b7b8-9785d714d9bc"/>
+				<textFieldExpression><![CDATA[$F{country_Code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="92" height="20" uuid="aa2cc845-c810-46ea-99d5-9e96ccb1535c"/>
+				<textFieldExpression><![CDATA[$F{country_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="92" height="20" uuid="b2337448-a81d-4d79-a8db-a7da5b1f9311"/>
+				<textFieldExpression><![CDATA[$F{country_Continent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="92" height="20" uuid="2ea2c629-563d-4eae-9a12-5cfe94ae89a0"/>
+				<textFieldExpression><![CDATA[$F{country_SurfaceArea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="92" height="20" uuid="de5a86a7-675c-4164-8c31-a52b8e8a5485"/>
+				<textFieldExpression><![CDATA[$F{country_Population}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="92" height="20" uuid="931ceb41-a93d-4387-8ba8-0b8a43f26a60"/>
+				<textFieldExpression><![CDATA[$F{country_Capital}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
