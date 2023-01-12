@@ -12,14 +12,16 @@ public class Cliente {
     private String direccion;
     private String dni;
     private String telefono;
+    private String email;
     
 
-    public Cliente(String apellidos, String nombre, String direccion, String dni, String telefono) {
+    public Cliente(String apellidos, String nombre, String direccion, String dni, String telefono, String email) {
         this.apellidos = apellidos;
         this.nombre = nombre;
         this.direccion = direccion;
         this.dni = dni;
         this.telefono = telefono;
+        this.email = email;
     }
 
     public String getTelefono() {
@@ -60,6 +62,14 @@ public class Cliente {
 
     public void setDni(String dni) {
         this.dni = dni;
+    }
+    
+     public String getEmail() {
+        return this.dni;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

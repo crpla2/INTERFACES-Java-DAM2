@@ -64,10 +64,10 @@ public class JFrameTaller extends javax.swing.JFrame {
         taller.addVehiculo("4004PKD", "VOLKSWAGEN", "GOLF", Vehiculo.TIPO_TURISMO, false, "18048677P");
         taller.addVehiculo("2012JJK", "RENAULT", "TWINGO", Vehiculo.TIPO_TURISMO, true, "42548677M");
         taller.addVehiculo("0006PLK", "BMW", "SERIE3", Vehiculo.TIPO_TURISMO, true, "38048655H");
-        taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "974243494");
-        taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "914243494");
-        taller.addCliente("Sanchez Castejón", "Pedro", "La Moncloa 12", "38048655H", "914243666");
-        taller.addCliente("Nuñez Feijoo", "Alberto", "Calle PaTuCasa 28", "42548677M", "91425566");
+        taller.addCliente("Rodrigo Pla", "Carlos", "Calle MiCalle 2", "18048688C", "974243494","asdadd@gmail.com");
+        taller.addCliente("Saez Santamaría", "Soralla", "Calle SuCalle 2", "18048677P", "914243494","asdadd@gmail.com");
+        taller.addCliente("Sanchez Castejón", "Pedro", "La Moncloa 12", "38048655H", "914243666","asdadd@gmail.com");
+        taller.addCliente("Nuñez Feijoo", "Alberto", "Calle PaTuCasa 28", "42548677M", "91425566","asdadd@gmail.com");
 
         taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "1234YFK", getDateFormat("20/08/2022"), true, 2, 2, getDateFormat("25/08/2022"), 850, "Filtro antipartículas", 2);
         taller.addParte(taller.getCodigoParteReparacion(), "38048655H", "0006PLK", getDateFormat("18/11/2022"), true, 4, 5, getDateFormat("21/11/2022"), 1500, "Embrague", 2);

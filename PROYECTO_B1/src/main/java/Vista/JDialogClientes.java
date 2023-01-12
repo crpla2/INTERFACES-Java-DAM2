@@ -55,7 +55,7 @@ public class JDialogClientes extends javax.swing.JDialog {
         //Añadir etiquetas y jlabels
         listaEtiq = new ArrayList<>();
         listaTex = new ArrayList<>();
-        String[] etiquetas = {"Primer Apellido:", "Segundo apellido:", "Nombre: ", "Dirección:", "DNI:", "Teléfono:"};
+        String[] etiquetas = {"Primer Apellido:", "Segundo apellido:", "Nombre: ", "Dirección:", "DNI:", "Teléfono:","Email"};
         for (int i = 0; i < etiquetas.length; i++) {
             JLabel jl = new JLabel(etiquetas[i]);
             JTextField jt = new JTextField();
@@ -115,6 +115,7 @@ public class JDialogClientes extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanelFondo.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelFondo.setPreferredSize(new java.awt.Dimension(700, 500));
 
         jPanelbotones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelbotones.setOpaque(false);
@@ -166,26 +167,24 @@ public class JDialogClientes extends javax.swing.JDialog {
         jPanelTitulo.add(jLabelIcono2);
 
         jPanelTF.setOpaque(false);
-        jPanelTF.setLayout(new java.awt.GridLayout(3, 2, 3, 0));
+        jPanelTF.setLayout(new java.awt.GridLayout(4, 2, 2, 0));
 
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanelFondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelTF, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
             .addGroup(jPanelFondoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxClientes, 0, 743, Short.MAX_VALUE)
+                    .addComponent(jPanelTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
-                    .addContainerGap(165, Short.MAX_VALUE)
+                    .addContainerGap(212, Short.MAX_VALUE)
                     .addComponent(jPanelbotones, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(165, Short.MAX_VALUE)))
+                    .addContainerGap(213, Short.MAX_VALUE)))
         );
         jPanelFondoLayout.setVerticalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,9 +193,9 @@ public class JDialogClientes extends javax.swing.JDialog {
                 .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jPanelTF, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(150, 150, 150))
+                .addGap(18, 18, 18)
+                .addComponent(jPanelTF, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(148, 148, 148))
             .addGroup(jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFondoLayout.createSequentialGroup()
                     .addContainerGap(303, Short.MAX_VALUE)
@@ -208,11 +207,11 @@ public class JDialogClientes extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
         );
 
         pack();
@@ -258,6 +257,7 @@ public class JDialogClientes extends javax.swing.JDialog {
                 listaTex.get(3).setText(c.getDireccion());
                 listaTex.get(4).setText(c.getDni());
                 listaTex.get(5).setText(c.getTelefono());
+                listaTex.get(6).setText(c.getEmail());
             }
         }
         /*
@@ -320,27 +320,31 @@ public class JDialogClientes extends javax.swing.JDialog {
             if (!listaTex.get(5).getText().matches("^?[6789][0-9]{8}$")) {
                 throw new IllegalCallerException();
             }
-            for (JTextField c : listaTex) {
-                if (c.getText().isEmpty()) {
+            for (int i=0;i<6;i++) {
+                if (listaTex.get(i).getText().isEmpty()) {
                     throw new Exception();
                 }
             }
             String s = listaTex.get(0).getText() + " " + listaTex.get(1).getText();
-            taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(), listaTex.get(5).getText());
+            String email;
+            if(listaTex.get(6).getText().isEmpty())
+                email="";
+            else email=listaTex.get(6).getText();
+            taller.addCliente(s, listaTex.get(2).getText(), listaTex.get(3).getText(), listaTex.get(4).getText().toUpperCase(), listaTex.get(5).getText(),email);
             actualiza();
             limpia();
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {                 
             JOptionPane.showMessageDialog(null, "El segundo apellido no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (ClassCastException e) {
-            JOptionPane.showMessageDialog(null, "El primer apellido no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(null, "El primer apellido no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El nombre no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (IllegalCallerException e) {
-            System.out.println(e.getMessage());
+            
             JOptionPane.showMessageDialog(null, "El Teléfono no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (ArithmeticException e) {

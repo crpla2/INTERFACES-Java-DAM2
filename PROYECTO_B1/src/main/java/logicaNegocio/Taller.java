@@ -29,10 +29,10 @@ public class Taller {
         listaVehiculo = new ArrayList<Vehiculo>();
     }
 
-    public boolean addCliente(String apellidos, String nombre, String direccion, String dni, String telefono) {
+    public boolean addCliente(String apellidos, String nombre, String direccion, String dni, String telefono,String email) {
 
         if (getCliente(dni) == null) {
-            listaCliente.add(new Cliente(apellidos, nombre, direccion, dni, telefono));
+            listaCliente.add(new Cliente(apellidos, nombre, direccion, dni, telefono, email));
             return true;
         }
 
