@@ -12,7 +12,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import jdk.tools.jlink.resources.jlink;
+
 import login.Acceso;
 import logicaNegocio.ParteReparacion;
 import logicaNegocio.Taller;

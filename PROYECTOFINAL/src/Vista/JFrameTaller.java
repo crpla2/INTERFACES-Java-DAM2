@@ -3,6 +3,9 @@ package Vista;
 import java.awt.Color;
 import static java.awt.Color.black;
 import static java.awt.Color.white;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -53,8 +56,20 @@ public class JFrameTaller extends javax.swing.JFrame {
      * Creates new form JFrameTaller
      */
     public JFrameTaller(Acceso acceso) {
+        
         super("TALLERES FITIPALDI");
         initComponents();
+        //
+        this.setExtendedState(MAXIMIZED_BOTH);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        
+        jPanel1.setSize(d);
+        jLabelFondo.setSize(d);
+        
+        
+        
+        //
         this.acceso = acceso;
         taller = new Taller();
         //INSERCION DE DATOS DE PRUEBA
@@ -113,7 +128,9 @@ public class JFrameTaller extends javax.swing.JFrame {
         //Añadimos icono al ToggleButton Dia/Noche
         jToggleButtonDiaNoche.setIcon(listaimagenes.get(7));
         jToggleButtonDiaNoche.setBounds(150, 150, listaimagenes.get(7).getIconWidth(), listaimagenes.get(7).getIconHeight());
-
+        
+        
+       
         //Gestion de los ROLES (Mecánico/ Administrativo)
         if (acceso.getUsuarioIdentificado().getMecanico() > 0) {//Si eres un mecanico
             jLabelBotonClientes.setVisible(false);//No puedes acceder a Clientes
@@ -231,7 +248,7 @@ public class JFrameTaller extends javax.swing.JFrame {
         jSeparator4.setForeground(new java.awt.Color(255, 0, 0));
         jSeparator4.setOpaque(true);
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 600, -1));
-        jPanel1.add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 260, 200));
+        jPanel1.add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 400));
 
         jLabelFondo.setOpaque(true);
         jPanel1.add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
